@@ -1,1 +1,59 @@
+body{
+    margin:0;
+    font-family:system-ui,sans-serif;
+    background:#111;
+    color:white;
+}
 
+header{
+    padding:18px;
+    background:#222;
+    position:sticky;
+    top:0;
+}
+
+h1{
+    margin:0;
+    font-size:1.6rem;
+}
+
+.toolbar{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:15px;
+}
+
+input,select,button{
+    padding:12px;
+    font-size:16px;
+}
+
+.card{
+    margin:15px;
+    padding:15px;
+    border-radius:14px;
+    background:#1e1e1e;
+}
+
+.cardHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.item{
+    margin-top:12px;
+    padding:12px;
+    background:#2b2b2b;
+    border-radius:10px;
+}
+
+.new{
+    color:#00ff66;
+    font-weight:bold;
+}
+
+a{
+    color:#7db7ff;
+}
