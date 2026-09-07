@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Classicism - UP GIC English Lecturer Master Guide</title>
+<style>
+  :root {
+    --bg-primary: #f8f5f0;
+    --bg-card: #ffffff;
+    --bg-sidebar: #1a365d;
+    --bg-header: #2c5282;
+    --accent: #c9a227;
+    --accent-soft: #f6e8b8;
+    --text-main: #1a202c;
+    --text-soft: #4a5568;
+    --text-light: #e2e8f0;
+    --success: #276749;
+    --border: #e2e8f0;
+    --shadow: 0 4px 20px rgba(26, 54, 93, 0.08);
+    --radius: 16px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-main);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* App Shell */
+  .app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100%;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+    color: white;
+    padding: 14px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .menu-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .header-text p {
+    font-size: 0.72rem;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  /* Sidebar Overlay */
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 290px;
+    max-width: 85vw;
+    height: 100%;
+    background: var(--bg-sidebar);
+    color: var(--text-light);
+    z-index: 300;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    padding-bottom: 40px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-header {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.15);
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .sidebar-header p {
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+
+  .nav-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 13px 20px;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.92rem;
+    border-left: 4px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    background: rgba(255,255,255,0.08);
+    border-left-color: var(--accent);
+    color: #fff;
+  }
+
+  .nav-item span {
+    display: inline-block;
+    width: 24px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* Main Content */
+  .main {
+    flex: 1;
+    padding: 16px;
+    padding-bottom: 50px;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .section.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Cards & Content */
+  .card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1a365d;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title::before {
+    content: '';
+    width: 5px;
+    height: 22px;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+
+  h2.section-heading {
+    font-size: 1.35rem;
+    color: #1a365d;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-soft);
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    color: #2c5282;
+    margin: 18px 0 10px;
+  }
+
+  p {
+    margin-bottom: 12px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+  }
+
+  ul, ol {
+    margin: 10px 0 14px 18px;
+  }
+
+  li {
+    margin-bottom: 8px;
+    font-size: 0.94rem;
+  }
+
+  strong, .bold {
+    color: #1a365d;
+    font-weight: 650;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+    border-left: 5px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 0 12px 12px 0;
+    margin: 14px 0;
+  }
+
+  .highlight-box p {
+    margin-bottom: 6px;
+  }
+
+  .key-point {
+    background: #ebf8ff;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    border: 1px solid #bee3f8;
+  }
+
+  .writer-card {
+    background: #f7fafc;
+    border-radius: 12px;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid #e2e8f0;
+  }
+
+  .writer-card h4 {
+    color: #2b6cb0;
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: #744210;
+    font-size: 0.72rem;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .quote {
+    font-style: italic;
+    color: #4a5568;
+    border-left: 3px solid #a0aec0;
+    padding-left: 12px;
+    margin: 12px 0;
+    font-size: 0.92rem;
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 0.88rem;
+  }
+
+  .compare-table th {
+    background: #2c5282;
+    color: white;
+    padding: 10px 8px;
+    text-align: left;
+  }
+
+  .compare-table td {
+    padding: 9px 8px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .compare-table tr:nth-child(even) {
+    background: #f7fafc;
+  }
+
+  .exam-tip {
+    background: #f0fff4;
+    border: 1px solid #9ae6b4;
+    border-radius: 12px;
+    padding: 14px;
+    margin: 14px 0;
+  }
+
+  .exam-tip h4 {
+    color: var(--success);
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+  }
+
+  .footer-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    z-index: 90;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
+  }
+
+  .nav-btn {
+    background: #2c5282;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-btn:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+  }
+
+  .nav-btn.secondary {
+    background: #edf2f7;
+    color: #2d3748;
+  }
+
+  /* Progress dots */
+  .progress {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 8px 0 16px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cbd5e0;
+  }
+
+  .dot.active {
+    background: #2c5282;
+    width: 20px;
+    border-radius: 4px;
+  }
+
+  /* Mobile refinements */
+  @media (min-width: 768px) {
+    .main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .header-text h1 {
+      font-size: 1.2rem;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Header -->
+  <header class="header">
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+    <div class="header-text">
+      <h1>Classicism – Master Study Material</h1>
+      <p>UP GIC English Lecturer | Descriptive Ready</p>
+    </div>
+  </header>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="overlay"></div>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>📚 Sections</h2>
+      <p>Tap any topic to jump instantly</p>
+    </div>
+    <ul class="nav-list">
+      <li><a class="nav-item active" data-section="0"><span>01</span> What is Classicism?</a></li>
+      <li><a class="nav-item" data-section="1"><span>02</span> Historical Background</a></li>
+      <li><a class="nav-item" data-section="2"><span>03</span> Core Features</a></li>
+      <li><a class="nav-item" data-section="3"><span>04</span> Rules & Principles</a></li>
+      <li><a class="nav-item" data-section="4"><span>05</span> Major Writers</a></li>
+      <li><a class="nav-item" data-section="5"><span>06</span> Aristotle’s Influence</a></li>
+      <li><a class="nav-item" data-section="6"><span>07</span> Dryden, Pope, Johnson</a></li>
+      <li><a class="nav-item" data-section="7"><span>08</span> Classicism vs Romanticism</a></li>
+      <li><a class="nav-item" data-section="8"><span>09</span> Literary Forms</a></li>
+      <li><a class="nav-item" data-section="9"><span>10</span> Expected Questions & Answers</a></li>
+      <li><a class="nav-item" data-section="10"><span>11</span> Quick Revision Sheet</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="main" id="mainContent">
+
+    <!-- SECTION 0: What is Classicism -->
+    <section class="section active" id="sec0">
+      <h2 class="section-heading">1. What is Classicism?</h2>
+      
+      <div class="card">
+        <div class="card-title">Basic Idea – Start Here</div>
+        <p>Imagine you are a student in a classroom. Your teacher says: “Write a poem, but follow these rules – keep it balanced, use clear language, teach a moral lesson, and look at how the great writers of ancient Greece and Rome wrote.”</p>
+        <p>That, in simple words, is the spirit of <strong>Classicism</strong>.</p>
+        <p><strong>Classicism</strong> is a literary movement and style that looks back to the literature of ancient Greece and Rome (especially Homer, Virgil, Horace, and Aristotle) and tries to follow their ideals of <strong>order, reason, balance, clarity, and moral purpose</strong>.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Simple Definition for Exam</div>
+        <p>Classicism is the literary approach that values <strong>reason over emotion</strong>, <strong>order over chaos</strong>, <strong>rules over free expression</strong>, and <strong>universal human nature</strong> over individual feelings. It believes that literature should both <strong>delight and instruct</strong>.</p>
+        <div class="highlight-box">
+          <p><strong>Key phrase to remember:</strong> “Art is the imitation of nature according to fixed rules derived from the ancients.”</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Classicism vs Neo-Classicism</div>
+        <p>In English literature, when we say “Classicism,” we mostly mean <strong>Neo-Classicism</strong> – the revival of classical ideals in the period roughly from <strong>1660 to 1798</strong>.</p>
+        <ul>
+          <li><strong>Classical</strong> = original Greek and Roman literature</li>
+          <li><strong>Neo-Classical</strong> = the new classicism of 17th–18th century England and Europe that imitated those models</li>
+        </ul>
+        <p>In exam answers, both terms are often used interchangeably for the English literature of Dryden, Pope, and Johnson.</p>
+      </div>
+
+      <div class="exam-tip">
+        <h4>Exam Writing Tip</h4>
+        <p>Always begin your answer with a clear definition in simple language, then expand. Examiners love when a student shows understanding first, then details.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 1: Historical Background -->
+    <section class="section" id="sec1">
+      <h2 class="section-heading">2. Historical Background</h2>
+
+      <div class="card">
+        <div class="card-title">Why Did Classicism Rise in England?</div>
+        <p>After the English Civil War and the Puritan rule under Oliver Cromwell, the monarchy was restored in <strong>1660</strong> (Restoration of Charles II). Society wanted <strong>stability, order, and polish</strong> after years of chaos.</p>
+        <p>People were tired of extreme religious emotion and political turbulence. They turned to reason, good manners, and the orderly models of ancient Rome.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Time Period</div>
+        <ul>
+          <li><strong>1660 – 1700</strong>: Restoration Period (Dryden dominant)</li>
+          <li><strong>1700 – 1745</strong>: Augustan Age (Pope, Swift, Addison)</li>
+          <li><strong>1745 – 1798</strong>: Age of Johnson (transition towards Romanticism)</li>
+        </ul>
+        <p>The period ends around 1798 when Wordsworth and Coleridge published <em>Lyrical Ballads</em>, which started Romanticism.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Influence of French Classicism</div>
+        <p>England was heavily influenced by French writers like <strong>Boileau</strong>, who wrote strict rules for poetry and drama. French classical theatre (Corneille, Racine) followed the Three Unities strictly. English writers adopted many of these ideas, though they were never as rigid as the French.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">The Spirit of the Age</div>
+        <p>This was also the age of the <strong>Enlightenment</strong> or the <strong>Age of Reason</strong>. Science (Newton), philosophy (Locke), and coffee-house culture encouraged clear thinking, wit, and social observation. Literature became a tool for correcting society through satire and moral teaching.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Core Features -->
+    <section class="section" id="sec2">
+      <h2 class="section-heading">3. Core Features of Classicism</h2>
+
+      <div class="card">
+        <div class="card-title">1. Reason and Order</div>
+        <p>The classical writer believes the universe is orderly. Literature must reflect that order. Emotions are controlled; reason guides the poet. Wild imagination is dangerous.</p>
+        <div class="key-point">
+          <strong>Example:</strong> Pope’s poetry is always balanced, logical, and carefully structured.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">2. Imitation of the Ancients</div>
+        <p>Writers studied Homer, Virgil, Horace, and Aristotle as perfect models. “Imitation” does not mean copying word for word; it means following their principles of structure, style, and moral purpose.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">3. Decorum</div>
+        <p>Decorum means “proper behaviour” in literature. The style must suit the subject. A king should speak in elevated language; a common man in simple language. Tragedy and comedy should not mix freely.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">4. Clarity, Precision, and Restraint</div>
+        <p>Language must be clear, exact, and polished. No obscure metaphors or emotional outbursts. The ideal is “correctness.”</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">5. Universal Human Nature</div>
+        <p>Classical writers believe that human nature is the same in all ages. Therefore, literature should deal with general truths, not personal, private feelings.</p>
+        <div class="quote">“The proper study of mankind is man.” – Alexander Pope</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">6. Moral Purpose – Delight and Instruct</div>
+        <p>Literature must please the reader <em>and</em> teach a moral lesson. Horace’s famous idea: <em>dulce et utile</em> (sweet and useful).</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">7. Wit and Satire</div>
+        <p>Wit (clever, intellectual humour) and satire (criticism of human folly) became major tools. Writers wanted to correct society by laughing at its faults.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">8. Emphasis on Form and Rules</div>
+        <p>The heroic couplet, the three unities in drama, fixed genres – all show love for form. The poem or play must have a clear beginning, middle, and end.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Rules & Principles -->
+    <section class="section" id="sec3">
+      <h2 class="section-heading">4. Important Rules & Critical Principles</h2>
+
+      <div class="card">
+        <div class="card-title">The Three Unities (for Drama)</div>
+        <p>Taken mainly from Aristotle (though Aristotle mentioned only Unity of Action clearly) and developed by French critics:</p>
+        <ul>
+          <li><strong>Unity of Action</strong> – one main plot, no sub-plots</li>
+          <li><strong>Unity of Time</strong> – the action should happen within 24 hours</li>
+          <li><strong>Unity of Place</strong> – the action should happen in one location</li>
+        </ul>
+        <p>English writers (except some strict ones) followed these less rigidly than the French.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Poetic Justice</div>
+        <p>Good characters should be rewarded and bad characters punished at the end. This satisfies the moral sense of the audience.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Verisimilitude (Probability)</div>
+        <p>Events in the play or poem must seem believable and possible according to reason and common sense.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Genre Hierarchy</div>
+        <p>Tragedy and epic were considered higher forms. Comedy and satire were lower but still important. Mixing genres was generally disliked.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">The Heroic Couplet</div>
+        <p>The favourite poetic form of the age. Two rhyming lines of iambic pentameter. Dryden and Pope perfected it. It forces clarity and balance.</p>
+        <div class="quote">“True wit is Nature to advantage dressed,<br>What oft was thought, but ne’er so well expressed.” – Pope</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Major Writers -->
+    <section class="section" id="sec4">
+      <h2 class="section-heading">5. Major Writers of the Classical Age</h2>
+
+      <div class="writer-card">
+        <h4>John Dryden (1631–1700)</h4>
+        <span class="tag">Father of English Criticism</span>
+        <span class="tag">Poet Laureate</span>
+        <p>Bridge between Restoration and full Neo-Classicism. Master of satire, heroic play, and critical essays. His <em>Essay of Dramatic Poesy</em> is the foundation of English literary criticism.</p>
+      </div>
+
+      <div class="writer-card">
+        <h4>Alexander Pope (1688–1744)</h4>
+        <span class="tag">Perfect Classicist</span>
+        <span class="tag">Heroic Couplet Master</span>
+        <p>The greatest poetic voice of the Augustan Age. His works show perfect control, wit, and moral concern. Key works: <em>Essay on Criticism</em>, <em>The Rape of the Lock</em>, <em>Essay on Man</em>.</p>
+      </div>
+
+      <div class="writer-card">
+        <h4>Jonathan Swift (1667–1745)</h4>
+        <span class="tag">Greatest Satirist</span>
+        <p>Used irony and satire to attack human pride and folly. <em>Gulliver’s Travels</em> and <em>A Modest Proposal</em> are masterpieces of classical satire.</p>
+      </div>
+
+      <div class="writer-card">
+        <h4>Joseph Addison & Richard Steele</h4>
+        <span class="tag">Periodical Essay</span>
+        <p>Through <em>The Spectator</em> and <em>The Tatler</em>, they taught middle-class readers good manners, morality, and taste in polished, clear prose.</p>
+      </div>
+
+      <div class="writer-card">
+        <h4>Dr. Samuel Johnson (1709–1784)</h4>
+        <span class="tag">Age of Johnson</span>
+        <span class="tag">Dictionary</span>
+        <p>Last major classical figure. His criticism is practical and moral. He admired Shakespeare but judged him by classical standards of correctness and morality. Famous for <em>Lives of the Poets</em> and <em>Preface to Shakespeare</em>.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Aristotle -->
+    <section class="section" id="sec5">
+      <h2 class="section-heading">6. Aristotle’s Influence on Classicism</h2>
+
+      <div class="card">
+        <div class="card-title">Why Aristotle Matters</div>
+        <p>Aristotle’s <em>Poetics</em> (written around 335 BCE) is the single most important critical text for classical and neo-classical writers. Almost every rule of Classicism can be traced back to him (or to Horace, who also followed him).</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Key Ideas from Aristotle Used by Classicists</div>
+        <ul>
+          <li><strong>Mimesis</strong> – Literature is an imitation of life / nature</li>
+          <li><strong>Catharsis</strong> – Tragedy purifies emotions of pity and fear</li>
+          <li><strong>Unity of Action</strong> – one complete and whole action</li>
+          <li><strong>Plot is more important than character</strong></li>
+          <li><strong>Tragedy should deal with serious actions of noble persons</strong></li>
+          <li><strong>Poetry is more philosophical than history</strong> (it deals with the universal)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">How English Classicists Used Aristotle</div>
+        <p>Dryden discussed Aristotle in his critical essays. Pope referred to him with great respect. Dr. Johnson used Aristotelian ideas while judging Shakespeare. The idea that literature should follow “rules” and aim at moral improvement comes largely from this tradition.</p>
+        <div class="highlight-box">
+          <p>In the syllabus, Aristotle is listed among the important critics. Any answer on Classicism must mention his influence.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Dryden, Pope, Johnson -->
+    <section class="section" id="sec6">
+      <h2 class="section-heading">7. Dryden, Pope & Dr. Johnson in Detail</h2>
+
+      <div class="card">
+        <div class="card-title">John Dryden – The Pioneer</div>
+        <p>Dryden made classical principles popular in England. In <em>An Essay of Dramatic Poesy</em> (1668), he defends English drama while still respecting classical rules. He shows that rules should serve the writer, not enslave him.</p>
+        <p>His satires (<em>Absalom and Achitophel</em>, <em>Mac Flecknoe</em>) use classical forms for contemporary political and literary attack.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Alexander Pope – The Perfect Expression</div>
+        <p>Pope’s entire poetic career is a demonstration of classical ideals:</p>
+        <ul>
+          <li><em>Essay on Criticism</em> – teaches the rules of good writing and judgment</li>
+          <li><em>The Rape of the Lock</em> – a mock-epic that uses classical epic machinery for a trivial modern incident</li>
+          <li><em>Essay on Man</em> – philosophical poem teaching acceptance of the divine order</li>
+        </ul>
+        <p>He believed that Nature (human nature and the order of the universe) is the best guide, and the ancients had already discovered the best ways to express it.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Dr. Samuel Johnson – The Moral Critic</div>
+        <p>Johnson represents the mature and somewhat flexible phase of Classicism. He valued reason, morality, and general nature, but he also praised Shakespeare’s genius even when Shakespeare broke classical rules.</p>
+        <p>In his <em>Preface to Shakespeare</em>, Johnson defends Shakespeare against strict neo-classical attacks, yet still judges him by standards of moral usefulness and probability.</p>
+        <div class="key-point">
+          Johnson said literature should help us better endure life or enjoy it. This is pure classical moral purpose.
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: Comparison -->
+    <section class="section" id="sec7">
+      <h2 class="section-heading">8. Classicism vs Romanticism</h2>
+
+      <div class="card">
+        <p>This is one of the most expected comparison questions in the exam. Understand the contrast deeply.</p>
+        <table class="compare-table">
+          <tr>
+            <th>Aspect</th>
+            <th>Classicism</th>
+            <th>Romanticism</th>
+          </tr>
+          <tr>
+            <td>Guiding Force</td>
+            <td>Reason & Rules</td>
+            <td>Emotion & Imagination</td>
+          </tr>
+          <tr>
+            <td>Source of Poetry</td>
+            <td>Universal human nature</td>
+            <td>Individual feelings & personal experience</td>
+          </tr>
+          <tr>
+            <td>Attitude to Nature</td>
+            <td>Nature as ordered system</td>
+            <td>Nature as living, spiritual presence</td>
+          </tr>
+          <tr>
+            <td>Language</td>
+            <td>Polished, elevated, clear</td>
+            <td>Simple, natural, rustic (Wordsworth)</td>
+          </tr>
+          <tr>
+            <td>Form</td>
+            <td>Strict forms (heroic couplet)</td>
+            <td>Freedom of form</td>
+          </tr>
+          <tr>
+            <td>Purpose</td>
+            <td>Delight + Instruct (moral)</td>
+            <td>Express emotion & imagination</td>
+          </tr>
+          <tr>
+            <td>Ideal</td>
+            <td>Balance, restraint, decorum</td>
+            <td>Spontaneity, intensity, originality</td>
+          </tr>
+          <tr>
+            <td>Models</td>
+            <td>Greece & Rome</td>
+            <td>Medieval, folk, nature, self</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="highlight-box">
+        <p><strong>Remember:</strong> Romanticism was a reaction against the restrictions of Classicism. Wordsworth and Coleridge deliberately rejected the “rules” and artificial diction of the previous age.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 8: Literary Forms -->
+    <section class="section" id="sec8">
+      <h2 class="section-heading">9. Literary Forms Favourite of Classicists</h2>
+
+      <div class="card">
+        <div class="card-title">Mock Epic / Mock Heroic</div>
+        <p>A comic form that uses the grand style of classical epic (gods, battles, elevated language) for a trivial subject. <em>The Rape of the Lock</em> by Pope is the supreme example. It shows classical technique used for satire.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Verse Essay / Didactic Poetry</div>
+        <p>Poems that teach. Pope’s <em>Essay on Criticism</em> and <em>Essay on Man</em> are perfect examples. They combine poetry with moral and critical instruction.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Satire</div>
+        <p>The dominant mode. Personal satire (against individuals) and general satire (against human vices). Dryden, Pope, and Swift are masters.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Heroic Drama</div>
+        <p>Popular in the Restoration. Written in heroic couplets, dealing with love and honour of noble characters. Dryden wrote several.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Periodical Essay</div>
+        <p>Short prose pieces published in journals. Addison and Steele used them to spread classical ideals of taste, manners, and morality among the rising middle class.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 9: Expected Questions -->
+    <section class="section" id="sec9">
+      <h2 class="section-heading">10. Expected Descriptive Questions & Model Approach</h2>
+
+      <div class="card">
+        <div class="card-title">Q1. What is Classicism? Discuss its main features.</div>
+        <p><strong>How to answer (structure):</strong></p>
+        <ol>
+          <li>Clear definition (2–3 lines)</li>
+          <li>Historical context (brief)</li>
+          <li>List 6–8 main features with short explanation and one example each</li>
+          <li>Conclude with its importance or legacy</li>
+        </ol>
+        <div class="exam-tip">
+          <h4>Model Opening</h4>
+          <p>“Classicism in English literature refers to the literary movement of the late 17th and 18th centuries that sought to revive the ideals of ancient Greek and Roman literature — order, reason, restraint, clarity, and moral purpose. It dominated English writing from the Restoration (1660) to the end of the Age of Johnson.”</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Q2. Discuss the contribution of Dryden / Pope / Johnson to Classicism.</div>
+        <p>For each writer: (a) place in the movement, (b) major works, (c) how the works show classical principles, (d) critical contribution.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Q3. Examine the influence of Aristotle on Neo-Classical criticism.</div>
+        <p>Explain mimesis, unities, catharsis, moral function of literature, and how Dryden, Pope, and Johnson used these ideas.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Q4. Compare Classicism and Romanticism.</div>
+        <p>Use a clear table or point-by-point contrast under headings: reason vs emotion, form, language, subject matter, purpose, attitude to nature and society.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Q5. Write a note on the Heroic Couplet / Mock Epic / Decorum.</div>
+        <p>Define the term, give origin, show how classicists used it, give 1–2 examples, and explain its significance.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Q6. “The classical age is the age of reason and order.” Discuss.</div>
+        <p>Connect the literary features with the larger intellectual climate of the Enlightenment and Restoration society.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 10: Quick Revision -->
+    <section class="section" id="sec10">
+      <h2 class="section-heading">11. Quick Revision Sheet</h2>
+
+      <div class="card">
+        <div class="card-title">One-Minute Definition</div>
+        <p>Classicism = literature of reason, order, balance, clarity, and moral instruction based on Greek and Roman models. Period: 1660–1798 in England.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Must-Remember Keywords</div>
+        <p>
+          <span class="tag">Reason</span>
+          <span class="tag">Order</span>
+          <span class="tag">Decorum</span>
+          <span class="tag">Imitation</span>
+          <span class="tag">Heroic Couplet</span>
+          <span class="tag">Wit</span>
+          <span class="tag">Satire</span>
+          <span class="tag">Three Unities</span>
+          <span class="tag">Moral Purpose</span>
+          <span class="tag">Universal Nature</span>
+          <span class="tag">Restraint</span>
+          <span class="tag">Clarity</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Key Names Linked to Classicism</div>
+        <ul>
+          <li>Aristotle – theoretical foundation</li>
+          <li>Horace – “delight and instruct”</li>
+          <li>Dryden – pioneer & critic</li>
+          <li>Pope – perfect practitioner</li>
+          <li>Swift – master of satire</li>
+          <li>Addison & Steele – prose & manners</li>
+          <li>Dr. Johnson – last major classicist</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Key Works to Quote or Mention</div>
+        <ul>
+          <li>Dryden – <em>Essay of Dramatic Poesy</em>, <em>Absalom and Achitophel</em></li>
+          <li>Pope – <em>Essay on Criticism</em>, <em>Rape of the Lock</em>, <em>Essay on Man</em></li>
+          <li>Swift – <em>Gulliver’s Travels</em></li>
+          <li>Johnson – <em>Preface to Shakespeare</em>, <em>Lives of the Poets</em></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Final Exam Mindset</div>
+        <p>When you see “Classicism” in a question, your brain should immediately open these files:</p>
+        <ol>
+          <li>Definition + period</li>
+          <li>Features (reason, order, decorum, imitation…)</li>
+          <li>Aristotle’s role</li>
+          <li>Dryden–Pope–Johnson</li>
+          <li>Contrast with Romanticism if asked</li>
+          <li>One or two concrete examples</li>
+        </ol>
+        <p>Write in clear paragraphs. Use headings if the question is long. Give examples. Show understanding, not just lists.</p>
+      </div>
+
+      <div class="highlight-box">
+        <p><strong>You now have complete command over Classicism.</strong> Go through each section once more, then try writing one full answer without looking. That is how full marks are secured.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Navigation -->
+  <div class="footer-nav">
+    <button class="nav-btn secondary" id="prevBtn">← Prev</button>
+    <button class="nav-btn" id="nextBtn">Next →</button>
+  </div>
+</div>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const menuBtn = document.getElementById('menuBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let current = 0;
+  const total = sections.length;
+
+  function showSection(index) {
+    if (index < 0 || index >= total) return;
+    sections.forEach(s => s.classList.remove('active'));
+    navItems.forEach(n => n.classList.remove('active'));
+    sections[index].classList.add('active');
+    navItems[index].classList.add('active');
+    current = index;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    closeSidebar();
+  }
+
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+  }
+
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+  }
+
+  menuBtn.addEventListener('click', openSidebar);
+  overlay.addEventListener('click', closeSidebar);
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const idx = parseInt(item.getAttribute('data-section'));
+      showSection(idx);
+    });
+  });
+
+  prevBtn.addEventListener('click', () => showSection(current - 1));
+  nextBtn.addEventListener('click', () => showSection(current + 1));
+
+  // Keyboard support
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') showSection(current - 1);
+    if (e.key === 'ArrowRight') showSection(current + 1);
+  });
+
+  // Init
+  showSection(0);
+</script>
+</body>
+</html>

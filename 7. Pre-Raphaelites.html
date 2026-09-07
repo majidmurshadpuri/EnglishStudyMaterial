@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Pre-Raphaelites — UPPSC GIC Mains Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5edda;
+  --paper-soft:#fbf6ea;
+  --paper-deep:#eee2c4;
+  --ink:#2b2116;
+  --ink-soft:#5b4d35;
+  --ink-faint:#8a7a5c;
+  --crimson:#9c2b3e;
+  --crimson-deep:#711e2d;
+  --emerald:#1f5c4a;
+  --emerald-deep:#123d31;
+  --gold:#b8862f;
+  --gold-light:#d9ad5c;
+  --indigo:#2e3f6e;
+  --indigo-deep:#202d4f;
+  --line: rgba(43,33,22,0.14);
+  --shadow: 0 10px 30px rgba(43,33,22,0.18);
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:'Source Serif 4', Georgia, serif;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(184,134,47,0.10), transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(31,92,74,0.10), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  overscroll-behavior:none;
+}
+
+/* ---------- App shell ---------- */
+.app{
+  max-width:640px;
+  margin:0 auto;
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  background:var(--paper-soft);
+  box-shadow: 0 0 60px rgba(43,33,22,0.15);
+}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 14px;
+  background: linear-gradient(135deg, var(--indigo-deep), var(--indigo) 55%, var(--crimson-deep));
+  color:var(--paper-soft);
+  position:relative;
+  z-index:20;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  flex-shrink:0;
+}
+.topbar::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-4px; height:4px;
+  background: linear-gradient(90deg, var(--gold-light), var(--crimson), var(--emerald), var(--gold-light));
+  opacity:0.9;
+}
+.menu-btn{
+  width:38px; height:38px; border-radius:10px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; cursor:pointer;
+}
+.menu-btn span, .menu-btn::before, .menu-btn::after{
+  content:""; display:block; width:18px; height:2px; background:var(--paper-soft); border-radius:2px;
+}
+.menu-btn{flex-direction:column; gap:4px;}
+.topbar-titles{flex:1; min-width:0;}
+.topbar-titles .eyebrow{
+  font-family:'Cinzel', serif; font-size:10px; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold-light); opacity:0.95;
+}
+.topbar-titles h1{
+  margin:1px 0 0; font-family:'Playfair Display', serif; font-size:18px; font-weight:700; line-height:1.15;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.progress-pill{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:1px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3);
+  padding:5px 10px; border-radius:999px; flex-shrink:0; white-space:nowrap;
+}
+
+/* ---------- Drawer ---------- */
+.scrim{
+  position:absolute; inset:0; background:rgba(20,15,8,0.55);
+  opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:29;
+}
+.scrim.open{opacity:1; pointer-events:auto;}
+.drawer{
+  position:absolute; top:0; bottom:0; left:0; width:86%; max-width:340px;
+  background:var(--paper-deep);
+  transform:translateX(-105%);
+  transition:transform .3s cubic-bezier(.22,.9,.32,1);
+  z-index:30;
+  display:flex; flex-direction:column;
+  box-shadow: 8px 0 30px rgba(0,0,0,0.3);
+  border-right:1px solid var(--line);
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{
+  padding:20px 18px 14px; border-bottom:1px solid var(--line);
+  background: linear-gradient(160deg, var(--paper-deep), var(--paper-soft));
+}
+.drawer-head .cap{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2px; color:var(--ink-faint); text-transform:uppercase;
+}
+.drawer-head h2{
+  margin:4px 0 0; font-family:'Playfair Display', serif; font-size:22px; color:var(--crimson-deep);
+}
+.drawer-list{list-style:none; margin:0; padding:8px; overflow-y:auto; flex:1;}
+.drawer-list li{margin-bottom:3px;}
+.drawer-list button{
+  width:100%; text-align:left; display:flex; align-items:center; gap:12px;
+  background:transparent; border:none; padding:10px 10px; border-radius:10px;
+  font-family:'Source Serif 4', serif; font-size:14.5px; color:var(--ink); cursor:pointer;
+}
+.drawer-list button .num{
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:11px; color:#fff;
+}
+.drawer-list button.active{background:rgba(43,33,22,0.08); font-weight:600;}
+.drawer-list button .ttl{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+/* ---------- Main content ---------- */
+.content-wrap{flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative;}
+.section{display:none; padding:22px 20px 40px;}
+.section.active{display:block; animation:fadein .35s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+.sec-eyebrow{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+  display:inline-block; padding:4px 12px; border-radius:999px; color:#fff; margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Playfair Display', serif; font-weight:800; font-size:27px; line-height:1.2;
+  color:var(--ink); margin:0 0 6px;
+}
+.sec-sub{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16.5px; color:var(--ink-soft);
+  margin:0 0 20px; border-left:3px solid; padding-left:12px;
+}
+.rule{
+  height:1px; background:linear-gradient(90deg, currentColor, transparent);
+  margin:18px 0; opacity:0.35;
+}
+
+.dropcap::first-letter{
+  font-family:'Playfair Display', serif; font-size:52px; font-weight:800; float:left;
+  line-height:0.8; padding:6px 8px 0 0; color:var(--crimson);
+}
+
+h3.h{
+  font-family:'Playfair Display', serif; font-size:18.5px; margin:22px 0 10px; color:var(--ink);
+  display:flex; align-items:center; gap:8px;
+}
+h3.h::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--gold); transform:rotate(45deg); flex-shrink:0;}
+h4.h4{
+  font-family:'Source Serif 4', serif; font-weight:700; font-size:15.5px; margin:16px 0 6px; color:var(--crimson-deep);
+}
+p{font-size:15.5px; line-height:1.7; margin:0 0 12px; color:var(--ink);}
+ul,ol{margin:0 0 14px; padding-left:20px;}
+li{font-size:15.2px; line-height:1.65; margin-bottom:7px; color:var(--ink);}
+li::marker{color:var(--gold);}
+b, strong{color:var(--crimson-deep); font-weight:700;}
+em.q{color:var(--emerald-deep); font-style:italic;}
+
+.card{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:14px;
+  padding:14px 16px; margin:14px 0; box-shadow: var(--shadow);
+}
+.card.gold{border-left:4px solid var(--gold);}
+.card.crimson{border-left:4px solid var(--crimson);}
+.card.emerald{border-left:4px solid var(--emerald);}
+.card.indigo{border-left:4px solid var(--indigo);}
+.card-label{
+  font-family:'Cinzel', serif; font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:6px; display:block;
+}
+
+.quote-block{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:19px; line-height:1.55;
+  color:var(--indigo-deep); padding:10px 0 10px 16px; border-left:3px solid var(--gold);
+  margin:14px 0;
+}
+.quote-block .src{
+  display:block; font-family:'Source Serif 4', serif; font-style:normal; font-size:12px;
+  color:var(--ink-faint); margin-top:4px; letter-spacing:0.3px;
+}
+
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.8px;}
+th,td{padding:9px 8px; border:1px solid var(--line); text-align:left; vertical-align:top;}
+th{background:var(--paper-deep); font-family:'Cinzel', serif; font-size:11px; letter-spacing:0.8px; text-transform:uppercase; color:var(--ink-soft);}
+
+.qn-item{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px;
+  position:relative; padding-left:44px;
+}
+.qn-item .qnum{
+  position:absolute; left:10px; top:12px; width:26px; height:26px; border-radius:50%;
+  background:var(--indigo); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:12px; font-weight:600;
+}
+.qn-item p{margin:0; font-weight:600; font-size:14.8px;}
+.qn-item .tag{
+  display:inline-block; margin-top:6px; font-family:'Cinzel', serif; font-size:9.5px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--emerald-deep); background:rgba(31,92,74,0.1); padding:2px 8px; border-radius:999px;
+}
+
+.answer-block h5{
+  font-family:'Cinzel', serif; font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--crimson);
+  margin:20px 0 8px;
+}
+
+/* ---------- Bottom nav ---------- */
+.bottombar{
+  flex-shrink:0; display:flex; align-items:center; gap:10px; padding:10px 14px;
+  background:var(--paper-deep); border-top:1px solid var(--line); z-index:15;
+}
+.nav-btn{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 10px; border-radius:12px; border:1px solid var(--line);
+  background:var(--paper-soft); font-family:'Source Serif 4', serif; font-weight:600; font-size:13.5px;
+  color:var(--ink); cursor:pointer;
+}
+.nav-btn:disabled{opacity:0.35;}
+.nav-btn.primary{background:linear-gradient(135deg, var(--crimson), var(--crimson-deep)); color:#fff; border:none;}
+.dots{display:flex; gap:4px; flex-shrink:0;}
+.dot{width:5px; height:5px; border-radius:50%; background:var(--line);}
+.dot.on{background:var(--gold);}
+
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-thumb{background:var(--ink-faint); border-radius:6px; opacity:0.4;}
+
+@media (min-width:641px){
+  body{padding:20px 0;}
+  .app{height:calc(100dvh - 40px); border-radius:22px; overflow:hidden;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="menu-btn" id="menuBtn"></div>
+    <div class="topbar-titles">
+      <div class="eyebrow">UPPSC GIC · English Lecturer Mains</div>
+      <h1 id="topTitle">The Pre-Raphaelites</h1>
+    </div>
+    <div class="progress-pill" id="progressPill">1 / 15</div>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="cap">Contents</div>
+      <h2>Study Map</h2>
+    </div>
+    <ul class="drawer-list" id="drawerList"></ul>
+  </nav>
+
+  <div class="content-wrap" id="contentWrap"></div>
+
+  <div class="bottombar">
+    <button class="nav-btn" id="prevBtn">&larr; Prev</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn primary" id="nextBtn">Next &rarr;</button>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+
+{
+  id:"questions", color:"indigo", eyebrow:"Start Here",
+  title:"Expected Descriptive Questions",
+  sub:"What the examiner is likely to ask, based on the syllabus wording",
+  body:`
+  <p class="dropcap">The syllabus lists <b>"The Pre-Raphaelites"</b> as one single bullet point under <b>Section B: Literary Terms, Movements, Forms, Literary Criticism</b>. In UPPSC-type Mains papers, one bullet point like this usually becomes <b>one full descriptive question worth 20 marks</b> (sometimes broken into two parts, like 10+10). Based on how this topic has been asked in similar exams (UGC NET, UP PCS, other State PCS English papers), here are the questions you should be fully ready for.</p>
+
+  <div class="qn-item"><span class="qnum">1</span>
+    <p>What do you understand by the term "Pre-Raphaelite Brotherhood"? Discuss its origin, aims and main characteristics.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">2</span>
+    <p>Discuss the salient features of Pre-Raphaelite poetry with suitable references to its major poets.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">3</span>
+    <p>"The Pre-Raphaelites tried to bring poetry and painting close together." Explain this statement.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">4</span>
+    <p>Write a critical note on the contribution of Dante Gabriel Rossetti / Christina Rossetti / William Morris to Pre-Raphaelite poetry.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">5</span>
+    <p>Distinguish between Romanticism and Pre-Raphaelitism as literary movements.</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">6</span>
+    <p>What was the "Fleshly School of Poetry" controversy? What does it tell us about Pre-Raphaelite poetry?</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">7</span>
+    <p>Short note (in 150-200 words): Pre-Raphaelite Brotherhood / The Germ / Medievalism in Pre-Raphaelite poetry.</p>
+    <span class="tag">Possible (Short Note)</span>
+  </div>
+
+  <div class="card gold">
+    <span class="card-label">How This Guide Is Organised</span>
+    <p style="margin:0">Every section after this one builds one layer of knowledge — starting from the simplest possible idea and going up to exam-ready detail. Read them in order the first time. Before your exam, use the drawer menu (top-left icon) to jump straight to any topic for revision.</p>
+  </div>
+  `
+},
+
+{
+  id:"intro", color:"crimson", eyebrow:"1 · Foundation",
+  title:"What Is Pre-Raphaelitism?",
+  sub:"The basic idea, explained in the simplest way possible",
+  body:`
+  <p class="dropcap">Imagine it is the year 1848 in England. Factories are everywhere. Cities are covered in smoke. Machines are replacing hand-made things. And in the world of art, the biggest art school in the country — the <b>Royal Academy</b> — is teaching young painters that the only "correct" way to paint is to copy the style of the great Italian painter <b>Raphael</b> (1483-1520) and the painters who came after him.</p>
+
+  <p>A small group of young English painters got tired of this rule. They felt that art had become fake, over-polished, and full of empty "rules" instead of honest feeling. They said: <em class="q">"Let us go back to the time BEFORE Raphael — to the simple, honest, detailed art of the early Italian painters."</em> That is literally what the name means:</p>
+
+  <div class="card crimson">
+    <span class="card-label">Meaning of the Name</span>
+    <p style="margin:0"><b>Pre-Raphaelite</b> = "Pre" (before) + "Raphaelite" (in the style of Raphael). So Pre-Raphaelite means <b>"belonging to the period before Raphael"</b> — that is, going back to the simple, sincere, richly detailed style of art that existed before Raphael made painting too polished and "ideal".</p>
+  </div>
+
+  <p>This group of painters formed a club called the <b>Pre-Raphaelite Brotherhood (PRB)</b> in 1848. It started as a movement in <b>painting</b>, but very soon it spread into <b>poetry</b> as well, because several of these painters — especially <b>Dante Gabriel Rossetti</b> — were also gifted poets. So today, when we say "Pre-Raphaelite poetry", we mean poetry written by these painter-poets and their followers, poetry that borrows its ideals directly from Pre-Raphaelite painting.</p>
+
+  <h3 class="h">In One Line (write this first in your answer)</h3>
+  <div class="quote-block">Pre-Raphaelitism was a mid-Victorian movement in art and poetry (started 1848) that rejected the artificial, "ideal" style taught by the Royal Academy and instead aimed at truth to nature, medieval simplicity, and rich sensuous detail, inspired by art before the time of Raphael.</div>
+
+  <h3 class="h">Why You Must Understand This Before Anything Else</h3>
+  <ul>
+    <li>Every single sub-topic in this guide (aims, characteristics, poets, controversy) grows out of this one basic idea: <b>"go back to honest, detailed, non-mechanical art, before it became fake and rule-bound."</b></li>
+    <li>If you remember this one sentence, you can build almost any answer around it, even if you forget small details.</li>
+  </ul>
+  `
+},
+
+{
+  id:"origin", color:"emerald", eyebrow:"2 · Background",
+  title:"Origin and Historical Background",
+  sub:"Who started it, when, and why — the full story",
+  body:`
+  <p class="dropcap">The Pre-Raphaelite Brotherhood was founded in <b>September 1848</b>, in London. This was a very important year in European history — 1848 was the year of political revolutions across Europe (France, Germany, Italy, Austria). Young people everywhere were rebelling against old, rigid systems. The PRB was, in its own way, a small "revolution" inside English art.</p>
+
+  <h3 class="h">The Three Founders</h3>
+  <p>The Brotherhood was founded by three young art students, all in their early twenties:</p>
+  <ul>
+    <li><b>Dante Gabriel Rossetti</b> (1828-1882) — painter and poet, the most important literary figure of the group.</li>
+    <li><b>William Holman Hunt</b> (1827-1910) — painter, the most religiously serious member.</li>
+    <li><b>John Everett Millais</b> (1829-1896) — painter, the most technically brilliant of the three.</li>
+  </ul>
+  <p>Soon four more members joined, making it a group of seven: <b>James Collinson</b> (painter), <b>Thomas Woolner</b> (sculptor), <b>Frederic George Stephens</b> (art critic), and <b>William Michael Rossetti</b> (Dante Gabriel's brother, who became the group's secretary and historian).</p>
+
+  <h3 class="h">What They Were Reacting Against</h3>
+  <p>To understand WHY they formed this group, you must understand what they disliked:</p>
+  <ul>
+    <li><b>The Royal Academy of Arts</b> — the official art school of England — taught that painting must follow the "Grand Style" of Raphael and his followers: idealised, glossy, dramatic, and rule-based.</li>
+    <li>They called this later, mechanical, over-idealised style <b>"Sir Sloshua"</b> — a mocking nickname for Sir Joshua Reynolds, the first President of the Royal Academy, whom they blamed for spreading this "sloppy," fake style of painting.</li>
+    <li>They felt Victorian art (and by extension, much of Victorian life) had become <b>industrial, mechanical, and insincere</b> — more about following formulas than expressing real feeling.</li>
+  </ul>
+
+  <h3 class="h">What They Wanted Instead</h3>
+  <ul>
+    <li>They admired the art made <b>before Raphael</b> — that is, Italian and Flemish painting of the 13th-15th centuries (painters like Giotto and Fra Angelico) — because it was simple, sincere, and full of exact, loving detail, without the "empty grandness" of later art.</li>
+    <li>They wanted to paint (and later write) with <b>total honesty to nature</b> — every leaf, every fold of cloth, every strand of hair shown exactly as it is, not "improved" or idealised.</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Easy Way To Remember</span>
+    <p style="margin:0">Think of it like this: Royal Academy art = a polished, filtered Instagram photo. Pre-Raphaelite art = a highly detailed, completely honest painting where nothing is smoothed over or faked. That contrast is the whole origin story in one image.</p>
+  </div>
+
+  <h3 class="h">From Painting To Poetry</h3>
+  <p>The PRB was first a painters' club. But almost immediately, its members began writing poetry that carried the <b>same ideals</b> — medieval settings, intense visual detail, sincere emotion, symbolism, and a dislike of "cheap," mechanical Victorian writing. This is why we study the Pre-Raphaelites as a <b>literary movement</b> and not just an art movement. Dante Gabriel Rossetti is the bridge figure who made this happen — he was equally a painter and a poet.</p>
+  `
+},
+
+{
+  id:"manifesto", color:"gold", eyebrow:"3 · The Rulebook",
+  title:"Aims, Principles and \u201cThe Germ\u201d",
+  sub:"What the Brotherhood officially stood for",
+  body:`
+  <p class="dropcap">The PRB did not just paint and write — they also wrote down what they believed in. This is very useful for you, because examiners love asking "What were the aims of the Pre-Raphaelite Brotherhood?" You can answer with these four clear points, remembered by William Michael Rossetti (the group's secretary):</p>
+
+  <h3 class="h">The Four Declared Principles of the PRB</h3>
+  <ol>
+    <li><b>To have genuine ideas to express</b> — meaning: only paint or write about something you actually feel and believe, not something copied from convention.</li>
+    <li><b>To study Nature attentively</b> — meaning: look closely and directly at the real world (a real flower, a real face) instead of copying it from old paintings or "rules" about how things should look.</li>
+    <li><b>To sympathise with what is direct, serious and heartfelt in previous art, and to reject what is self-parading and learned by rote</b> — meaning: admire only the art (of any period) that is sincere, and reject art that is showy or done mechanically "by the book."</li>
+    <li><b>To produce thoroughly good pictures and statues (and, by extension, poems)</b> — meaning: the final aim is not just theory, but to actually create excellent, carefully made work.</li>
+  </ol>
+
+  <h3 class="h">The Germ — Their Own Magazine</h3>
+  <p>In <b>1850</b>, the Brotherhood started a small literary magazine called <b><em>The Germ</em></b> to publish their poems, stories, and essays on art. It only ran for <b>four issues</b> and was not commercially successful, but it is historically important because:</p>
+  <ul>
+    <li>It gave Pre-Raphaelite poets (especially D. G. Rossetti and Christina Rossetti) their first public platform.</li>
+    <li>D. G. Rossetti published an early version of his poem <b><em>"The Blessed Damozel"</em></b> in it.</li>
+    <li>It shows that from the very beginning, the PRB saw poetry and painting as <b>two branches of one single artistic aim</b> — not separate activities.</li>
+  </ul>
+
+  <h3 class="h">Signature (PRB) on Paintings</h3>
+  <p>Members signed their paintings with the initials <b>"PRB"</b> after their name — a small but important detail examiners sometimes ask about, showing the group's pride in being a distinct "brotherhood" with a shared identity, almost like a secret society with its own creed.</p>
+
+  <div class="card gold">
+    <span class="card-label">Exam Tip Line (memorise this)</span>
+    <p style="margin:0">"The PRB's four principles were: genuine ideas, close study of Nature, sympathy with what is sincere in earlier art (and rejection of what is showy or mechanical), and the production of thoroughly good work — principles first put into practice through their magazine, <i>The Germ</i> (1850)."</p>
+  </div>
+  `
+},
+
+{
+  id:"characteristics", color:"crimson", eyebrow:"4 · Core Content",
+  title:"Main Characteristics of Pre-Raphaelite Poetry",
+  sub:"The single most important section — learn this thoroughly",
+  body:`
+  <p class="dropcap">This is the heart of the topic. Almost every question on the Pre-Raphaelites is really asking you to describe these features, so understand each one properly — not just as a list of words, but as an <b>idea you can explain with an example</b>.</p>
+
+  <h3 class="h">1. Medievalism (Love of the Middle Ages)</h3>
+  <p>Pre-Raphaelite poets were fascinated by the <b>Middle Ages</b> — knights, castles, ladies, chivalry, old legends like King Arthur, and old Italian poets like Dante. This was partly a form of escape: they disliked the ugly, industrial, machine-driven Victorian world around them, so they imagined a more colourful, romantic, "purer" world in the past.</p>
+  <ul>
+    <li>Example: William Morris's <i>The Defence of Guenevere</i> is set entirely in the world of King Arthur's court.</li>
+    <li>Example: D. G. Rossetti was deeply influenced by the medieval Italian poet <b>Dante Alighieri</b> (Rossetti was even named after him) and translated early Italian poets into English.</li>
+  </ul>
+
+  <h3 class="h">2. Sensuousness (Appeal to the Five Senses)</h3>
+  <p>"Sensuous" poetry is poetry that makes you almost <i>see, hear, touch, smell and taste</i> what it describes — very rich, physical, colourful imagery, unlike plain or abstract language.</p>
+  <ul>
+    <li>Pre-Raphaelite poems are full of jewel-like colours (gold, crimson, emerald), rich fabrics, flowers, hair, skin, light — described in loving, exact detail.</li>
+    <li>Example: Christina Rossetti's <i>Goblin Market</i> describes fruit so richly ("Apples and quinces, / Lemons and oranges...") that the poem almost overwhelms the reader's senses.</li>
+  </ul>
+
+  <h3 class="h">3. Pictorial Quality (Poetry That "Paints")</h3>
+  <p>Because most Pre-Raphaelite poets were also painters (or worked closely with painters), their poetry is extremely <b>visual</b> — each stanza often feels like a single framed picture, with careful attention to colour, posture, and composition, just like a painting.</p>
+  <ul>
+    <li>This is sometimes called <b>"the pictorial quality"</b> of Pre-Raphaelite verse.</li>
+    <li>Example: In "The Blessed Damozel," Rossetti describes the damozel leaning out from "the gold bar of Heaven" with three lilies in her hand and seven stars in her hair — like a detailed religious painting turned into words.</li>
+  </ul>
+
+  <h3 class="h">4. Symbolism</h3>
+  <p>Objects and images in Pre-Raphaelite poetry are rarely "just decoration" — they usually <b>stand for</b> something deeper (an emotion, a moral idea, a spiritual truth).</p>
+  <ul>
+    <li>Example: In <i>Goblin Market</i>, the goblin fruit symbolises forbidden temptation and its dangerous, addictive pleasure.</li>
+    <li>Example: Rossetti's lilies and stars in "The Blessed Damozel" symbolise purity and heavenly perfection.</li>
+  </ul>
+
+  <h3 class="h">5. Archaic Language and Old Verse Forms</h3>
+  <ul>
+    <li>Pre-Raphaelite poets often used slightly old-fashioned ("archaic") words and spellings to create a medieval mood — for example, using words like "damozel" instead of "damsel."</li>
+    <li>They revived old poetic forms such as the <b>ballad</b> (a simple narrative song-poem) and the <b>sonnet</b> (a strict 14-line form), and Rossetti in particular was a master of the sonnet sequence (see his <i>The House of Life</i>).</li>
+  </ul>
+
+  <h3 class="h">6. The Idealised, Mysterious Woman</h3>
+  <p>A very typical Pre-Raphaelite subject is a beautiful, often mysterious or spiritually intense woman — sometimes an object of pure worship, sometimes dangerously seductive. This female figure appears again and again in both their paintings and poems (often called the <b>"Pre-Raphaelite woman"</b> — long flowing hair, full lips, dreamy or intense expression).</p>
+
+  <h3 class="h">7. Blend of the Spiritual (Religious) and the Sensuous</h3>
+  <p>One of the most distinctive — and most criticised — features of Pre-Raphaelite poetry is that it mixes <b>religious / spiritual longing</b> with very <b>physical, bodily (sensuous) description</b>, sometimes in the same poem. Heaven is described almost like a beautiful physical place; religious love is described with the intensity of romantic love.</p>
+  <ul>
+    <li>Example: "The Blessed Damozel" imagines a dead woman in Heaven who still longs, in a very human and physical way, to be reunited with her earthly lover.</li>
+  </ul>
+
+  <h3 class="h">8. "Art for Art's Sake" (Aestheticism Connection)</h3>
+  <p>Later Pre-Raphaelite writing (especially the work of poets like <b>Swinburne</b> and the influence of Rossetti and Morris on younger writers) helped give birth to the idea that <b>art should exist for the sake of Beauty itself</b>, not to teach a moral lesson — this idea is called <b>"Art for Art's Sake"</b> and it later grew into the <b>Aesthetic Movement</b> of the 1870s-1890s (associated with Oscar Wilde and Walter Pater).</p>
+
+  <div class="card crimson">
+    <span class="card-label">How To Use This List In An Exam</span>
+    <p style="margin:0">Do not just write "medievalism, sensuousness, symbolism..." as a bare list. For full marks, take any 5-6 of these points, give each its own short paragraph, explain the idea in your own words, and support it with ONE example (poet + poem + brief detail). That structure alone can carry a 20-mark answer.</p>
+  </div>
+  `
+},
+
+{
+  id:"sister-arts", color:"indigo", eyebrow:"5 · Special Idea",
+  title:"Poetry and Painting — The \u201cSister Arts\u201d",
+  sub:"Why this movement is unique among all English literary movements",
+  body:`
+  <p class="dropcap">No other movement in English literary history is as closely tied to a movement in <b>painting</b> as the Pre-Raphaelites. This point alone makes a very good short answer or a strong paragraph inside a longer answer, so understand it well.</p>
+
+  <h3 class="h">Why Painting and Poetry Were "Sisters" Here</h3>
+  <ul>
+    <li>The founding members were mainly <b>painters</b> who also wrote poetry (Rossetti most famously), so the same artistic beliefs (truth to nature, rich detail, medieval subjects, symbolism) shaped both their canvases and their verses.</li>
+    <li>Rossetti often created what are called <b>"double works of art"</b> — a painting and a poem on the exact same subject, meant to be experienced together. For example, he wrote sonnets to go along with several of his own paintings, treating the poem almost as a caption or companion piece that deepens the meaning of the picture.</li>
+    <li>Pre-Raphaelite poetry is often described as <b>"pictorial"</b> or <b>"picture-poetry"</b> — meaning you can almost "see" a painting when you read it, because of the intense visual detail (see the "Pictorial Quality" point in the previous section).</li>
+  </ul>
+
+  <h3 class="h">A Simple Way To Explain This In An Exam</h3>
+  <div class="quote-block">"For the Pre-Raphaelites, poetry and painting were not two separate arts but two expressions of the same artistic vision — both aimed at truth to nature, rich sensuous detail, and symbolic meaning. Rossetti, who was equally skilled in both arts, is the clearest example of this fusion: many of his poems were written as companions to his own paintings."</div>
+
+  <h3 class="h">Wider Meaning</h3>
+  <p>This blending of the arts reflects a bigger Pre-Raphaelite belief: that <b>all true art comes from the same sincere, detailed way of looking at the world</b> — whether you hold a brush or a pen does not matter; what matters is honesty and intensity of vision.</p>
+  `
+},
+
+{
+  id:"rossetti", color:"crimson", eyebrow:"6 · Major Poet",
+  title:"Dante Gabriel Rossetti (1828-1882)",
+  sub:"The founder-poet — the single most important name in this topic",
+  body:`
+  <p class="dropcap">If you remember only one poet from this topic in detail, it must be <b>Dante Gabriel Rossetti</b>, because he is both a founder of the PRB and its greatest poet. He was Italian-English (his father was an Italian political exile living in London), and he was named after the great medieval Italian poet <b>Dante Alighieri</b> — a fact that explains his lifelong love of medieval Italian poetry.</p>
+
+  <h3 class="h">Key Facts</h3>
+  <ul>
+    <li>Painter and poet — one of the three founders of the PRB (1848).</li>
+    <li>Deeply influenced by Dante Alighieri; translated early Italian poets into English in a book called <i>The Early Italian Poets</i> (1861).</li>
+    <li>Married the artists' model <b>Elizabeth Siddal</b>, who died young (1862); after her death he buried the only manuscript copies of many of his poems with her, then later had them dug up again to publish them — a famous, dramatic episode in literary history.</li>
+  </ul>
+
+  <h3 class="h">Major Works To Remember</h3>
+  <h4 class="h4">"The Blessed Damozel" (written around 1847-50)</h4>
+  <ul>
+    <li>His most famous poem. A dead woman ("the blessed damozel") leans out from the "gold bar of Heaven," looking down and longing for her earthly lover to join her.</li>
+    <li>Perfectly shows the Pre-Raphaelite mixing of the <b>spiritual and the sensuous</b>: Heaven is described in rich physical, almost painterly detail (gold bars, lilies, stars), and even the dead woman's longing is described with very human, bodily emotion.</li>
+    <li>Directly inspired by the medieval Italian poet Dante's idea of an idealised, spiritually guiding woman (like Dante's Beatrice).</li>
+  </ul>
+  <h4 class="h4">The House of Life</h4>
+  <ul>
+    <li>A long sequence of sonnets about love, beauty, and mortality (death) — showing Rossetti's mastery of the sonnet form and his intense, sensuous treatment of love.</li>
+  </ul>
+  <h4 class="h4">"Sister Helen"</h4>
+  <ul>
+    <li>A ballad (an old narrative song-form revived by the Pre-Raphaelites) about a woman using witchcraft to take revenge on a former lover — shows the medieval, supernatural, dramatic side of Rossetti's poetry.</li>
+  </ul>
+
+  <h3 class="h">Why He Matters For This Topic</h3>
+  <ul>
+    <li>He is the <b>bridge between painting and poetry</b> in the movement (see the previous section).</li>
+    <li>His poetry shows almost every Pre-Raphaelite characteristic at once: medievalism, sensuousness, pictorial quality, symbolism, and the mixing of spiritual and physical love.</li>
+    <li>He is also central to the <b>"Fleshly School" controversy</b> (see that section) because critics attacked his poetry for being too sensuous / physical.</li>
+  </ul>
+  `
+},
+
+{
+  id:"christina", color:"emerald", eyebrow:"6 · Major Poet",
+  title:"Christina Rossetti (1830-1894)",
+  sub:"D. G. Rossetti's younger sister — a major poet in her own right",
+  body:`
+  <p class="dropcap">Christina Rossetti was the younger sister of Dante Gabriel Rossetti. She was closely associated with the Pre-Raphaelite circle (she even modelled for some of their paintings and published in <i>The Germ</i>), but her own poetry has a very distinct character: deeply <b>religious</b>, often about <b>death, renunciation (giving things up), and quiet sadness</b>, alongside the typical Pre-Raphaelite richness of imagery.</p>
+
+  <h3 class="h">Key Facts</h3>
+  <ul>
+    <li>Devoutly religious (High Anglican); this religious faith shapes almost all her mature poetry.</li>
+    <li>Often gave up personal happiness (she refused more than one marriage proposal partly for religious reasons) — this theme of self-denial appears often in her poems.</li>
+  </ul>
+
+  <h3 class="h">Major Works To Remember</h3>
+  <h4 class="h4">"Goblin Market" (1862)</h4>
+  <ul>
+    <li>Her most famous poem. Two sisters, Laura and Lizzie, encounter goblin men selling magical, irresistible fruit. Laura eats the fruit and begins to waste away from longing for more; Lizzie sacrifices herself to save her sister.</li>
+    <li>Extremely rich, sensuous description of the fruit — a perfect example of Pre-Raphaelite <b>sensuousness</b> used to symbolise the danger of forbidden temptation and desire.</li>
+    <li>Can be read on many levels: a moral/religious fable about temptation and redemption, a poem about female desire, or simply a dreamlike fairy-tale — this multiple meaning is itself a very "Pre-Raphaelite" use of <b>symbolism</b>.</li>
+  </ul>
+  <h4 class="h4">"A Birthday"</h4>
+  <ul>
+    <li>A joyful love poem full of rich, jewel-like images ("My heart is like a singing bird") — shows her sensuous, colourful, image-rich style at its happiest.</li>
+  </ul>
+  <h4 class="h4">"In the Bleak Midwinter"</h4>
+  <ul>
+    <li>A devotional (religious) poem, later set to music as a famous Christmas carol — shows her deeply spiritual side.</li>
+  </ul>
+  <h4 class="h4">"Remember"</h4>
+  <ul>
+    <li>A sonnet about death and memory, quiet and moving — shows her mastery of the sonnet form and her recurring theme of mortality.</li>
+  </ul>
+
+  <h3 class="h">Why She Matters For This Topic</h3>
+  <ul>
+    <li>She proves that Pre-Raphaelite poetry is not only about medieval knights and painterly sensuousness — it also has a serious <b>religious and moral depth</b>, especially in her hands.</li>
+    <li>She shows the movement's characteristic mix of <b>sensuous imagery + symbolic/spiritual meaning</b> as clearly as her brother does, but from a female and more devout point of view.</li>
+  </ul>
+  `
+},
+
+{
+  id:"morris", color:"gold", eyebrow:"6 · Major Poet",
+  title:"William Morris (1834-1896)",
+  sub:"The medievalist — poet, designer, and social reformer",
+  body:`
+  <p class="dropcap">William Morris joined the Pre-Raphaelite circle a little after the original founding (he became close to Rossetti at Oxford), and he became the movement's most complete <b>medievalist</b> — he did not just write about the Middle Ages, he tried to live its values, later becoming a designer of medieval-style textiles, wallpaper, and books, and a leading figure in the <b>Arts and Crafts Movement</b>.</p>
+
+  <h3 class="h">Key Facts</h3>
+  <ul>
+    <li>Close friend and follower of D. G. Rossetti; part of the "second generation" of Pre-Raphaelite artists.</li>
+    <li>Later in life became a committed <b>socialist</b> — he believed industrial capitalism was destroying both beautiful craftsmanship and honest human life, which connects directly back to the PRB's original dislike of "mechanical," industrial-age art.</li>
+    <li>Founded a design company making medieval-style furniture, fabric, and wallpaper (Morris & Co.) — showing how his Pre-Raphaelite ideals spread beyond poetry into everyday design.</li>
+  </ul>
+
+  <h3 class="h">Major Works To Remember</h3>
+  <h4 class="h4">The Defence of Guenevere, and Other Poems (1858)</h4>
+  <ul>
+    <li>His first poetry collection, entirely set in the world of King Arthur's legends — the clearest example of pure <b>medievalism</b> in Pre-Raphaelite poetry.</li>
+    <li>The title poem imagines Queen Guenevere passionately defending herself against the charge of betraying King Arthur — dramatic, emotional, and vividly detailed.</li>
+  </ul>
+  <h4 class="h4">The Earthly Paradise (1868-70)</h4>
+  <ul>
+    <li>A very long collection of narrative poems (stories in verse) that retell old Greek and Norse legends, framed as tales told by wandering medieval sailors — shows his lifelong love of old stories and his skill as a storyteller in verse.</li>
+  </ul>
+
+  <h3 class="h">Why He Matters For This Topic</h3>
+  <ul>
+    <li>He represents <b>medievalism taken to its fullest</b> — not just as a poetic subject, but as a whole way of life and a form of protest against ugly, mass-produced Victorian industrial goods.</li>
+    <li>He shows how Pre-Raphaelite ideals spread from a small painters' club into a much bigger cultural movement (design, craft, and even politics).</li>
+  </ul>
+  `
+},
+
+{
+  id:"swinburne", color:"indigo", eyebrow:"6 · Major Poet",
+  title:"A. C. Swinburne (1837-1909) and the PRB",
+  sub:"An associate, not a founder — but essential to know",
+  body:`
+  <p class="dropcap">Algernon Charles Swinburne was <b>not one of the original founders</b> of the PRB, and he is more often classified on his own as a "Victorian poet" influenced by the movement. But he was a very close friend of Rossetti and Morris, lived with Rossetti for a time, and shared many Pre-Raphaelite ideals — so in exams, he is usually mentioned as part of the wider Pre-Raphaelite circle. Be careful to note this distinction if a question asks specifically about the "PRB" (Swinburne was never an official Brotherhood member) versus the broader "Pre-Raphaelite movement" (where he clearly belongs).</p>
+
+  <h3 class="h">Key Facts</h3>
+  <ul>
+    <li>Close associate of Rossetti and Morris; shared their love of intense, sensuous, richly musical poetry.</li>
+    <li>Much more drawn to <b>ancient Greek (Hellenic) subjects</b> than to medieval ones, which is one difference from Rossetti and Morris.</li>
+    <li>Famous for extremely musical, flowing verse and for shocking Victorian readers with poems about forbidden or "immoral" themes (illicit love, paganism, cruelty, death).</li>
+  </ul>
+
+  <h3 class="h">Major Work To Remember</h3>
+  <h4 class="h4">Poems and Ballads (1866)</h4>
+  <ul>
+    <li>A collection that scandalised Victorian society because of its openly sensuous and, for its time, "immoral" content (celebrating physical passion, paganism, and pain/pleasure themes rather than conventional Victorian morality).</li>
+    <li>Shows the <b>sensuous, "art for art's sake"</b> side of the Pre-Raphaelite inheritance taken to its most extreme, daring form.</li>
+  </ul>
+
+  <h3 class="h">Why He Matters For This Topic</h3>
+  <ul>
+    <li>He shows how Pre-Raphaelite sensuousness could develop into full <b>"Art for Art's Sake"</b> — poetry written purely for beauty and intense feeling, without a moral lesson — which links this topic directly forward to the later <b>Aesthetic Movement</b>.</li>
+    <li>He is a good example to use when a question asks about the movement's <b>influence beyond the Brotherhood itself</b>.</li>
+  </ul>
+  `
+},
+
+{
+  id:"controversy", color:"crimson", eyebrow:"7 · Criticism",
+  title:"The \u201cFleshly School of Poetry\u201d Controversy",
+  sub:"A famous attack on Pre-Raphaelite poetry — and why it matters",
+  body:`
+  <p class="dropcap">This is a very useful topic for a descriptive or short-note question because it shows you understand not just what the Pre-Raphaelites wrote, but how their own contemporaries (people living at the same time) reacted to it.</p>
+
+  <h3 class="h">What Happened</h3>
+  <ul>
+    <li>In <b>1871</b>, a critic named <b>Robert Buchanan</b> published an essay called <b><em>"The Fleshly School of Poetry"</em></b> (first under a fake name, "Thomas Maitland," then under his own name).</li>
+    <li>He attacked Dante Gabriel Rossetti and poets associated with him (also aiming indirectly at Swinburne and Morris), accusing their poetry of being too <b>"fleshly"</b> — meaning too focused on physical, bodily, sensuous pleasure rather than pure, moral, or spiritual feeling.</li>
+    <li>Buchanan felt that mixing physical sensuousness with spiritual or emotional subjects (as Rossetti does in "The Blessed Damozel," for example) was dishonest and morally dangerous.</li>
+    <li>Rossetti was deeply hurt by this public attack and wrote a reply defending himself, called <b>"The Stainer Art"</b> — often referred to simply as his response essay defending sincerity in poetic treatment of the body and the senses.</li>
+  </ul>
+
+  <h3 class="h">Why This Controversy Is Important</h3>
+  <ul>
+    <li>It gives you real proof, from history, of exactly what made Pre-Raphaelite poetry different and controversial: its bold mixing of <b>sensuous / physical description with spiritual or emotional subjects</b> (see "Characteristic 7" in the earlier section).</li>
+    <li>It shows that Victorian critics still expected poetry to be clearly "moral" — the Pre-Raphaelites' refusal to separate body and soul in their poetry felt shocking to conservative readers.</li>
+    <li>It is a good example of the tension between Victorian moral seriousness and the newer idea of <b>"Art for Art's Sake"</b> that the Pre-Raphaelites (especially Swinburne) were moving towards.</li>
+  </ul>
+
+  <div class="card crimson">
+    <span class="card-label">One-Line Summary To Memorise</span>
+    <p style="margin:0">"In 1871, Robert Buchanan attacked Rossetti's poetry as belonging to a 'Fleshly School,' criticising its bold mixture of sensuous, physical imagery with spiritual and emotional themes — a controversy that highlights exactly what made Pre-Raphaelite poetry both distinctive and, to conservative Victorian readers, unsettling."</p>
+  </div>
+  `
+},
+
+{
+  id:"comparison", color:"emerald", eyebrow:"8 · Comparison",
+  title:"Pre-Raphaelitism vs Romanticism",
+  sub:"A comparison examiners like to test — know both similarities and differences",
+  body:`
+  <p class="dropcap">The Pre-Raphaelites admired the earlier Romantic poets (like Keats, whose rich sensuous style influenced them a great deal) — so there IS a real connection between the two movements. But they are not the same, and a good answer must show both the similarity and the difference clearly.</p>
+
+  <h3 class="h">What They Share</h3>
+  <ul>
+    <li>Both movements value strong <b>sensuous imagery</b> and emotional intensity over cold, purely rational or moralising poetry (John Keats, a Romantic poet, is often called a direct ancestor of the Pre-Raphaelites for exactly this reason).</li>
+    <li>Both reject the artificial "rules" of an earlier, more formal style of art (Romantics rejected 18th-century Neoclassical rules; Pre-Raphaelites rejected Royal-Academy rules).</li>
+    <li>Both are drawn to the medieval past, legend, and the supernatural at times.</li>
+  </ul>
+
+  <table>
+    <tr><th>Point</th><th>Romanticism</th><th>Pre-Raphaelitism</th></tr>
+    <tr><td><b>Time Period</b></td><td>Roughly 1798-1832 (Wordsworth, Coleridge, Byron, Shelley, Keats)</td><td>1848 onward, mid-to-late Victorian period</td></tr>
+    <tr><td><b>Main Focus of Nature</b></td><td>Nature as a source of spiritual truth, emotion, and imagination in a broad, philosophical sense</td><td>Nature studied with extreme visual, almost scientific closeness and exact physical detail</td></tr>
+    <tr><td><b>Link To Painting</b></td><td>Mostly a movement in poetry, with only loose links to visual art</td><td>Born directly out of a painters' movement; poetry and painting deliberately treated as sister arts</td></tr>
+    <tr><td><b>Attitude To The Past</b></td><td>Interested in nature, the individual imagination, and sometimes the medieval past (as in Keats or Coleridge) more loosely</td><td>Very deliberately and systematically medieval in subject matter, detail, and even archaic language</td></tr>
+    <tr><td><b>Treatment of the Body/Senses</b></td><td>Sensuous, but rarely provoked a "moral" scandal on this scale</td><td>Deliberately, sometimes controversially, blends sensuous/physical imagery with spiritual themes (see Fleshly School controversy)</td></tr>
+    <tr><td><b>Social/Political Colour</b></td><td>Often linked to revolutionary political ideals (French Revolution, individual liberty)</td><td>Reaction against Victorian industrialism and mechanical, mass-produced culture; Morris later linked it to socialism</td></tr>
+  </table>
+
+  <h3 class="h">Best Way To Answer This Question</h3>
+  <div class="quote-block">"Pre-Raphaelitism can be seen as a 'second flowering' of Romantic sensuousness, most directly inherited from Keats — but it is far more deliberate and systematic in its medievalism, far more closely tied to painting, and far more willing to blend the sensuous and the spiritual in ways that scandalised Victorian moral opinion, as seen in the Fleshly School controversy."</div>
+  `
+},
+
+{
+  id:"legacy", color:"gold", eyebrow:"9 · What Came After",
+  title:"Decline and Legacy",
+  sub:"How the movement ended and what it left behind",
+  body:`
+  <p class="dropcap">Movements in literature rarely have one clean "end date" — they fade, change shape, and influence the next generation. This is exactly what happened with the Pre-Raphaelites.</p>
+
+  <h3 class="h">Decline of the Original Brotherhood</h3>
+  <ul>
+    <li>The original PRB, as a tight group of seven friends, lasted only a few years in its strict form — by the mid-1850s the founding members had drifted into their own separate careers and styles.</li>
+    <li>However, a <b>"second generation"</b> quickly formed around Rossetti at Oxford, including <b>William Morris</b> and <b>Edward Burne-Jones</b> (a painter), continuing and developing Pre-Raphaelite ideals for several more decades.</li>
+  </ul>
+
+  <h3 class="h">Its Legacy — Where Pre-Raphaelite Ideas Went Next</h3>
+  <ul>
+    <li><b>The Aesthetic Movement ("Art for Art's Sake")</b>: The Pre-Raphaelites' love of Beauty for its own sake, and their sensuous, richly decorated style, directly fed into the later Aesthetic Movement of the 1870s-1890s, associated with <b>Walter Pater</b> and <b>Oscar Wilde</b>.</li>
+    <li><b>The Arts and Crafts Movement</b>: William Morris turned Pre-Raphaelite medievalism into a full design philosophy — hand-made, beautifully crafted furniture, textiles, and books, as a protest against ugly mass-produced Victorian goods.</li>
+    <li><b>Influence on later poets</b>: Pre-Raphaelite richness of imagery and symbolism influenced later poets, including some of the early work of <b>W. B. Yeats</b>, who admired Morris and the Pre-Raphaelite dream-world quality.</li>
+    <li><b>Modern popular imagination</b>: The "Pre-Raphaelite woman" (long flowing hair, medieval dress, dreamy expression) remains a recognisable image in art and popular culture even today.</li>
+  </ul>
+
+  <h3 class="h">A Balanced Final Judgement (good for a conclusion paragraph)</h3>
+  <div class="quote-block">"Though the Pre-Raphaelite Brotherhood itself was short-lived as an organised group, its central ideals — truth to nature, sensuous and symbolic richness, and the close union of poetry and painting — proved to be one of the most influential forces in later Victorian art and literature, shaping both the Aesthetic Movement and the Arts and Crafts Movement."</div>
+  `
+},
+
+{
+  id:"model-answers", color:"indigo", eyebrow:"10 · Practice",
+  title:"Full Model Answers",
+  sub:"Two complete, exam-ready answers — study their structure carefully",
+  body:`
+  <p class="dropcap">Below are two full-length model answers written the way you should write them in the actual UPPSC GIC Mains exam: a short <b>introduction</b>, clearly organised <b>body points with sub-headings</b>, and a short <b>conclusion</b>. Notice the structure more than the exact words — you can use your own sentences, but follow this pattern.</p>
+
+  <div class="answer-block">
+  <h5>Model Answer 1</h5>
+  <p><b>Q. What do you understand by the term "Pre-Raphaelite Brotherhood"? Discuss its origin, aims and main characteristics. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>The Pre-Raphaelite Brotherhood (PRB) was a group of young English painters and poets founded in 1848, who rejected the artificial, over-idealised style of art taught by the Royal Academy and instead sought a return to the sincerity, simplicity, and rich detail of art made before the time of the Italian painter Raphael. What began as a movement in painting soon became an important literary movement as well, chiefly through the work of Dante Gabriel Rossetti, who was equally skilled as a painter and a poet.</p>
+
+  <h4 class="h4">Origin</h4>
+  <p>The PRB was founded in September 1848 by three art students — Dante Gabriel Rossetti, William Holman Hunt, and John Everett Millais — later joined by four more members. They were reacting against the Royal Academy's teaching that painting must follow the polished, idealised "Grand Style" associated with Raphael and his followers, a style they mockingly linked to Sir Joshua Reynolds. In its place, they admired the honest, detailed art of the period before Raphael.</p>
+
+  <h4 class="h4">Aims</h4>
+  <p>The Brotherhood's aims, recorded by William Michael Rossetti, were: to have genuine ideas to express; to study Nature attentively; to sympathise with what is direct, serious and heartfelt in earlier art while rejecting what is showy or mechanical; and to produce thoroughly good work. These aims were first put into practice through their short-lived magazine, <i>The Germ</i> (1850), which published early poems by D. G. Rossetti, including a version of "The Blessed Damozel."</p>
+
+  <h4 class="h4">Main Characteristics</h4>
+  <p>Pre-Raphaelite poetry and painting share several distinctive features: <b>medievalism</b> (a fascination with the Middle Ages, as in William Morris's <i>The Defence of Guenevere</i>); <b>sensuousness</b> (rich appeal to the senses, as in Christina Rossetti's <i>Goblin Market</i>); a strongly <b>pictorial quality</b>, since many poets were also painters; deep <b>symbolism</b>, where objects carry moral or spiritual meaning; the use of <b>archaic language and revived forms</b> such as the ballad and sonnet; and a bold blending of the <b>spiritual and the sensuous</b>, seen clearly in Rossetti's "The Blessed Damozel."</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>Though the original Brotherhood lasted only a few years as a formal group, its ideals were carried forward by a second generation including William Morris, and its influence reached into the later Aesthetic and Arts and Crafts movements. The Pre-Raphaelites thus remain a landmark movement for showing how closely poetry and painting could be united in a shared pursuit of truth, beauty, and sincerity.</p>
+  </div>
+
+  <div class="rule" style="color:var(--ink-faint)"></div>
+
+  <div class="answer-block">
+  <h5>Model Answer 2</h5>
+  <p><b>Q. Discuss the salient features of Pre-Raphaelite poetry with suitable references to its major poets. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>Pre-Raphaelite poetry grew directly out of the Pre-Raphaelite Brotherhood, a painters' movement founded in 1848 that rejected the artificial style of the Royal Academy in favour of truth to nature and sincerity inspired by art before Raphael. Poets such as Dante Gabriel Rossetti, Christina Rossetti, William Morris, and (in a looser sense) Algernon Charles Swinburne carried these painterly ideals into verse, producing a body of poetry marked by several distinctive features.</p>
+
+  <h4 class="h4">Medievalism</h4>
+  <p>Pre-Raphaelite poets were drawn to the Middle Ages as an escape from industrial Victorian ugliness. William Morris's <i>The Defence of Guenevere</i> and <i>The Earthly Paradise</i> retell Arthurian and old legendary material, while Rossetti's love of Dante Alighieri shaped his poetic imagination throughout his life.</p>
+
+  <h4 class="h4">Sensuousness and Pictorial Quality</h4>
+  <p>Because many Pre-Raphaelite poets were also painters, their verse is intensely visual, almost like a series of paintings in words. Christina Rossetti's <i>Goblin Market</i> describes forbidden fruit with overwhelming sensuous richness, while D. G. Rossetti's "The Blessed Damozel" paints Heaven itself in exact, jewel-like visual detail.</p>
+
+  <h4 class="h4">Symbolism and the Union of the Spiritual and the Sensuous</h4>
+  <p>Pre-Raphaelite poetry frequently blends physical, bodily imagery with spiritual or religious longing, as in "The Blessed Damozel," where a dead woman in Heaven longs for her lover with very human intensity. This blending was controversial in its time, as shown by Robert Buchanan's 1871 attack on Rossetti's poetry as belonging to a "Fleshly School."</p>
+
+  <h4 class="h4">Archaic Diction and Revived Forms</h4>
+  <p>The poets revived older forms such as the ballad (Rossetti's "Sister Helen") and the sonnet sequence (Rossetti's <i>The House of Life</i>, Christina Rossetti's "Remember"), often using slightly archaic language to create a medieval mood.</p>
+
+  <h4 class="h4">Wider Influence: Towards Art for Art's Sake</h4>
+  <p>In the hands of Swinburne, whose <i>Poems and Ballads</i> (1866) shocked Victorian readers with its open sensuousness, Pre-Raphaelite ideals moved further towards "Art for Art's Sake," anticipating the later Aesthetic Movement.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>Taken together, medievalism, sensuousness, symbolism, pictorial richness, and a bold treatment of the spiritual and the physical make Pre-Raphaelite poetry one of the most visually and emotionally distinctive bodies of work in Victorian literature.</p>
+  </div>
+  `
+},
+
+{
+  id:"revision", color:"crimson", eyebrow:"11 · Final Revision",
+  title:"Quick Revision Sheet",
+  sub:"Use this the night before the exam — everything in one place",
+  body:`
+  <p class="dropcap">This page is meant for very fast last-minute revision. Read it slowly at least once with full understanding first (using the earlier sections) — only then will these short points actually help you.</p>
+
+  <h3 class="h">Core Facts and Dates</h3>
+  <table>
+    <tr><th>Item</th><th>Fact</th></tr>
+    <tr><td>PRB founded</td><td>1848, London</td></tr>
+    <tr><td>Three founders</td><td>D. G. Rossetti, W. Holman Hunt, J. E. Millais</td></tr>
+    <tr><td>Total original members</td><td>Seven</td></tr>
+    <tr><td>Magazine</td><td><i>The Germ</i> (1850, 4 issues)</td></tr>
+    <tr><td>Meaning of the name</td><td>Art/poetry inspired by the style before Raphael (before 1500s)</td></tr>
+    <tr><td>Main target of their criticism</td><td>The Royal Academy's idealised "Grand Style," linked to Sir Joshua Reynolds ("Sir Sloshua")</td></tr>
+    <tr><td>Fleshly School controversy</td><td>Robert Buchanan attacked Rossetti's poetry, 1871</td></tr>
+  </table>
+
+  <h3 class="h">Characteristics — One Word Each (memory hooks)</h3>
+  <ul>
+    <li><b>Medievalism</b> — Middle Ages, knights, King Arthur</li>
+    <li><b>Sensuousness</b> — rich detail for all five senses</li>
+    <li><b>Pictorial quality</b> — poetry that "paints"</li>
+    <li><b>Symbolism</b> — objects carry deeper meaning</li>
+    <li><b>Archaic diction / revived forms</b> — old words, ballad, sonnet</li>
+    <li><b>The idealised woman</b> — mysterious, beautiful female figure</li>
+    <li><b>Spiritual + sensuous blend</b> — Heaven described physically</li>
+    <li><b>Art for Art's Sake</b> — beauty as its own purpose (link to Aestheticism)</li>
+  </ul>
+
+  <h3 class="h">Poet-to-Work Quick Match</h3>
+  <table>
+    <tr><th>Poet</th><th>Must-Know Work(s)</th><th>One-Word Theme</th></tr>
+    <tr><td>D. G. Rossetti</td><td>"The Blessed Damozel"; <i>The House of Life</i>; "Sister Helen"</td><td>Spiritual-sensuous blend</td></tr>
+    <tr><td>Christina Rossetti</td><td><i>Goblin Market</i>; "Remember"; "A Birthday"</td><td>Religion, temptation, renunciation</td></tr>
+    <tr><td>William Morris</td><td><i>The Defence of Guenevere</i>; <i>The Earthly Paradise</i></td><td>Pure medievalism</td></tr>
+    <tr><td>A. C. Swinburne</td><td><i>Poems and Ballads</i></td><td>Sensuous excess, Art for Art's Sake</td></tr>
+  </table>
+
+  <h3 class="h">Four PRB Principles (Numbered — recall in order)</h3>
+  <ol>
+    <li>Genuine ideas</li>
+    <li>Study Nature attentively</li>
+    <li>Sympathy with sincere, direct earlier art (reject the showy/mechanical)</li>
+    <li>Produce thoroughly good work</li>
+  </ol>
+
+  <h3 class="h">Legacy Chain (memorise as a flow)</h3>
+  <div class="quote-block">Pre-Raphaelitism (1848) &rarr; Second generation: Morris + Burne-Jones &rarr; Arts and Crafts Movement (Morris) &rarr; Aesthetic Movement / Art for Art's Sake (via Swinburne, later Pater and Wilde)</div>
+
+  <h3 class="h">If You Remember Nothing Else, Remember This</h3>
+  <div class="card gold">
+    <p style="margin:0"><b>Pre-Raphaelitism (1848)</b> = painters + poets rejecting fake, rule-bound Victorian art &rarr; wanted <b>truth to nature</b> and the <b>sincerity of pre-Raphael art</b> &rarr; poetry became <b>medieval, sensuous, pictorial, symbolic</b>, and famously blended the <b>spiritual with the physical</b> &rarr; led to real controversy (<b>Fleshly School</b>, 1871) &rarr; later influenced <b>Aestheticism</b> and the <b>Arts and Crafts Movement</b>.</p>
+  </div>
+  `
+}
+
+];
+
+/* ================= APP LOGIC ================= */
+(function(){
+  const COLOR_MAP = { crimson:'#9c2b3e', emerald:'#1f5c4a', gold:'#b8862f', indigo:'#2e3f6e' };
+  SECTIONS.forEach(s => { s.colorHex = COLOR_MAP[s.color] || '#9c2b3e'; });
+
+  const contentWrap = document.getElementById('contentWrap');
+  const drawerList = document.getElementById('drawerList');
+  const drawer = document.getElementById('drawer');
+  const scrim = document.getElementById('scrim');
+  const menuBtn = document.getElementById('menuBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const progressPill = document.getElementById('progressPill');
+  const topTitle = document.getElementById('topTitle');
+
+  let current = 0;
+
+  // Build SECTIONS
+  SECTIONS.forEach((s, i) => {
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.id = 'sec-' + s.id;
+    sec.innerHTML = `
+      <span class="sec-eyebrow" style="background:${s.colorHex}">${s.eyebrow}</span>
+      <h2 class="sec-title">${s.title}</h2>
+      <p class="sec-sub" style="border-color:${s.colorHex}; color:${s.colorHex}">${s.sub}</p>
+      ${s.body}
+    `;
+    contentWrap.appendChild(sec);
+  });
+
+  // Build drawer list
+  SECTIONS.forEach((s, i) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.innerHTML = `<span class="num" style="background:${s.colorHex}">${i+1}</span><span class="ttl">${s.title}</span>`;
+    btn.addEventListener('click', () => { goTo(i); closeDrawer(); });
+    btn.dataset.idx = i;
+    li.appendChild(btn);
+    drawerList.appendChild(li);
+  });
+
+  // Build dots
+  SECTIONS.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  });
+
+  function render(){
+    document.querySelectorAll('.section').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.drawer-list button').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.dot').forEach((el, i) => {
+      el.classList.toggle('on', i === current);
+    });
+    progressPill.textContent = (current+1) + ' / ' + SECTIONS.length;
+    topTitle.textContent = SECTIONS[current].title.replace(/\u2014.*$/,'').trim();
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = current === SECTIONS.length-1 ? 'Restart \u2191' : 'Next \u2192';
+    contentWrap.scrollTop = 0;
+  }
+
+  function goTo(i){
+    current = Math.max(0, Math.min(SECTIONS.length-1, i));
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current-1));
+  nextBtn.addEventListener('click', () => {
+    if(current === SECTIONS.length-1){ goTo(0); } else { goTo(current+1); }
+  });
+
+  function openDrawer(){ drawer.classList.add('open'); scrim.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); scrim.classList.remove('open'); }
+  menuBtn.addEventListener('click', openDrawer);
+  scrim.addEventListener('click', closeDrawer);
+
+  render();
+})();
+
+</script>
+</body>
+</html>

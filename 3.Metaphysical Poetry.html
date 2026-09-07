@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Metaphysical Poetry — Master Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Literata:ital,opsz,wght@0,18..72,400;0,18..72,500;0,18..72,600;1,18..72,400&family=Fraunces:ital,wght@0,600;1,500&display=swap');
+
+  :root{
+    --bg:#12161d;
+    --bg2:#191f28;
+    --panel:#1c2330;
+    --panel2:#232b3a;
+    --line:#333d4f;
+    --ink:#eae2d0;
+    --ink-dim:#a9b0bf;
+    --ink-faint:#6b7box;
+    --gold:#cda15b;
+    --gold-soft:#e3c483;
+    --wine:#b3556a;
+    --wine-soft:#c97a8c;
+    --sage:#7fa options;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    --radius: 16px;
+    --font-display: 'Fraunces', 'Cormorant Garamond', serif;
+    --font-body: 'Literata', Georgia, serif;
+    --font-size-base: 16px;
+  }
+
+  [data-theme="parchment"]{
+    --bg:#f3ead9;
+    --bg2:#ece0ca;
+    --panel:#fbf5e8;
+    --panel2:#f3e9d5;
+    --line:#d8c7a3;
+    --ink:#2c2416;
+    --ink-dim:#5a4d36;
+    --ink-faint:#8a7a58;
+    --gold:#9c6b26;
+    --gold-soft:#7a4f18;
+    --wine:#8a3a4a;
+    --wine-soft:#6e2c3a;
+    --shadow: 0 8px 24px rgba(60,45,20,0.12);
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{height:100%; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:var(--font-size-base);
+    line-height:1.65;
+    overscroll-behavior:none;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- APP SHELL ---------- */
+  .app{
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+    height:100dvh;
+    max-width:640px;
+    margin:0 auto;
+    background:
+      radial-gradient(ellipse at top, var(--bg2) 0%, var(--bg) 60%);
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* ---------- HEADER ---------- */
+  header.top{
+    flex:0 0 auto;
+    padding:14px 16px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg, var(--bg2), transparent);
+    z-index:5;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .compass{
+    width:34px; height:34px; flex:0 0 auto;
+    color:var(--gold);
+  }
+  .compass svg{ width:100%; height:100%; display:block; }
+  .compass .needle{
+    transform-origin:17px 17px;
+    animation: sway 6s ease-in-out infinite;
+  }
+  @keyframes sway{
+    0%,100%{ transform:rotate(-8deg); }
+    50%{ transform:rotate(8deg); }
+  }
+  .brand-text h1{
+    margin:0; font-family:var(--font-display); font-weight:700;
+    font-size:1.18rem; letter-spacing:0.2px; color:var(--ink);
+  }
+  .brand-text p{
+    margin:0; font-size:0.68rem; letter-spacing:1.4px; text-transform:uppercase;
+    color:var(--gold); font-weight:600;
+  }
+  .controls{ display:flex; gap:6px; align-items:center; }
+  .ctrl-btn{
+    width:32px; height:32px; border-radius:50%;
+    border:1px solid var(--line); background:var(--panel);
+    color:var(--ink-dim); font-size:0.85rem; font-family:var(--font-body);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .ctrl-btn:active{ transform:scale(0.92); }
+  .ctrl-btn.theme-btn{ font-size:1rem; }
+
+  /* ---------- PANELS ---------- */
+  .panels{ flex:1 1 auto; position:relative; overflow:hidden; }
+  .panel{
+    position:absolute; inset:0;
+    overflow-y:auto;
+    padding:18px 18px 100px;
+    opacity:0; visibility:hidden;
+    transform:translateY(6px);
+    transition:opacity .22s ease, transform .22s ease;
+  }
+  .panel.active{ opacity:1; visibility:visible; transform:translateY(0); }
+
+  .section-eyebrow{
+    font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;
+    color:var(--wine-soft); font-weight:700; margin:0 0 4px;
+  }
+  .section-title{
+    font-family:var(--font-display); font-weight:700;
+    font-size:1.5rem; margin:0 0 14px; color:var(--ink);
+    border-bottom:1px solid var(--line); padding-bottom:12px;
+  }
+
+  h3.sub{
+    font-family:var(--font-display); font-weight:600; font-size:1.15rem;
+    color:var(--gold-soft); margin:22px 0 8px;
+  }
+  h4.sub2{
+    font-family:var(--font-body); font-weight:600; font-size:1rem;
+    color:var(--ink); margin:16px 0 6px;
+  }
+  p{ margin:0 0 10px; color:var(--ink); }
+  .dim{ color:var(--ink-dim); }
+  strong{ color:var(--gold-soft); font-weight:700; }
+  em.q{ font-style:italic; color:var(--wine-soft); }
+
+  ul.bullets, ol.bullets{ margin:6px 0 14px; padding-left:20px; }
+  ul.bullets li, ol.bullets li{ margin-bottom:8px; padding-left:2px; }
+  ul.bullets{ list-style:none; padding-left:4px; }
+  ul.bullets li{ position:relative; padding-left:20px; }
+  ul.bullets li::before{
+    content:"❧"; position:absolute; left:0; top:1px; color:var(--wine-soft); font-size:0.85em;
+  }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px 16px 14px;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+  }
+  .card.tight{ padding:12px 14px; }
+
+  .seal{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--wine-soft), var(--wine) 70%);
+    color:#fff2e6; font-size:0.7rem; font-weight:700; font-family:var(--font-display);
+    margin-right:8px; flex:0 0 auto;
+  }
+  .poet-head{ display:flex; align-items:center; margin-bottom:6px; }
+  .poet-head .name{ font-family:var(--font-display); font-weight:700; font-size:1.08rem; color:var(--ink); }
+  .poet-head .years{ font-size:0.72rem; color:var(--ink-faint); margin-left:6px; }
+  .tag{
+    display:inline-block; font-size:0.68rem; letter-spacing:0.5px;
+    padding:2px 8px; border-radius:20px; border:1px solid var(--line);
+    color:var(--gold-soft); margin:0 6px 6px 0; text-transform:uppercase; font-weight:600;
+  }
+
+  .verse{
+    font-family:var(--font-display); font-style:italic; font-size:1.02rem;
+    color:var(--ink); border-left:2px solid var(--gold); padding-left:12px;
+    margin:10px 0; line-height:1.55;
+  }
+  .verse .src{ display:block; font-family:var(--font-body); font-style:normal; font-size:0.72rem; color:var(--ink-faint); margin-top:4px;}
+
+  details.qa{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    margin-bottom:14px; overflow:hidden;
+  }
+  details.qa summary{
+    list-style:none; cursor:pointer; padding:14px 16px;
+    display:flex; align-items:flex-start; gap:10px;
+    font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink);
+  }
+  details.qa summary::-webkit-details-marker{ display:none; }
+  details.qa summary::after{
+    content:"+"; margin-left:auto; font-size:1.3rem; color:var(--gold);
+    transition:transform .2s ease; line-height:1;
+  }
+  details.qa[open] summary::after{ transform:rotate(45deg); }
+  details.qa .qbody{ padding:0 16px 18px; border-top:1px solid var(--line); }
+  details.qa .qbody{ padding-top:12px; }
+  .qnum{
+    flex:0 0 auto; width:24px; height:24px; border-radius:50%;
+    background:var(--panel2); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-body); font-size:0.75rem; color:var(--gold); font-weight:700;
+  }
+
+  .marks-tag{
+    font-size:0.68rem; color:var(--wine-soft); border:1px solid var(--wine-soft);
+    padding:1px 7px; border-radius:20px; margin-left:8px; white-space:nowrap; align-self:center;
+  }
+
+  table.cmp{ width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:0.88rem; }
+  table.cmp th, table.cmp td{ border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  table.cmp th{ background:var(--panel2); color:var(--gold-soft); font-family:var(--font-body); font-weight:700; }
+
+  .divider{
+    display:flex; align-items:center; gap:10px; margin:22px 0 14px; color:var(--ink-faint);
+  }
+  .divider::before, .divider::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .divider span{ font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; }
+
+  /* ---------- BOTTOM TAB BAR ---------- */
+  nav.tabbar{
+    flex:0 0 auto;
+    display:flex;
+    border-top:1px solid var(--line);
+    background:var(--bg2);
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+    z-index:5;
+  }
+  .tab{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+    padding:6px 2px; border:none; background:none; cursor:pointer;
+    color:var(--ink-faint); font-family:var(--font-body);
+  }
+  .tab svg{ width:20px; height:20px; }
+  .tab .lbl{ font-size:0.62rem; letter-spacing:0.3px; }
+  .tab.active{ color:var(--gold); }
+  .tab.active svg{ stroke:var(--gold); }
+  .tab:active{ transform:scale(0.95); }
+
+  /* scrollbar */
+  .panel::-webkit-scrollbar{ width:5px; }
+  .panel::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+
+  .progress-note{
+    font-size:0.72rem; color:var(--ink-faint); text-align:center; margin:18px 0 4px;
+    font-style:italic;
+  }
+
+  .intro-hero{
+    text-align:center; padding:6px 0 18px;
+  }
+  .intro-hero .big{
+    font-family:var(--font-display); font-weight:700; font-size:1.65rem;
+    color:var(--ink); line-height:1.25; margin-bottom:6px;
+  }
+  .intro-hero .big .hl{ color:var(--gold); }
+  .intro-hero .sub{ font-size:0.9rem; color:var(--ink-dim); font-style:italic; }
+</style>
+</head>
+<body data-theme="ink">
+<div class="app">
+
+  <header class="top">
+    <div class="brand">
+      <span class="compass">
+        <svg viewBox="0 0 34 34" fill="none">
+          <circle cx="17" cy="17" r="15" stroke="currentColor" stroke-width="1.2" opacity="0.5"/>
+          <g class="needle">
+            <line x1="17" y1="17" x2="17" y2="4" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="17" y1="17" x2="9" y2="27" stroke="currentColor" stroke-width="1.6"/>
+          </g>
+          <circle cx="17" cy="17" r="2" fill="currentColor"/>
+        </svg>
+      </span>
+      <div class="brand-text">
+        <h1>Metaphysical Poetry</h1>
+        <p>UPPSC GIC Lecturer · Master Guide</p>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="ctrl-btn" id="fontDown" title="Smaller text">A−</button>
+      <button class="ctrl-btn" id="fontUp" title="Bigger text">A+</button>
+      <button class="ctrl-btn theme-btn" id="themeToggle" title="Toggle theme">☾</button>
+    </div>
+  </header>
+
+  <main class="panels">
+
+    <!-- PANEL 1: HOME / BASICS -->
+    <section class="panel active" id="panel-home">
+      <div class="intro-hero">
+        <div class="big">Two ideas fighting inside<br>one poem — <span class="hl">thought</span> and <span class="hl">feeling</span>.</div>
+        <div class="sub">That fight is what "Metaphysical Poetry" is really about.</div>
+      </div>
+
+      <p class="section-eyebrow">Start Here</p>
+      <h2 class="section-title">What Is Metaphysical Poetry?</h2>
+
+      <div class="card">
+        <h4 class="sub2">The word itself</h4>
+        <p>The word <strong>"metaphysical"</strong> normally means "beyond the physical" — that is, about deep questions like God, the soul, the universe, death, and the meaning of things. But when we say <strong>"Metaphysical Poetry"</strong>, we do not mean poems about philosophy only. We mean a <strong>style</strong> of writing poetry that was popular in <strong>England in the early 1600s</strong> (roughly 1600–1670), led by the poet <strong>John Donne</strong>.</p>
+        <p>In simple words: Metaphysical poetry is poetry that uses <strong>hard, clever, surprising comparisons</strong> to talk about very personal things — love, faith, death — mixing <strong>deep thinking</strong> with <strong>strong emotion</strong>, in a style that sounds like real, rough talking rather than smooth singing.</p>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">Where the name came from (very important for exam)</h4>
+        <ul class="bullets">
+          <li><strong>John Dryden</strong> (late 1600s) was the first to use a version of this idea. He said Donne <strong>"affects the metaphysics"</strong> in his love poems, and that Donne troubles the minds of women with hard philosophy when he should be touching their hearts. Dryden meant this as a <strong>criticism</strong> — too much brain, not enough heart.</li>
+          <li><strong>Dr. Samuel Johnson</strong> (1779), in his book <em>Lives of the Poets</em>, in the chapter called <strong>"Life of Cowley,"</strong> was the one who actually gave the group its lasting name: <strong>"the metaphysical poets."</strong> He grouped Donne, Cowley, and others together and criticised their style strongly (we study this in detail later).</li>
+          <li>So remember: <strong>Dryden gave the hint, Johnson gave the name.</strong></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">Where it fits in the timeline</h4>
+        <table class="cmp">
+          <tr><th>Period</th><th>Style</th></tr>
+          <tr><td>Elizabethan (1550s–1600)</td><td>Smooth, musical love poetry (Petrarchan sonnets), praising the beloved's beauty in conventional ways.</td></tr>
+          <tr><td><strong>Metaphysical (1600–1670s)</strong></td><td><strong>Rough, argumentative, intellectual poetry using strange comparisons (conceits).</strong></td></tr>
+          <tr><td>Neoclassical / Restoration (1660s onward)</td><td>Calm, balanced, reasonable poetry (Dryden, Pope) — a reaction against metaphysical "excess."</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">Why this topic is exam-important for you</h4>
+        <p>Look at your syllabus carefully:</p>
+        <ul class="bullets">
+          <li><strong>Section B</strong> directly names <strong>"Metaphysical Poetry"</strong> as a movement to be studied.</li>
+          <li><strong>Section C</strong> lists critics — <strong>Dryden, Dr. Johnson, T.S. Eliot</strong> — and all three of them wrote famous, exam-favourite things about Metaphysical poetry.</li>
+          <li>This means the examiner can easily connect Section B and Section C into <strong>one combined question</strong> — for example, "Discuss Metaphysical poetry in the light of Dr. Johnson's and T.S. Eliot's criticism." <strong>This is the single most likely type of question.</strong></li>
+        </ul>
+      </div>
+
+      <h3 class="sub">The 8 Core Characteristics (learn these by heart)</h3>
+
+      <div class="card">
+        <ol class="bullets">
+          <li><strong>The Conceit</strong> — a long, surprising, far-fetched comparison between two very unlike things (e.g., two lovers' souls compared to the two legs of a drawing compass). This is the single most famous feature.</li>
+          <li><strong>Argumentative structure</strong> — the poem often reads like a lawyer's argument or a logical proof, trying to "convince" someone (the beloved, God, or the reader) of a point.</li>
+          <li><strong>Colloquial, dramatic opening</strong> — poems often begin suddenly, like real speech, e.g., "For God's sake hold your tongue, and let me love" (Donne, <em>The Canonization</em>).</li>
+          <li><strong>Blend of thought and feeling</strong> — the poet does not just describe emotion, he <strong>thinks</strong> about it, argues about it, questions it.</li>
+          <li><strong>Wide-ranging imagery</strong> — comparisons are pulled from science, astronomy, maps, law, medicine, alchemy — not just from nature and flowers like earlier poets.</li>
+          <li><strong>Wit and paradox</strong> — clever, surprising twists of logic, e.g., Donne telling Death, "Death, thou shalt die."</li>
+          <li><strong>Rough, irregular rhythm</strong> — the metre is deliberately uneven, sounding like natural speech, not smooth song.</li>
+          <li><strong>Serious inner themes</strong> — love as a spiritual, almost religious union; the soul; mortality; the nature of God.</li>
+        </ol>
+      </div>
+      <p class="progress-note">Swipe through the tabs below — Poets, Devices, Critics, Questions, Answers.</p>
+    </section>
+
+    <!-- PANEL 2: POETS -->
+    <section class="panel" id="panel-poets">
+      <p class="section-eyebrow">Section A + B Link</p>
+      <h2 class="section-title">The Metaphysical Poets</h2>
+      <p class="dim">You do not need to memorise their full biographies. You need to know <strong>one signature idea</strong> and <strong>one example</strong> per poet, so you can drop their names naturally into any answer.</p>
+
+      <div class="card">
+        <div class="poet-head"><span class="seal">JD</span><span class="name">John Donne</span><span class="years">1572–1631</span></div>
+        <span class="tag">Leader of the school</span><span class="tag">Love + Religion</span>
+        <ul class="bullets">
+          <li>Started as a writer of witty, physical, sometimes shocking <strong>love poems</strong> (Songs and Sonnets) in his youth.</li>
+          <li>Later became a priest (Dean of St. Paul's Cathedral) and wrote intense <strong>religious poems</strong> (Holy Sonnets) about sin, death, and God.</li>
+          <li>Famous for the boldest conceits in the language — comparing lovers to a flea, to map-makers, to a compass.</li>
+        </ul>
+        <div class="verse">"If they be two, they are two so / As stiff twin compasses are two;<br>Thy soul, the fixed foot, makes no show / To move, but doth, if th' other do."
+          <span class="src">— A Valediction: Forbidding Mourning</span>
+        </div>
+        <div class="verse">"Death, be not proud, though some have called thee / Mighty and dreadful... / One short sleep past, we wake eternally, / And death shall be no more; Death, thou shalt die."
+          <span class="src">— Holy Sonnet X</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="poet-head"><span class="seal">GH</span><span class="name">George Herbert</span><span class="years">1593–1633</span></div>
+        <span class="tag">Devotional</span><span class="tag">Simplicity</span>
+        <ul class="bullets">
+          <li>A quiet country priest; his one great book is called <strong><em>The Temple</em></strong> — all religious poems.</li>
+          <li>Less showy than Donne — his conceits are simpler, gentler, drawn from everyday church life and domestic images.</li>
+          <li>Famous for <strong>"shape poems"</strong> (pattern poetry) — the poem's lines are arranged on the page to look like its subject, e.g., "Easter Wings" looks like two wings, "The Altar" looks like an altar.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="poet-head"><span class="seal">AM</span><span class="name">Andrew Marvell</span><span class="years">1621–1678</span></div>
+        <span class="tag">Carpe Diem</span><span class="tag">Political</span>
+        <ul class="bullets">
+          <li>Best known for <strong>"To His Coy Mistress"</strong> — a "carpe diem" (seize the day) poem urging a hesitant woman to love him now because time and death are near.</li>
+          <li>His imagery mixes classical myth, geography, and time itself.</li>
+          <li>Also wrote political and nature poetry — shows the metaphysical style was not only about religion or love.</li>
+        </ul>
+        <div class="verse">"But at my back I always hear / Time's wingèd chariot hurrying near..."
+          <span class="src">— To His Coy Mistress</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="poet-head"><span class="seal">HV</span><span class="name">Henry Vaughan</span><span class="years">1621–1695</span></div>
+        <span class="tag">Mystical</span><span class="tag">Nature + Soul</span>
+        <ul class="bullets">
+          <li>Deeply influenced by George Herbert; writes about childhood innocence, eternity, and the soul's memory of Heaven.</li>
+          <li>Famous line: "I saw Eternity the other night, / Like a great ring of pure and endless light" (from <em>The World</em>).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="poet-head"><span class="seal">RC</span><span class="name">Richard Crashaw</span><span class="years">1613–1649</span></div>
+        <span class="tag">Baroque</span><span class="tag">Catholic mysticism</span>
+        <ul class="bullets">
+          <li>The most <strong>ornate and emotional</strong> of all metaphysical poets — his imagery can feel excessive or "over the top."</li>
+          <li>Converted to Catholicism; wrote passionate religious poems about saints and Christ's suffering.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="poet-head"><span class="seal">AC</span><span class="name">Abraham Cowley</span><span class="years">1618–1667</span></div>
+        <span class="tag">Last of the school</span><span class="tag">Johnson's example</span>
+        <ul class="bullets">
+          <li>Very important for exams — Dr. Johnson's entire essay on the Metaphysical poets is titled <strong>"Life of Cowley,"</strong> so Cowley is the poet Johnson uses as his main example.</li>
+          <li>Considered more artificial and less naturally gifted than Donne; his conceits often feel forced.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PANEL 3: DEVICES -->
+    <section class="panel" id="panel-devices">
+      <p class="section-eyebrow">Poetic Technique</p>
+      <h2 class="section-title">Key Devices & Style</h2>
+      <p class="dim">These are the "tools" you must be able to <strong>name and explain with an example</strong> in any answer.</p>
+
+      <div class="card">
+        <h4 class="sub2">1. The Metaphysical Conceit</h4>
+        <p>A <strong>conceit</strong> is simply an <strong>extended comparison</strong> — but a metaphysical conceit is special because it compares two things that seem to have <strong>nothing in common at all</strong>, and then the poet <strong>argues, point by point,</strong> why the comparison actually works.</p>
+        <p><strong>Example:</strong> In <em>A Valediction: Forbidding Mourning</em>, Donne compares two separated lovers to the <strong>two legs of a drawing compass</strong>. This sounds strange for a love poem — but he explains: one leg (the woman) stays fixed in the centre while the other leg (the man) roams around; yet the fixed leg leans toward the moving leg and helps it complete a perfect circle. So even though they are apart, they remain connected and will meet again. The comparison, once explained, becomes moving and logical.</p>
+        <p><strong>Difference from an ordinary metaphor:</strong> A normal metaphor (e.g., "my love is a red rose") is comforting and expected. A metaphysical conceit is <strong>shocking at first</strong> and needs the poet to "argue" you into accepting it.</p>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">2. Argumentative / Logical Structure</h4>
+        <p>Metaphysical poems often move like a <strong>debate or a legal argument</strong>: "If this is true, then that must follow..." The poet is trying to <strong>persuade</strong> someone — often the poem sounds like it's proving a point using logic (almost like a scientific proof), not just describing a feeling.</p>
+        <p><strong>Example:</strong> In <em>The Flea</em>, Donne argues that since a flea has already bitten both him and his beloved and mixed their blood inside its body, they are already "married" in the flea — so she should not refuse him. It is a mock-logical, witty argument.</p>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">3. Colloquial, Dramatic Tone</h4>
+        <p>Instead of starting smoothly and musically like Elizabethan sonnets ("Shall I compare thee to a summer's day?"), metaphysical poems often <strong>burst in mid-conversation</strong>, sounding like real speech, sometimes rude or urgent.</p>
+        <div class="verse">"Busy old fool, unruly sun, / Why dost thou thus, / Through windows, and through curtains call on us?"
+          <span class="src">— Donne, The Sun Rising</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">4. Wit and Paradox</h4>
+        <p><strong>Wit</strong> here does not mean "jokes" — it means quick, clever intelligence that can find unexpected connections between ideas. A <strong>paradox</strong> is a statement that seems to contradict itself but contains a deeper truth.</p>
+        <p><strong>Example:</strong> "Death, thou shalt die" — Death is spoken to as if it were a living, proud person, and the poet claims Death itself will one day die (because after Judgment Day/resurrection, death will have no more power). The contradiction makes us think harder about the idea.</p>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">5. Learned / Scholastic Imagery</h4>
+        <p>Earlier poets took their images mostly from nature (flowers, birds, seasons). Metaphysical poets pulled images from <strong>science, astronomy, geography, law, medicine, and philosophy</strong> — subjects that were exciting and new in the 1600s (the age of Galileo and new world maps).</p>
+        <ul class="bullets">
+          <li>Donne compares his beloved's body to a "new-found-land" (geography/exploration).</li>
+          <li>Donne compares two lovers to a drawing compass (geometry/mathematics).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">6. Rough, Irregular Versification (Metre)</h4>
+        <p>The rhythm of metaphysical poems is often deliberately <strong>uneven and "rough"</strong> rather than smooth and musical, because the poets wanted their poems to sound like <strong>natural, thinking speech</strong> — a person talking or arguing — rather than a formal song.</p>
+      </div>
+    </section>
+
+    <!-- PANEL 4: CRITICS -->
+    <section class="panel" id="panel-critics">
+      <p class="section-eyebrow">Section C Link — This Is Gold For The Exam</p>
+      <h2 class="section-title">What The Critics Said</h2>
+      <p class="dim">This is the <strong>most important tab</strong> in the whole app. Notice that <strong>Dryden, Johnson, Coleridge,</strong> and <strong>T.S. Eliot</strong> — all named in your Section C — wrote directly about Metaphysical poetry. Learning this section alone can answer 70% of likely questions.</p>
+
+      <div class="card">
+        <h4 class="sub2">John Dryden (1631–1700)</h4>
+        <ul class="bullets">
+          <li>The <strong>first critic</strong> to comment on this style, before it even had the name "metaphysical."</li>
+          <li>He said Donne <strong>"affects the metaphysics"</strong> in his love poems and <strong>"perplexes the minds of the fair sex with nice speculations of philosophy,"</strong> when he should instead be <strong>"engaging their hearts."</strong></li>
+          <li><strong>In simple words:</strong> Dryden's complaint is that Donne uses too much brain-work (hard philosophical arguments) in poems that are supposed to be about the heart (love). Love poetry, Dryden felt, should move the emotions, not challenge the intellect.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">Dr. Samuel Johnson (1709–1784)</h4>
+        <ul class="bullets">
+          <li>In his essay <strong>"Life of Cowley"</strong> (from <em>Lives of the Poets</em>), Johnson <strong>officially named</strong> this group "the metaphysical poets" and gave the most famous definition ever written about them.</li>
+          <li>His key phrase: metaphysical wit is <strong>"a combination of dissimilar images, or discovery of occult resemblances in things apparently unlike."</strong> In simple words — finding hidden, surprising similarities between things that look completely different.</li>
+          <li>His most quoted line: <strong>"The most heterogeneous ideas are yoked by violence together"</strong> — meaning the poets forcefully joined together ideas that do not naturally belong together, like tying two unrelated animals with a rope.</li>
+          <li>Johnson called their special kind of cleverness <strong>"discordia concors"</strong> — a Latin phrase meaning <strong>"a harmony of things that disagree"</strong> — unlike things somehow made to fit together.</li>
+          <li><strong>Johnson's criticism (negative side):</strong>
+            <ul class="bullets">
+              <li>Their poetry shows off <strong>learning, not feeling</strong> — you admire their cleverness but you are not emotionally moved.</li>
+              <li>Their comparisons are often so far-fetched that the reader has to work hard just to understand the logic, losing the poetry's beauty.</li>
+              <li>He said "great labour is always expended... but the reader commonly thinks his improvement dearly bought" — meaning: too much effort for too little emotional reward.</li>
+            </ul>
+          </li>
+          <li><strong>Johnson's praise (positive side, often forgotten):</strong> He admitted their wit was <strong>real wit</strong> — he defined true wit as something <strong>"at once natural and new"</strong> — something that, once said, makes the reader feel, "Yes, I always felt this, but I never saw it expressed so well." He respected their intelligence even while criticising their excess.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">S. T. Coleridge (1772–1834)</h4>
+        <ul class="bullets">
+          <li>More sympathetic to Donne than Johnson was. Coleridge admired the sheer <strong>intellectual strength</strong> in Donne's poetry.</li>
+          <li>His famous witty remark: reading Donne's rough verse feels like you must <strong>"count the syllables on your fingers,"</strong> because the metre is so irregular — but he still admired the powerful thought packed inside.</li>
+          <li>He praised Donne for turning even the hardest, most "unpoetic" material (like iron) into something meaningful — often paraphrased as Donne being able to <strong>"wreathe iron pokers into true-love knots"</strong> — meaning he could bend the toughest, least romantic material into genuine expressions of love.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">Matthew Arnold (1822–1888)</h4>
+        <ul class="bullets">
+          <li>Arnold is not primarily a critic of the Metaphysicals, but he is useful as a <strong>contrast</strong>. Arnold valued poetry with <strong>"high seriousness,"</strong> clarity, and classical restraint (his "touchstone method" compares any poem to the greatest lines of Homer, Dante, Shakespeare, Milton).</li>
+          <li>By Arnold's standard, metaphysical poetry's love of strange wit and far-fetched conceits could look like a <strong>lack of classical dignity and simplicity</strong> — useful if a question asks you to judge metaphysical poetry by classical/Arnoldian standards.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 class="sub2">T. S. Eliot (1888–1965) — The 20th-Century Rescue</h4>
+        <ul class="bullets">
+          <li>Eliot's 1921 essay <strong>"The Metaphysical Poets"</strong> completely <strong>changed how the world saw this school</strong> — from "minor and flawed" (Johnson's view) to "one of the greatest achievements in English poetry."</li>
+          <li>His central idea: <strong>"Unification of Sensibility."</strong> Eliot said that in Donne's time, poets could <strong>feel their thought</strong> — thinking and feeling happened together, as one single act. Eliot's famous line: <strong>a thought, to Donne, was "an experience; it modified his sensibility"</strong> — meaning Donne could feel an idea the way we feel the smell of a rose or the sting of a knife. Thought and emotion were fused.</li>
+          <li>His second key idea: <strong>"Dissociation of Sensibility."</strong> Eliot argued that sometime after Donne (he blamed Milton and Dryden), English poetry <strong>split thinking and feeling apart</strong> — poets after that either thought clearly (but coldly) or felt strongly (but vaguely), and the two powers stopped working together as one.</li>
+          <li>Eliot praised the metaphysical poets for having minds that could <strong>"devour any kind of experience"</strong> and turn even science or philosophy into feeling — which is exactly why Eliot, writing modern poetry in a complex modern world, wanted poets to return to this style.</li>
+          <li>Eliot's other famous statement: modern poets, living in a complex civilisation, <strong>"must be difficult"</strong> — poetry <strong>"must be more comprehensive, more allusive, more indirect"</strong> to reflect the complicated modern mind — and metaphysical poetry was his model for this.</li>
+        </ul>
+      </div>
+
+      <div class="divider"><span>Quick Contrast Table</span></div>
+
+      <div class="card tight">
+        <table class="cmp">
+          <tr><th>Critic</th><th>View in one line</th></tr>
+          <tr><td>Dryden</td><td>Too much philosophy, not enough heart, in love poetry.</td></tr>
+          <tr><td>Johnson</td><td>Clever but unnatural; "heterogeneous ideas yoked by violence."</td></tr>
+          <tr><td>Coleridge</td><td>Rough in metre, but powerful and genuine in thought.</td></tr>
+          <tr><td>Arnold</td><td>Judged by classical "high seriousness," it can seem to lack restraint.</td></tr>
+          <tr><td>Eliot</td><td>Their greatness: thought and feeling fused as one ("unification of sensibility").</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- PANEL 5: EXPECTED QUESTIONS -->
+    <section class="panel" id="panel-expected">
+      <p class="section-eyebrow">Exam Strategy</p>
+      <h2 class="section-title">Expected Descriptive Questions</h2>
+      <p class="dim">Based on how Section B ("Metaphysical Poetry") and Section C (the critics Dryden, Johnson, Coleridge, Arnold, Eliot) connect, these are the descriptive questions most likely to appear. They are grouped by type.</p>
+
+      <h3 class="sub">Group 1 — Definition & Characteristics</h3>
+      <div class="card">
+        <ul class="bullets">
+          <li>What do you understand by "Metaphysical Poetry"? Discuss its chief characteristics.</li>
+          <li>Discuss the origin and meaning of the term "Metaphysical Poetry."</li>
+          <li>What is a metaphysical conceit? Explain with suitable examples.</li>
+        </ul>
+      </div>
+
+      <h3 class="sub">Group 2 — Criticism-based (highest probability)</h3>
+      <div class="card">
+        <ul class="bullets">
+          <li>Discuss Dr. Johnson's assessment of the Metaphysical poets in his "Life of Cowley."</li>
+          <li>"The most heterogeneous ideas are yoked by violence together" — Explain this statement of Dr. Johnson with reference to Metaphysical poetry.</li>
+          <li>Discuss T.S. Eliot's concept of "Unification of Sensibility" in relation to Metaphysical poetry.</li>
+          <li>Compare Dr. Johnson's and T.S. Eliot's estimates of the Metaphysical poets.</li>
+          <li>How did T.S. Eliot's essay change the reputation of the Metaphysical poets?</li>
+        </ul>
+      </div>
+
+      <h3 class="sub">Group 3 — Poet-specific</h3>
+      <div class="card">
+        <ul class="bullets">
+          <li>Discuss John Donne as a representative Metaphysical poet.</li>
+          <li>Write a note on Donne's use of conceits with examples from his poems.</li>
+          <li>Bring out the difference between Donne's love poetry and his religious poetry.</li>
+        </ul>
+      </div>
+
+      <h3 class="sub">Group 4 — Comparative / Evaluative</h3>
+      <div class="card">
+        <ul class="bullets">
+          <li>Compare Metaphysical poetry with Elizabethan (Petrarchan) love poetry.</li>
+          <li>"Metaphysical poetry is a blend of passion and thought." Discuss.</li>
+          <li>Is Metaphysical poetry more intellectual than emotional? Give your reasoned opinion.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-color:var(--gold);">
+        <h4 class="sub2">💡 Examiner's likely favourite (combined question)</h4>
+        <p><em class="q">"Metaphysical poetry has been condemned by Dr. Johnson and defended by T.S. Eliot. Discuss with reference to its characteristics."</em></p>
+        <p class="dim">This single question can absorb almost everything you have learned in this app — definition, conceit, Johnson's criticism, Eliot's defence. Prepare this one thoroughly; see the Model Answers tab.</p>
+      </div>
+    </section>
+
+    <!-- PANEL 6: MODEL ANSWERS -->
+    <section class="panel" id="panel-answers">
+      <p class="section-eyebrow">Write Like This In The Exam</p>
+      <h2 class="section-title">Model Answers</h2>
+      <p class="dim">Each answer follows the ideal descriptive structure: <strong>Introduction → Body (points) → Conclusion.</strong> Read them to learn the <em>pattern</em> of answer-writing, not just to copy the words.</p>
+
+      <details class="qa" open>
+        <summary><span class="qnum">1</span><span>What is Metaphysical Poetry? Discuss its main characteristics.<span class="marks-tag">Core</span></span></summary>
+        <div class="qbody">
+          <p><strong>Introduction:</strong> Metaphysical poetry refers to a style of English poetry written mainly in the first half of the seventeenth century, led by John Donne and followed by poets like George Herbert, Andrew Marvell, Henry Vaughan, and Abraham Cowley. The name was given later by Dr. Samuel Johnson in his essay "Life of Cowley" (1779), though John Dryden had earlier remarked that Donne "affects the metaphysics" in his poems. The term does not mean the poetry is only about philosophy — rather, it describes a poetry that fuses deep intellectual argument with intense personal feeling.</p>
+          <p><strong>Body — Main Characteristics:</strong></p>
+          <ul class="bullets">
+            <li><strong>The conceit:</strong> a far-fetched, surprising comparison worked out in careful, logical detail — for example, Donne compares two separated lovers to the two legs of a drawing compass in "A Valediction: Forbidding Mourning."</li>
+            <li><strong>Argumentative structure:</strong> the poems often read like a logical argument or debate, trying to persuade the reader or the beloved, as in Donne's "The Flea."</li>
+            <li><strong>Colloquial and dramatic tone:</strong> poems often open abruptly, as if in the middle of real speech — "For God's sake hold your tongue, and let me love."</li>
+            <li><strong>Union of thought and passion:</strong> the poet does not simply describe emotion but thinks about it, questions it, argues with it — feeling and intellect work together.</li>
+            <li><strong>Learned imagery:</strong> images are drawn from science, geography, law, and philosophy rather than only from nature.</li>
+            <li><strong>Wit and paradox:</strong> clever, unexpected turns of thought, such as Donne's "Death, thou shalt die."</li>
+            <li><strong>Rough versification:</strong> the metre is often deliberately uneven, to sound like natural, thinking speech.</li>
+          </ul>
+          <p><strong>Conclusion:</strong> Metaphysical poetry, therefore, is best understood not as poetry about metaphysics, but as a poetry of "wit" in the true sense — a poetry where the mind and the heart argue and unite at once. It broke away from the smooth, musical conventions of Elizabethan verse and, through the later reassessment of T.S. Eliot, came to be seen as one of the richest and most intellectually alive traditions in English poetry.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary><span class="qnum">2</span><span>Discuss Dr. Johnson's criticism of the Metaphysical poets in "Life of Cowley."<span class="marks-tag">Core</span></span></summary>
+        <div class="qbody">
+          <p><strong>Introduction:</strong> Dr. Samuel Johnson's essay "Life of Cowley," part of his larger work <em>Lives of the Poets</em> (1779), gave this group of poets their permanent name — "the metaphysical poets" — and offered the most influential early criticism of their style, using Abraham Cowley as his central example.</p>
+          <p><strong>Body:</strong></p>
+          <ul class="bullets">
+            <li>Johnson defined their special quality as a kind of wit built on <strong>"discordia concors"</strong> — a harmony of discordant, unlike things — and famously wrote that in their poetry <strong>"the most heterogeneous ideas are yoked by violence together."</strong> In simple words, they forced together ideas that had no natural connection.</li>
+            <li>He defined true wit as something <strong>"natural and new"</strong> — a thought that feels both fresh and instantly true once read. He admitted the metaphysical poets had this kind of cleverness.</li>
+            <li>However, his overall judgement was largely negative: he felt their poetry showed off <strong>learning rather than genuine feeling.</strong> He wrote that great effort was spent by the poet, but the reader's "improvement" (pleasure or insight gained) was <strong>"dearly bought"</strong> — meaning too much labour was needed to enjoy too little real emotion.</li>
+            <li>He criticised their conceits as often <strong>far-fetched and unnatural</strong>, appealing to the intellect but failing to move the heart, unlike poetry that flows naturally from real passion.</li>
+          </ul>
+          <p><strong>Conclusion:</strong> Johnson's criticism, written from a Neoclassical point of view that valued clarity, order, and natural expression, saw metaphysical wit as clever but excessive — admirable as intellectual display, but often failing as genuine poetry of the heart. This view stood almost unchallenged for over a century, until T.S. Eliot's essay of 1921 reversed the judgement in the poets' favour.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary><span class="qnum">3</span><span>Discuss T.S. Eliot's "Unification of Sensibility" and his defence of Metaphysical poetry.<span class="marks-tag">Core</span></span></summary>
+        <div class="qbody">
+          <p><strong>Introduction:</strong> In his 1921 essay "The Metaphysical Poets," T.S. Eliot rescued this school of poetry from nearly two centuries of neglect and low regard following Dr. Johnson's criticism. Eliot argued that far from being a minor, flawed style, metaphysical poetry represented one of the finest achievements of the English mind.</p>
+          <p><strong>Body:</strong></p>
+          <ul class="bullets">
+            <li><strong>Unification of Sensibility:</strong> Eliot's key claim is that in Donne's era, a poet's thought and feeling were not separate activities — they happened as one single experience. A thought, for Donne, was felt as directly and immediately as the fragrance of a rose or the pain of a wound; thinking and feeling were "unified."</li>
+            <li><strong>Dissociation of Sensibility:</strong> Eliot believed that after this period — largely due to the influence of Milton and Dryden — English poets began to separate thought from feeling. Later poets either reasoned clearly without deep feeling, or felt strongly without clear thought; the two powers no longer worked as one mind.</li>
+            <li><strong>Why this made metaphysical poetry valuable to Eliot:</strong> He praised their minds for being able to "devour any kind of experience" — turning even scientific or philosophical ideas into felt experience — which he considered the mark of true poetic intelligence.</li>
+            <li><strong>Relevance to modern poetry:</strong> Eliot argued that modern poets, living in a far more complex civilisation, needed poetry that was similarly "difficult" — "more comprehensive, more allusive, more indirect" — making metaphysical poetry a model for 20th-century Modernist writing, including his own.</li>
+          </ul>
+          <p><strong>Conclusion:</strong> Eliot's essay completely reversed Dr. Johnson's negative verdict. Where Johnson saw forced, artificial wit, Eliot saw a mind capable of true unity between thought and emotion — a unity later English poetry lost. This reassessment is the single biggest reason Metaphysical poetry is now considered a central, celebrated part of English literary history.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary><span class="qnum">4</span><span>"Metaphysical poetry is a blend of passion and thought." Discuss.<span class="marks-tag">Analytical</span></span></summary>
+        <div class="qbody">
+          <p><strong>Introduction:</strong> This statement captures the very essence of Metaphysical poetry — that it does not simply express emotion (like most love poetry before it), nor does it merely display cold logic; instead, it fuses deep, genuine feeling with sharp intellectual argument into a single poetic experience.</p>
+          <p><strong>Body:</strong></p>
+          <ul class="bullets">
+            <li>In ordinary love poetry (like Elizabethan sonnets), the poet simply <strong>praises or expresses</strong> feeling. In metaphysical poetry, the poet <strong>argues about</strong> the feeling — questioning it, defending it, proving it — as Donne does across "The Flea" and "A Valediction: Forbidding Mourning."</li>
+            <li>The <strong>conceit</strong> is the main tool for this blend: an intellectual, almost scientific comparison (compass, flea, map) is used to express something emotional (love, loyalty, parting).</li>
+            <li>Even the <strong>religious poems</strong> show this same blend — in Holy Sonnet X ("Death, be not proud"), Donne uses logical argument (death is only a short sleep before eternal waking) to overcome the emotional fear of death.</li>
+            <li>T.S. Eliot's idea of "unification of sensibility" directly supports this statement — he said a thought, for these poets, was "an experience" that "modified" their feeling, meaning thought and passion were never separate.</li>
+          </ul>
+          <p><strong>Conclusion:</strong> Metaphysical poetry, therefore, is best described as a poetry where the head and the heart do not take turns but work together at the same moment — making it one of the most intellectually rich and emotionally honest traditions in English literature.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary><span class="qnum">5</span><span>Compare Metaphysical poetry with Elizabethan (Petrarchan) love poetry.<span class="marks-tag">Comparative</span></span></summary>
+        <div class="qbody">
+          <p><strong>Introduction:</strong> Elizabethan love poetry (following the Italian poet Petrarch's tradition) and Metaphysical love poetry both deal with love, but they treat it in almost opposite ways — one smooth and idealising, the other rough and questioning.</p>
+          <table class="cmp">
+            <tr><th>Elizabethan / Petrarchan</th><th>Metaphysical</th></tr>
+            <tr><td>Smooth, musical, songlike metre</td><td>Rough, irregular, speech-like metre</td></tr>
+            <tr><td>Beloved idealised as perfect, distant, goddess-like</td><td>Beloved treated as a real, physical, sometimes argued-with person</td></tr>
+            <tr><td>Conventional images: roses, stars, summer's day</td><td>Unusual images: compasses, fleas, maps, scientific ideas</td></tr>
+            <tr><td>Poem simply expresses feeling</td><td>Poem argues and reasons about the feeling</td></tr>
+            <tr><td>Calm, formal opening lines</td><td>Sudden, dramatic, colloquial opening lines</td></tr>
+          </table>
+          <p><strong>Conclusion:</strong> The shift from Elizabethan to Metaphysical love poetry represents a shift from <strong>idealising love from a distance</strong> to <strong>examining love up close, with intellect and argument</strong> — making Metaphysical poetry feel more modern, personal, and psychologically real, even though it can sometimes feel less "beautiful" in the traditional musical sense.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary><span class="qnum">6</span><span>Discuss John Donne as a representative Metaphysical poet, with reference to his conceits.<span class="marks-tag">Poet-focused</span></span></summary>
+        <div class="qbody">
+          <p><strong>Introduction:</strong> John Donne (1572–1631) is considered the founder and greatest representative of Metaphysical poetry. His work is usually divided into two phases: his early, witty, sometimes physical love poems (Songs and Sonnets), and his later, intense religious poems (Holy Sonnets), written after he became a priest.</p>
+          <p><strong>Body:</strong></p>
+          <ul class="bullets">
+            <li>Donne's love poems show his boldest conceits: in "The Flea," he argues that a flea which has bitten both lovers has already "married" their blood inside it; in "A Valediction: Forbidding Mourning," he compares two parting lovers to the two legs of a drawing compass, showing how they remain joined even while physically apart.</li>
+            <li>His poems often open with sudden, dramatic, conversational lines, as though we are hearing one side of a live argument — for example, "Busy old fool, unruly sun" (The Sun Rising).</li>
+            <li>In his religious phase, the same argumentative wit is turned toward God and death — in "Death, be not proud," he personifies Death as a proud figure and logically dismantles its power, ending with the paradox "death, thou shalt die."</li>
+            <li>Across both phases, Donne's hallmark is combining <strong>intense personal feeling</strong> with <strong>rigorous, almost legal argument</strong> — exactly the quality Eliot later praised as "unification of sensibility."</li>
+          </ul>
+          <p><strong>Conclusion:</strong> Donne's genius lies in making the reader feel the force of an idea as strongly as an emotion. This is why, despite Dr. Johnson's criticism of the school as a whole, Donne himself is now regarded as one of the greatest and most original voices in English poetry.</p>
+        </div>
+      </details>
+
+      <div class="divider"><span>Exam-Day Reminder</span></div>
+      <div class="card tight">
+        <p class="dim">In the exam, always structure your answer as <strong>Introduction → 4 to 6 clear points with examples → Conclusion</strong>. Always try to bring in <strong>at least one critic's name</strong> (Johnson or Eliot) even in poet-focused questions — examiners reward this connection between Section B and Section C.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab active" data-target="panel-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>
+      <span class="lbl">Basics</span>
+    </button>
+    <button class="tab" data-target="panel-poets">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg>
+      <span class="lbl">Poets</span>
+    </button>
+    <button class="tab" data-target="panel-devices">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19l6-14 6 14M7 14h6"/><path d="M17 6l3 3-3 3"/></svg>
+      <span class="lbl">Devices</span>
+    </button>
+    <button class="tab" data-target="panel-critics">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 11v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5"/></svg>
+      <span class="lbl">Critics</span>
+    </button>
+    <button class="tab" data-target="panel-expected">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v5l3 2"/></svg>
+      <span class="lbl">Questions</span>
+    </button>
+    <button class="tab" data-target="panel-answers">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h14v13l-4 3-3-2-3 2-4-3z"/><path d="M8 8h8M8 11h5"/></svg>
+      <span class="lbl">Answers</span>
+    </button>
+  </nav>
+
+</div>
+
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.target).classList.add('active');
+      document.getElementById(tab.dataset.target).scrollTop = 0;
+    });
+  });
+
+  // Font size control
+  const root = document.documentElement;
+  let fontStep = parseInt(localStorage.getItem('mp_fontStep') || '0', 10);
+  const sizes = [14, 16, 18, 20];
+  function clampStep(){ fontStep = Math.max(0, Math.min(sizes.length - 1, fontStep)); }
+  function applyFont(){
+    clampStep();
+    document.body.style.fontSize = sizes[fontStep] + 'px';
+    localStorage.setItem('mp_fontStep', fontStep);
+  }
+  document.getElementById('fontUp').addEventListener('click', () => { fontStep++; applyFont(); });
+  document.getElementById('fontDown').addEventListener('click', () => { fontStep--; applyFont(); });
+  fontStep = sizes.indexOf(16) >= 0 && !localStorage.getItem('mp_fontStep') ? 1 : fontStep;
+  applyFont();
+
+  // Theme toggle
+  const themeBtn = document.getElementById('themeToggle');
+  let theme = localStorage.getItem('mp_theme') || 'ink';
+  function applyTheme(){
+    document.body.setAttribute('data-theme', theme);
+    themeBtn.textContent = theme === 'ink' ? '☾' : '☀';
+    localStorage.setItem('mp_theme', theme);
+  }
+  themeBtn.addEventListener('click', () => {
+    theme = theme === 'ink' ? 'parchment' : 'ink';
+    applyTheme();
+  });
+  applyTheme();
+</script>
+</body>
+</html>

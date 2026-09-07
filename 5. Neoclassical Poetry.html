@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Neo-Classical Poetry | UP GIC English Lecturer Mains</title>
+<style>
+  :root {
+    --primary: #1a365d;
+    --accent: #2b6cb0;
+    --light: #ebf8ff;
+    --bg: #f7fafc;
+    --text: #2d3748;
+    --border: #cbd5e0;
+    --success: #276749;
+    --warning: #c05621;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 16px;
+    padding-bottom: 80px;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 1.2rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  header h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  header p {
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 72px;
+    z-index: 99;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-tabs button {
+    flex: 0 0 auto;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+  .nav-tabs button.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  section.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    font-size: 1.35rem;
+    color: var(--primary);
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--accent);
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin: 1.25rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    color: var(--success);
+    margin: 1rem 0 0.4rem;
+  }
+  p { margin-bottom: 0.85rem; }
+  ul, ol {
+    margin: 0.5rem 0 1rem 1.25rem;
+  }
+  li { margin-bottom: 0.4rem; }
+  strong { color: var(--primary); }
+  .box {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-left: 4px solid var(--accent);
+  }
+  .box.tip {
+    border-left-color: var(--success);
+    background: #f0fff4;
+  }
+  .box.warn {
+    border-left-color: var(--warning);
+    background: #fffaf0;
+  }
+  .box.exam {
+    border-left-color: #805ad5;
+    background: #faf5ff;
+  }
+  .highlight {
+    background: #fefcbf;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  th, td {
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+  }
+  tr:nth-child(even) { background: #f7fafc; }
+  .q-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+  }
+  .q-card h4 {
+    color: var(--primary);
+    margin-top: 0;
+  }
+  .answer-btn {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.9rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .answer {
+    display: none;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border);
+  }
+  .answer.show { display: block; }
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.8rem;
+    color: #718096;
+  }
+  .toc {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .toc a {
+    display: block;
+    padding: 0.4rem 0;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .toc a:hover { text-decoration: underline; }
+  @media (min-width: 600px) {
+    header h1 { font-size: 1.5rem; }
+    .container { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Neo-Classical Poetry</h1>
+  <p>UP GIC English Lecturer Mains • Master Study Material</p>
+</header>
+
+<nav class="nav-tabs" id="navTabs">
+  <button class="active" data-tab="intro">Introduction</button>
+  <button data-tab="features">Features</button>
+  <button data-tab="dryden">Dryden</button>
+  <button data-tab="pope">Pope</button>
+  <button data-tab="forms">Forms</button>
+  <button data-tab="compare">Compare</button>
+  <button data-tab="questions">Exam Qs</button>
+  <button data-tab="answers">Model Answers</button>
+</nav>
+
+<div class="container">
+
+<!-- ==================== INTRODUCTION ==================== -->
+<section id="intro" class="active">
+  <h2>1. What is Neo-Classical Poetry?</h2>
+  
+  <div class="box">
+    <p><strong>Simple idea first:</strong> Neo-Classical poetry means “new classical” poetry. The poets of the late 17th and 18th centuries looked back to the great writers of ancient Greece and Rome (Homer, Virgil, Horace, Ovid) and tried to write in the same orderly, reasonable and polished way.</p>
+  </div>
+
+  <h3>Time Period</h3>
+  <ul>
+    <li><strong>Roughly 1660 to 1798</strong> (from the Restoration of Charles II to the beginning of the Romantic Age).</li>
+    <li>Often divided into three parts:
+      <ul>
+        <li><strong>Restoration Age</strong> (1660–1700) – John Dryden is the main figure.</li>
+        <li><strong>Augustan Age</strong> (1700–1745) – Alexander Pope is the main figure.</li>
+        <li><strong>Age of Johnson</strong> (1745–1798) – Samuel Johnson dominates, but poetry is less important than prose.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Why “Neo-Classical”?</h3>
+  <p>The word “neo” means new. These poets did not invent a completely new style. They revived the rules and ideals of classical (ancient Greek and Roman) literature and applied them to English poetry.</p>
+  <p>They believed that good literature must follow <strong>reason, order, balance and decorum</strong> (proper behaviour in writing).</p>
+
+  <h3>Historical Background (Very Important for Mains)</h3>
+  <ul>
+    <li>After the English Civil War and the Puritan rule of Cromwell, the monarchy returned in 1660 (Restoration).</li>
+    <li>People were tired of religious extremes and emotional excess. They wanted <strong>stability, reason and good manners</strong>.</li>
+    <li>Science and philosophy (Newton, Locke) taught people to trust reason and observation.</li>
+    <li>Coffee-houses and clubs became centres of discussion. Literature became a social activity.</li>
+    <li>The middle class was rising. Writers wrote for a wider audience who expected clarity and moral instruction.</li>
+  </ul>
+
+  <div class="box tip">
+    <strong>Exam Tip:</strong> Always link the poetry to the social need for order after political chaos. Examiners love this connection.
+  </div>
+
+  <h3>Main Aims of Neo-Classical Poets</h3>
+  <ul>
+    <li>To instruct (teach moral lessons) and to delight (give pleasure).</li>
+    <li>To correct the manners of society through satire.</li>
+    <li>To write clear, elegant, and balanced poetry.</li>
+    <li>To follow classical rules of unity, proportion and decorum.</li>
+  </ul>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section id="features">
+  <h2>2. Chief Characteristics of Neo-Classical Poetry</h2>
+  <p>Write these points in any descriptive answer. They form the backbone of every question on this topic.</p>
+
+  <h3>1. Reason and Good Sense</h3>
+  <ul>
+    <li>Emotion is controlled by reason. Wild passion is considered dangerous.</li>
+    <li>Poetry should appeal to the intellect more than to the heart.</li>
+    <li>Pope’s famous line: “True Wit is Nature to advantage dress’d.”</li>
+  </ul>
+
+  <h3>2. Order, Balance and Decorum</h3>
+  <ul>
+    <li>Everything must be in proper place and proportion.</li>
+    <li>Poets avoided extremes. They preferred the “golden mean”.</li>
+    <li>Language must be refined and suitable to the subject (decorum).</li>
+  </ul>
+
+  <h3>3. Imitation of the Classics</h3>
+  <ul>
+    <li>They studied Homer, Virgil, Horace and Aristotle carefully.</li>
+    <li>They believed the ancients had already discovered the best rules of writing.</li>
+    <li>A good poet should “imitate” nature as the ancients saw it, not invent new wild forms.</li>
+  </ul>
+
+  <h3>4. The Heroic Couplet</h3>
+  <ul>
+    <li>Almost all major poems are written in <strong>heroic couplets</strong> – pairs of rhyming lines in iambic pentameter.</li>
+    <li>Example: “A little learning is a dangerous thing; / Drink deep, or taste not the Pierian spring.” (Pope)</li>
+    <li>The couplet gives a sense of neatness, balance and finality.</li>
+  </ul>
+
+  <h3>5. Satire and Social Criticism</h3>
+  <ul>
+    <li>The age is famous for satire – the art of ridiculing human follies and vices.</li>
+    <li>Dryden and Pope used satire to attack political enemies, bad writers and social pretensions.</li>
+    <li>Satire was meant to reform society, not merely to insult.</li>
+  </ul>
+
+  <h3>6. Didactic Purpose (Teaching Aim)</h3>
+  <ul>
+    <li>Poetry should teach moral and social lessons.</li>
+    <li>Pope’s <em>Essay on Man</em> and <em>Essay on Criticism</em> are pure didactic poems.</li>
+  </ul>
+
+  <h3>7. Clarity, Precision and Polish</h3>
+  <ul>
+    <li>Language is clear, exact and carefully polished.</li>
+    <li>No rough or obscure expressions. Every word is chosen with care.</li>
+    <li>This is why the age is also called the Age of Prose and Reason – even poetry sounds like elegant prose.</li>
+  </ul>
+
+  <h3>8. Urban and Social Themes</h3>
+  <ul>
+    <li>Nature is not the wild countryside of the Romantics. It is ordered parks, city life, drawing-rooms and coffee-houses.</li>
+    <li>Subjects: manners, politics, literary quarrels, human nature in society.</li>
+  </ul>
+
+  <h3>9. Types of Poetry Popular in the Age</h3>
+  <ul>
+    <li>Satirical poetry</li>
+    <li>Mock-epic (or mock-heroic)</li>
+    <li>Didactic and philosophical verse</li>
+    <li>Occasional verse (poems written for special events)</li>
+    <li>Epistles (verse letters)</li>
+  </ul>
+
+  <div class="box exam">
+    <strong>How to use in answers:</strong> Start with 4–5 of these characteristics, then illustrate each with an example from Dryden or Pope. This structure scores high marks.
+  </div>
+</section>
+
+<!-- ==================== DRYDEN ==================== -->
+<section id="dryden">
+  <h2>3. John Dryden (1631–1700)</h2>
+  <p><strong>Why he is important:</strong> Dryden is the greatest literary figure of the Restoration Age. He is called the <strong>Father of English Criticism</strong> and the first major Neo-Classical poet.</p>
+
+  <h3>Life in Brief</h3>
+  <ul>
+    <li>Born in 1631 in Northamptonshire.</li>
+    <li>Educated at Westminster School and Trinity College, Cambridge.</li>
+    <li>Lived through the Civil War, Commonwealth, Restoration, and the Glorious Revolution.</li>
+    <li>Became Poet Laureate in 1668.</li>
+    <li>Converted to Catholicism later in life and lost official positions after 1688.</li>
+    <li>Died in 1700. Buried in Westminster Abbey.</li>
+  </ul>
+
+  <h3>Major Poetical Works</h3>
+  <table>
+    <tr><th>Work</th><th>Year</th><th>Type / Importance</th></tr>
+    <tr><td>Astraea Redux</td><td>1660</td><td>Celebrates the return of Charles II</td></tr>
+    <tr><td>Annus Mirabilis</td><td>1667</td><td>Poem on the Great Fire and Dutch War</td></tr>
+    <tr><td>Absalom and Achitophel</td><td>1681</td><td>Political satire (masterpiece)</td></tr>
+    <tr><td>Mac Flecknoe</td><td>1682</td><td>Personal satire on Thomas Shadwell</td></tr>
+    <tr><td>Religio Laici</td><td>1682</td><td>Defence of Anglican faith</td></tr>
+    <tr><td>The Hind and the Panther</td><td>1687</td><td>Allegory defending Catholicism</td></tr>
+  </table>
+
+  <h3>Absalom and Achitophel – The Greatest Political Satire</h3>
+  <ul>
+    <li>Written in 1681 during the Exclusion Crisis (attempt to exclude the Catholic Duke of York from the throne).</li>
+    <li>Dryden uses the Biblical story of Absalom’s rebellion against King David.</li>
+    <li><strong>David</strong> = Charles II<br>
+        <strong>Absalom</strong> = Duke of Monmouth (illegitimate son of Charles)<br>
+        <strong>Achitophel</strong> = Earl of Shaftesbury (leader of the opposition)</li>
+    <li>Dryden praises the King and attacks the Whig leaders with brilliant wit.</li>
+    <li>The poem is written in heroic couplets and shows perfect control of language and argument.</li>
+  </ul>
+
+  <h3>Mac Flecknoe</h3>
+  <ul>
+    <li>A short, sharp personal satire.</li>
+    <li>Thomas Shadwell is shown as the dull heir of the kingdom of nonsense.</li>
+    <li>Famous for its mock-coronation scene and witty insults.</li>
+  </ul>
+
+  <h3>Dryden’s Contribution to Neo-Classical Poetry</h3>
+  <ul>
+    <li>He perfected the <strong>heroic couplet</strong> and made it the standard metre of the age.</li>
+    <li>He raised English satire to a high artistic level.</li>
+    <li>He combined political intelligence with poetic skill.</li>
+    <li>His critical writings (especially <em>An Essay of Dramatic Poesy</em>) laid the foundation of Neo-Classical critical theory.</li>
+    <li>He showed that poetry can deal with contemporary politics and still remain literature of permanent value.</li>
+  </ul>
+
+  <div class="box tip">
+    <strong>Key line to remember:</strong> “Great wits are sure to madness near allied, / And thin partitions do their bounds divide.” (Absalom and Achitophel)
+  </div>
+</section>
+
+<!-- ==================== POPE ==================== -->
+<section id="pope">
+  <h2>4. Alexander Pope (1688–1744)</h2>
+  <p><strong>Why he is important:</strong> Pope is the supreme poet of the Augustan Age. He is the master of the heroic couplet and of polished, pointed satire. His poetry is the purest expression of Neo-Classical ideals.</p>
+
+  <h3>Life in Brief</h3>
+  <ul>
+    <li>Born in London in 1688 to a Catholic family.</li>
+    <li>Suffered from a spinal disease (Pott’s disease) that left him deformed and only about 4 feet 6 inches tall.</li>
+    <li>Because he was Catholic, he could not attend university or hold public office.</li>
+    <li>Educated mostly at home. He was a brilliant self-taught scholar of Latin and Greek.</li>
+    <li>Lived most of his adult life at Twickenham, near London.</li>
+    <li>Died in 1744.</li>
+  </ul>
+
+  <h3>Major Poetical Works</h3>
+  <table>
+    <tr><th>Work</th><th>Year</th><th>Type / Importance</th></tr>
+    <tr><td>Pastorals</td><td>1709</td><td>Early nature poems in classical style</td></tr>
+    <tr><td>An Essay on Criticism</td><td>1711</td><td>Rules of good writing and criticism</td></tr>
+    <tr><td>The Rape of the Lock</td><td>1712/1714</td><td>Mock-epic masterpiece</td></tr>
+    <tr><td>Windsor Forest</td><td>1713</td><td>Descriptive and political poem</td></tr>
+    <tr><td>Translation of Homer</td><td>1715–26</td><td>Made him rich and famous</td></tr>
+    <tr><td>The Dunciad</td><td>1728/1743</td><td>Satire on dull writers</td></tr>
+    <tr><td>An Essay on Man</td><td>1733–34</td><td>Philosophical poem on human nature</td></tr>
+    <tr><td>Moral Essays &amp; Epistles</td><td>1731–35</td><td>Social and moral satire</td></tr>
+  </table>
+
+  <h3>The Rape of the Lock – Detailed Study</h3>
+  <p>This is the most important single poem for the exam. You must know it thoroughly.</p>
+
+  <h4>Story in Simple Words</h4>
+  <ul>
+    <li>Based on a real quarrel between two Catholic families.</li>
+    <li>Lord Petre cut a lock of hair from the head of Arabella Fermor without permission.</li>
+    <li>A big social fight started. Pope’s friend asked him to write a light poem to end the quarrel by making both sides laugh.</li>
+    <li>Pope wrote a mock-epic: he treated this small incident as if it were a great Homeric war.</li>
+  </ul>
+
+  <h4>Structure (5 Cantos in the final version)</h4>
+  <ul>
+    <li>Canto I – Belinda wakes up; the sylphs (air spirits) protect her beauty.</li>
+    <li>Canto II – Belinda goes on a boat trip on the Thames; the Baron plans to cut the lock.</li>
+    <li>Canto III – The famous card game (Ombre) and the cutting of the lock at Hampton Court.</li>
+    <li>Canto IV – Belinda’s rage; the Cave of Spleen; Umbriel brings a bag of sighs and a vial of tears.</li>
+    <li>Canto V – The battle of the beaux and belles; the lock rises to heaven and becomes a star.</li>
+  </ul>
+
+  <h4>Why it is a Perfect Mock-Epic</h4>
+  <ul>
+    <li>Uses all the machinery of classical epic (gods, battles, journeys, invocations) for a trivial subject.</li>
+    <li>The “gods” are tiny sylphs who guard women’s honour and beauty.</li>
+    <li>The “battle” is a card game and a drawing-room fight with fans and snuff-boxes.</li>
+    <li>The “heroic” action is cutting a lock of hair.</li>
+    <li>The result is brilliant comedy that gently satirises the vanity of fashionable society.</li>
+  </ul>
+
+  <h4>Famous Lines to Quote</h4>
+  <ul>
+    <li>“What dire offence from amorous causes springs, / What mighty contests rise from trivial things.”</li>
+    <li>“Here files of pins extend their shining rows, / Puffs, powders, patches, bibles, billet-doux.”</li>
+    <li>“The meeting points the sacred hair dissever / From the fair head, for ever, and for ever!”</li>
+  </ul>
+
+  <h3>An Essay on Criticism</h3>
+  <ul>
+    <li>Written when Pope was only 23.</li>
+    <li>Gives rules for good criticism and good poetry.</li>
+    <li>Famous for many quotable lines that became proverbs:
+      <ul>
+        <li>“A little learning is a dangerous thing.”</li>
+        <li>“To err is human, to forgive divine.”</li>
+        <li>“Fools rush in where angels fear to tread.”</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>An Essay on Man</h3>
+  <ul>
+    <li>A philosophical poem in four epistles.</li>
+    <li>Central idea: “Whatever is, is right.” Man must accept his place in the “Great Chain of Being”.</li>
+    <li>Teaches that human reason is limited; we should not question God’s plan.</li>
+  </ul>
+
+  <h3>Pope’s Style – Why it is Perfect for Neo-Classicism</h3>
+  <ul>
+    <li>Absolute mastery of the heroic couplet – balance, antithesis, epigram.</li>
+    <li>Every couplet is a complete thought, often ending with a sharp point (epigrammatic).</li>
+    <li>Language is polished, precise and musical.</li>
+    <li>Satire is pointed but usually elegant, not crude.</li>
+  </ul>
+
+  <div class="box exam">
+    <strong>Exam Tip:</strong> For any question on Pope, always mention (1) his physical disability and Catholic background, (2) mastery of heroic couplet, (3) The Rape of the Lock as mock-epic, and (4) his moral and social purpose.
+  </div>
+</section>
+
+<!-- ==================== FORMS ==================== -->
+<section id="forms">
+  <h2>5. Important Poetic Forms of the Age</h2>
+
+  <h3>1. The Heroic Couplet</h3>
+  <div class="box">
+    <p><strong>Definition:</strong> A pair of rhyming lines written in iambic pentameter (ten syllables with stress on even syllables). The two lines usually form a complete sense unit.</p>
+  </div>
+  <ul>
+    <li>Became the standard metre of Neo-Classical poetry.</li>
+    <li>Dryden made it flexible; Pope made it perfect and pointed.</li>
+    <li>Advantages: clarity, balance, memorability, suitability for argument and satire.</li>
+    <li>Example from Pope:<br>
+      “True ease in writing comes from art, not chance,<br>
+       As those move easiest who have learned to dance.”</li>
+  </ul>
+
+  <h3>2. Mock-Epic (Mock-Heroic)</h3>
+  <div class="box">
+    <p><strong>Definition:</strong> A poem that uses the grand style, structure and machinery of classical epic poetry to treat a trivial or ordinary subject. The contrast creates humour and satire.</p>
+  </div>
+  <ul>
+    <li>Best example: <em>The Rape of the Lock</em> by Pope.</li>
+    <li>Other examples: Dryden’s <em>Mac Flecknoe</em>, parts of <em>Absalom and Achitophel</em>.</li>
+    <li>Purpose: to ridicule the subject by treating it too seriously, or to expose the emptiness of fashionable life.</li>
+  </ul>
+
+  <h3>3. Satire</h3>
+  <ul>
+    <li><strong>Horatian satire</strong> – gentle, smiling, urbane (Pope often uses this).</li>
+    <li><strong>Juvenalian satire</strong> – harsh, angry, bitter (Dryden sometimes uses this).</li>
+    <li>Neo-Classical satire aims at reform of manners, not mere personal attack (though personal attacks also occur).</li>
+  </ul>
+
+  <h3>4. Didactic Poetry</h3>
+  <ul>
+    <li>Poetry written mainly to teach a lesson.</li>
+    <li>Examples: Pope’s <em>Essay on Criticism</em>, <em>Essay on Man</em>; Dryden’s <em>Religio Laici</em>.</li>
+  </ul>
+
+  <h3>5. Epistle (Verse Letter)</h3>
+  <ul>
+    <li>A poem written in the form of a letter to a friend or patron.</li>
+    <li>Pope’s <em>Moral Essays</em> and <em>Epistle to Dr Arbuthnot</em> are famous examples.</li>
+  </ul>
+</section>
+
+<!-- ==================== COMPARE ==================== -->
+<section id="compare">
+  <h2>6. Comparison with Other Periods</h2>
+  <p>Examiners often ask comparative questions. Prepare these contrasts carefully.</p>
+
+  <h3>Neo-Classical vs Metaphysical Poetry</h3>
+  <table>
+    <tr><th>Point</th><th>Metaphysical (Donne etc.)</th><th>Neo-Classical (Dryden, Pope)</th></tr>
+    <tr><td>Emotion</td><td>Intense, personal, passionate</td><td>Controlled by reason</td></tr>
+    <tr><td>Language</td><td>Conceits, far-fetched images</td><td>Clear, polished, classical</td></tr>
+    <tr><td>Form</td><td>Irregular, experimental</td><td>Regular heroic couplet</td></tr>
+    <tr><td>Theme</td><td>Love, death, religion (personal)</td><td>Society, manners, politics, morals</td></tr>
+    <tr><td>Tone</td><td>Dramatic, argumentative</td><td>Satirical, didactic, urbane</td></tr>
+  </table>
+
+  <h3>Neo-Classical vs Romantic Poetry</h3>
+  <table>
+    <tr><th>Point</th><th>Neo-Classical</th><th>Romantic (Wordsworth etc.)</th></tr>
+    <tr><td>View of Nature</td><td>Ordered, social, parks</td><td>Wild, spiritual, countryside</td></tr>
+    <tr><td>Emotion</td><td>Reason rules emotion</td><td>Emotion is primary</td></tr>
+    <tr><td>Subject</td><td>Society, manners, politics</td><td>Individual, nature, imagination</td></tr>
+    <tr><td>Language</td><td>Polished, artificial, formal</td><td>Simple, natural, common speech</td></tr>
+    <tr><td>Form</td><td>Strict rules, couplet</td><td>Freedom, blank verse, lyrical</td></tr>
+    <tr><td>Aim</td><td>Instruct + delight, reform</td><td>Express feeling, explore self</td></tr>
+  </table>
+
+  <div class="box tip">
+    <strong>Useful sentence for answers:</strong> “Where the Neo-Classical poet looks outward at society through the lens of reason, the Romantic poet looks inward at the self through the lens of imagination.”
+  </div>
+</section>
+
+<!-- ==================== EXPECTED QUESTIONS ==================== -->
+<section id="questions">
+  <h2>7. Expected Descriptive Questions</h2>
+  <p>Based on the syllabus connections (Literary Movements – Classicism/Neo-classicism; Authors – Dryden, Pope; Forms – Mock Epic, Heroic Couplet), these are the most probable long-answer questions.</p>
+
+  <div class="q-card">
+    <h4>Q1. What are the chief characteristics of Neo-Classical poetry? Illustrate your answer with reference to Dryden and Pope.</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q2. Discuss Alexander Pope as a Neo-Classical poet with special reference to <em>The Rape of the Lock</em>.</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q3. Write a critical note on the mock-epic. How does Pope use this form in <em>The Rape of the Lock</em>?</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q4. Examine John Dryden’s contribution to English poetry and criticism.</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q5. “The Neo-Classical Age is the Age of Reason and Satire.” Discuss with examples from Dryden and Pope.</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q6. Compare and contrast the poetry of the Neo-Classical Age with that of the Romantic Age.</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q7. Discuss the importance of the heroic couplet in Neo-Classical poetry.</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q8. Write a note on the social and historical background of Neo-Classical literature.</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q9. How does Pope’s <em>An Essay on Criticism</em> reflect Neo-Classical critical principles?</h4>
+  </div>
+  <div class="q-card">
+    <h4>Q10. “Pope is the most complete representative of the Augustan Age.” Discuss.</h4>
+  </div>
+</section>
+
+<!-- ==================== MODEL ANSWERS ==================== -->
+<section id="answers">
+  <h2>8. Model Answers (Full Marks Style)</h2>
+  <p>These answers are written in simple, clear English suitable for the descriptive paper. Learn the structure and expand with your own examples.</p>
+
+  <!-- Model Answer 1 -->
+  <div class="q-card">
+    <h4>Model Answer 1: Chief Characteristics of Neo-Classical Poetry</h4>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show / Hide Answer</button>
+    <div class="answer">
+      <p><strong>Introduction</strong></p>
+      <p>Neo-Classical poetry is the poetry written in England roughly between 1660 and 1798. It is called “neo-classical” because the poets of this age looked back to the classical writers of ancient Greece and Rome and tried to follow their principles of order, reason and decorum. The two greatest poets of this school are John Dryden and Alexander Pope.</p>
+
+      <p><strong>Main Characteristics</strong></p>
+      <p><strong>1. Dominance of Reason</strong><br>
+      The Neo-Classical poets believed that reason should control emotion. They distrusted wild passion and imagination. Poetry, for them, was an intellectual art. Pope’s famous line “True Wit is Nature to advantage dress’d” shows that art should improve nature by the help of reason and good sense.</p>
+
+      <p><strong>2. Order, Balance and Decorum</strong><br>
+      Everything in poetry must be balanced and proportionate. The poets followed the classical rule of decorum – the style must suit the subject. They avoided extremes and preferred the golden mean.</p>
+
+      <p><strong>3. Imitation of the Classics</strong><br>
+      Dryden and Pope studied Homer, Virgil and Horace carefully. They believed that the ancients had already discovered the best rules of writing. A modern poet should imitate those rules rather than invent new wild forms.</p>
+
+      <p><strong>4. The Heroic Couplet</strong><br>
+      The favourite metre of the age was the heroic couplet – two rhyming lines of iambic pentameter. Dryden made it powerful; Pope made it perfect. The couplet gives a sense of neatness and finality to every thought.</p>
+
+      <p><strong>5. Satire as the Chief Mode</strong><br>
+      The age is famous for satire. Dryden’s <em>Absalom and Achitophel</em> and <em>Mac Flecknoe</em>, and Pope’s <em>The Rape of the Lock</em> and <em>The Dunciad</em> are masterpieces of satirical poetry. Satire was used to correct the follies of society.</p>
+
+      <p><strong>6. Didactic Aim</strong><br>
+      Poetry must teach as well as delight. Pope’s <em>Essay on Man</em> and <em>Essay on Criticism</em> are pure didactic poems that teach moral and critical lessons.</p>
+
+      <p><strong>7. Clarity and Polish</strong><br>
+      The language is clear, precise and highly polished. There is no obscurity. Every word is carefully chosen. This is why the age is also called the Age of Prose and Reason.</p>
+
+      <p><strong>Conclusion</strong></p>
+      <p>Thus Neo-Classical poetry stands for reason, order, classical imitation, satire and moral teaching. Dryden and Pope are its finest representatives. Their poetry reflects the social desire for stability and good sense after the political turmoil of the seventeenth century.</p>
+    </div>
+  </div>
+
+  <!-- Model Answer 2 -->
+  <div class="q-card">
+    <h4>Model Answer 2: Pope as a Neo-Classical Poet (with Rape of the Lock)</h4>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show / Hide Answer</button>
+    <div class="answer">
+      <p><strong>Introduction</strong></p>
+      <p>Alexander Pope (1688–1744) is the greatest poet of the Augustan Age and the purest representative of Neo-Classical ideals in English poetry. In spite of physical deformity and the disadvantages of being a Catholic, he became the most polished and influential poet of his time.</p>
+
+      <p><strong>Pope’s Neo-Classical Qualities</strong></p>
+      <p>Pope believed in reason, order and classical rules. He perfected the heroic couplet and used it with unmatched skill. His poetry is full of balance, antithesis and epigram. He wrote to instruct and to correct society through gentle or sharp satire.</p>
+
+      <p><strong>The Rape of the Lock as a Neo-Classical Masterpiece</strong></p>
+      <p><em>The Rape of the Lock</em> is the best example of Pope’s art. It is a mock-epic based on a real quarrel between two families. A young lord cut a lock of hair from a young lady’s head. Pope treats this trivial incident in the grand style of classical epic.</p>
+      <ul>
+        <li>He invents a whole machinery of sylphs (air spirits) who guard Belinda’s beauty.</li>
+        <li>The card game becomes a heroic battle.</li>
+        <li>The cutting of the lock is described like the fall of Troy.</li>
+        <li>Finally the lock rises to heaven and becomes a star.</li>
+      </ul>
+      <p>By using epic machinery for a drawing-room quarrel, Pope creates brilliant comedy and at the same time satirises the vanity, idleness and artificial manners of fashionable society.</p>
+
+      <p><strong>Other Works</strong></p>
+      <p>In <em>An Essay on Criticism</em> Pope lays down the rules of good writing and good criticism. In <em>An Essay on Man</em> he teaches acceptance of the divine order. In <em>The Dunciad</em> he attacks literary dullness. All these works show the same Neo-Classical qualities – reason, order, satire and moral purpose.</p>
+
+      <p><strong>Conclusion</strong></p>
+      <p>Pope is the complete Neo-Classical poet. He combined perfect technical skill with social purpose. <em>The Rape of the Lock</em> remains the finest mock-epic in English and the best illustration of Neo-Classical art at its highest.</p>
+    </div>
+  </div>
+
+  <!-- Model Answer 3 -->
+  <div class="q-card">
+    <h4>Model Answer 3: The Mock-Epic Form</h4>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show / Hide Answer</button>
+    <div class="answer">
+      <p><strong>Definition</strong></p>
+      <p>A mock-epic (or mock-heroic) is a poem that borrows the elevated style, structure and supernatural machinery of classical epic poetry and applies them to a trivial or ordinary subject. The contrast between the grand manner and the small subject produces humour and satire.</p>
+
+      <p><strong>Origin and Purpose</strong></p>
+      <p>The form was popular in the Neo-Classical Age because the poets wanted to laugh at the pretensions of their own society. By treating a small social incident as if it were the Trojan War, they exposed its emptiness.</p>
+
+      <p><strong>Pope’s Use in The Rape of the Lock</strong></p>
+      <p>Pope’s <em>The Rape of the Lock</em> is the perfect example. The subject is only the cutting of a lock of hair. Yet Pope gives us:</p>
+      <ul>
+        <li>An invocation and proposition of the subject</li>
+        <li>Supernatural beings (sylphs, gnomes, the Cave of Spleen)</li>
+        <li>A heroic journey (the boat trip on the Thames)</li>
+        <li>A formal battle (the game of Ombre and the later fight with fans)</li>
+        <li>A descent to the underworld (Umbriel’s visit to the Cave of Spleen)</li>
+        <li>An apotheosis (the lock becomes a constellation)</li>
+      </ul>
+      <p>All these epic features are used for a drawing-room quarrel. The result is delightful comedy and gentle satire on the vanity of fashionable ladies and gentlemen.</p>
+
+      <p><strong>Other Examples</strong></p>
+      <p>Dryden’s <em>Mac Flecknoe</em> is also a mock-epic. It treats the coronation of a dull poet as a great royal ceremony. The same technique of deliberate incongruity is used.</p>
+
+      <p><strong>Conclusion</strong></p>
+      <p>The mock-epic is one of the finest achievements of Neo-Classical poetry. It shows the age’s love of classical form combined with its sharp eye for social folly. Pope’s <em>Rape of the Lock</em> remains the supreme example of the form in English literature.</p>
+    </div>
+  </div>
+
+  <!-- Model Answer 4 -->
+  <div class="q-card">
+    <h4>Model Answer 4: Dryden’s Contribution</h4>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show / Hide Answer</button>
+    <div class="answer">
+      <p><strong>Introduction</strong></p>
+      <p>John Dryden (1631–1700) is the central figure of the Restoration Age and the founder of the Neo-Classical school in English literature. He is equally important as a poet, dramatist and critic.</p>
+
+      <p><strong>Contribution to Poetry</strong></p>
+      <p>Dryden perfected the heroic couplet and made it the standard metre of the age. His major poetical works are:</p>
+      <ul>
+        <li><em>Absalom and Achitophel</em> (1681) – the greatest political satire in English. Using the Biblical story of Absalom’s rebellion, Dryden defended King Charles II and attacked the Whig leaders with brilliant characterisation and argument.</li>
+        <li><em>Mac Flecknoe</em> – a short but deadly personal satire on Thomas Shadwell.</li>
+        <li><em>Religio Laici</em> and <em>The Hind and the Panther</em> – religious poems that show his skill in argumentative verse.</li>
+      </ul>
+      <p>In all these poems Dryden shows political intelligence, vigorous argument and complete mastery of the couplet.</p>
+
+      <p><strong>Contribution to Criticism</strong></p>
+      <p>Dryden is called the Father of English Criticism. His <em>An Essay of Dramatic Poesy</em> (1668) discusses the rules of drama in a lively dialogue form. He introduced classical principles into English criticism and yet remained practical and flexible. His prefaces to his own plays and translations are full of valuable critical insights.</p>
+
+      <p><strong>Conclusion</strong></p>
+      <p>Dryden established the Neo-Classical standards of reason, order and classical imitation. He raised English satire to a high artistic level and prepared the way for Pope. Without Dryden the Augustan Age would not have been possible.</p>
+    </div>
+  </div>
+
+  <div class="box exam">
+    <strong>How to score full marks:</strong>
+    <ul>
+      <li>Start with a clear definition or introduction.</li>
+      <li>Give 5–7 well-explained points with examples.</li>
+      <li>Quote at least two important lines.</li>
+      <li>End with a short, balanced conclusion.</li>
+      <li>Write in simple, correct English. Clarity is more important than difficult words.</li>
+    </ul>
+  </div>
+</section>
+
+</div><!-- end container -->
+
+<footer>
+  Prepared for UP GIC English Lecturer Mains • Master Study Material on Neo-Classical Poetry<br>
+  Study with understanding • Write with clarity • Score full marks
+</footer>
+
+<script>
+  // Tab navigation
+  const tabs = document.querySelectorAll('.nav-tabs button');
+  const sections = document.querySelectorAll('section');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Toggle model answers
+  function toggleAnswer(btn) {
+    const answer = btn.nextElementSibling;
+    answer.classList.toggle('show');
+    btn.textContent = answer.classList.contains('show') ? 'Hide Answer' : 'Show / Hide Answer';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Romanticism — UPPSC GIC Mains Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5edda;
+  --paper-soft:#fbf6ea;
+  --paper-deep:#eee2c4;
+  --ink:#2b2116;
+  --ink-soft:#5b4d35;
+  --ink-faint:#8a7a5c;
+  --crimson:#9c2b3e;
+  --crimson-deep:#711e2d;
+  --emerald:#1f5c4a;
+  --emerald-deep:#123d31;
+  --gold:#b8862f;
+  --gold-light:#d9ad5c;
+  --indigo:#2e3f6e;
+  --indigo-deep:#202d4f;
+  --line: rgba(43,33,22,0.14);
+  --shadow: 0 10px 30px rgba(43,33,22,0.18);
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:'Source Serif 4', Georgia, serif;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(184,134,47,0.10), transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(31,92,74,0.10), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  overscroll-behavior:none;
+}
+
+/* ---------- App shell ---------- */
+.app{
+  max-width:640px;
+  margin:0 auto;
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  background:var(--paper-soft);
+  box-shadow: 0 0 60px rgba(43,33,22,0.15);
+}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 14px;
+  background: linear-gradient(135deg, var(--indigo-deep), var(--indigo) 55%, var(--crimson-deep));
+  color:var(--paper-soft);
+  position:relative;
+  z-index:20;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  flex-shrink:0;
+}
+.topbar::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-4px; height:4px;
+  background: linear-gradient(90deg, var(--gold-light), var(--crimson), var(--emerald), var(--gold-light));
+  opacity:0.9;
+}
+.menu-btn{
+  width:38px; height:38px; border-radius:10px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; cursor:pointer;
+}
+.menu-btn span, .menu-btn::before, .menu-btn::after{
+  content:""; display:block; width:18px; height:2px; background:var(--paper-soft); border-radius:2px;
+}
+.menu-btn{flex-direction:column; gap:4px;}
+.topbar-titles{flex:1; min-width:0;}
+.topbar-titles .eyebrow{
+  font-family:'Cinzel', serif; font-size:10px; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold-light); opacity:0.95;
+}
+.topbar-titles h1{
+  margin:1px 0 0; font-family:'Playfair Display', serif; font-size:18px; font-weight:700; line-height:1.15;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.progress-pill{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:1px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3);
+  padding:5px 10px; border-radius:999px; flex-shrink:0; white-space:nowrap;
+}
+
+/* ---------- Drawer ---------- */
+.scrim{
+  position:absolute; inset:0; background:rgba(20,15,8,0.55);
+  opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:29;
+}
+.scrim.open{opacity:1; pointer-events:auto;}
+.drawer{
+  position:absolute; top:0; bottom:0; left:0; width:86%; max-width:340px;
+  background:var(--paper-deep);
+  transform:translateX(-105%);
+  transition:transform .3s cubic-bezier(.22,.9,.32,1);
+  z-index:30;
+  display:flex; flex-direction:column;
+  box-shadow: 8px 0 30px rgba(0,0,0,0.3);
+  border-right:1px solid var(--line);
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{
+  padding:20px 18px 14px; border-bottom:1px solid var(--line);
+  background: linear-gradient(160deg, var(--paper-deep), var(--paper-soft));
+}
+.drawer-head .cap{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2px; color:var(--ink-faint); text-transform:uppercase;
+}
+.drawer-head h2{
+  margin:4px 0 0; font-family:'Playfair Display', serif; font-size:22px; color:var(--crimson-deep);
+}
+.drawer-list{list-style:none; margin:0; padding:8px; overflow-y:auto; flex:1;}
+.drawer-list li{margin-bottom:3px;}
+.drawer-list button{
+  width:100%; text-align:left; display:flex; align-items:center; gap:12px;
+  background:transparent; border:none; padding:10px 10px; border-radius:10px;
+  font-family:'Source Serif 4', serif; font-size:14.5px; color:var(--ink); cursor:pointer;
+}
+.drawer-list button .num{
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:11px; color:#fff;
+}
+.drawer-list button.active{background:rgba(43,33,22,0.08); font-weight:600;}
+.drawer-list button .ttl{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+/* ---------- Main content ---------- */
+.content-wrap{flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative;}
+.section{display:none; padding:22px 20px 40px;}
+.section.active{display:block; animation:fadein .35s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+.sec-eyebrow{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+  display:inline-block; padding:4px 12px; border-radius:999px; color:#fff; margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Playfair Display', serif; font-weight:800; font-size:27px; line-height:1.2;
+  color:var(--ink); margin:0 0 6px;
+}
+.sec-sub{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16.5px; color:var(--ink-soft);
+  margin:0 0 20px; border-left:3px solid; padding-left:12px;
+}
+.rule{
+  height:1px; background:linear-gradient(90deg, currentColor, transparent);
+  margin:18px 0; opacity:0.35;
+}
+
+.dropcap::first-letter{
+  font-family:'Playfair Display', serif; font-size:52px; font-weight:800; float:left;
+  line-height:0.8; padding:6px 8px 0 0; color:var(--crimson);
+}
+
+h3.h{
+  font-family:'Playfair Display', serif; font-size:18.5px; margin:22px 0 10px; color:var(--ink);
+  display:flex; align-items:center; gap:8px;
+}
+h3.h::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--gold); transform:rotate(45deg); flex-shrink:0;}
+h4.h4{
+  font-family:'Source Serif 4', serif; font-weight:700; font-size:15.5px; margin:16px 0 6px; color:var(--crimson-deep);
+}
+p{font-size:15.5px; line-height:1.7; margin:0 0 12px; color:var(--ink);}
+ul,ol{margin:0 0 14px; padding-left:20px;}
+li{font-size:15.2px; line-height:1.65; margin-bottom:7px; color:var(--ink);}
+li::marker{color:var(--gold);}
+b, strong{color:var(--crimson-deep); font-weight:700;}
+em.q{color:var(--emerald-deep); font-style:italic;}
+
+.card{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:14px;
+  padding:14px 16px; margin:14px 0; box-shadow: var(--shadow);
+}
+.card.gold{border-left:4px solid var(--gold);}
+.card.crimson{border-left:4px solid var(--crimson);}
+.card.emerald{border-left:4px solid var(--emerald);}
+.card.indigo{border-left:4px solid var(--indigo);}
+.card-label{
+  font-family:'Cinzel', serif; font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:6px; display:block;
+}
+
+.quote-block{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:19px; line-height:1.55;
+  color:var(--indigo-deep); padding:10px 0 10px 16px; border-left:3px solid var(--gold);
+  margin:14px 0;
+}
+.quote-block .src{
+  display:block; font-family:'Source Serif 4', serif; font-style:normal; font-size:12px;
+  color:var(--ink-faint); margin-top:4px; letter-spacing:0.3px;
+}
+
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.8px;}
+th,td{padding:9px 8px; border:1px solid var(--line); text-align:left; vertical-align:top;}
+th{background:var(--paper-deep); font-family:'Cinzel', serif; font-size:11px; letter-spacing:0.8px; text-transform:uppercase; color:var(--ink-soft);}
+
+.qn-item{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px;
+  position:relative; padding-left:44px;
+}
+.qn-item .qnum{
+  position:absolute; left:10px; top:12px; width:26px; height:26px; border-radius:50%;
+  background:var(--indigo); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:12px; font-weight:600;
+}
+.qn-item p{margin:0; font-weight:600; font-size:14.8px;}
+.qn-item .tag{
+  display:inline-block; margin-top:6px; font-family:'Cinzel', serif; font-size:9.5px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--emerald-deep); background:rgba(31,92,74,0.1); padding:2px 8px; border-radius:999px;
+}
+
+.answer-block h5{
+  font-family:'Cinzel', serif; font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--crimson);
+  margin:20px 0 8px;
+}
+
+/* ---------- Bottom nav ---------- */
+.bottombar{
+  flex-shrink:0; display:flex; align-items:center; gap:10px; padding:10px 14px;
+  background:var(--paper-deep); border-top:1px solid var(--line); z-index:15;
+}
+.nav-btn{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 10px; border-radius:12px; border:1px solid var(--line);
+  background:var(--paper-soft); font-family:'Source Serif 4', serif; font-weight:600; font-size:13.5px;
+  color:var(--ink); cursor:pointer;
+}
+.nav-btn:disabled{opacity:0.35;}
+.nav-btn.primary{background:linear-gradient(135deg, var(--crimson), var(--crimson-deep)); color:#fff; border:none;}
+.dots{display:flex; gap:4px; flex-shrink:0; overflow-x:auto; max-width:120px;}
+.dot{width:5px; height:5px; border-radius:50%; background:var(--line); flex-shrink:0;}
+.dot.on{background:var(--gold);}
+
+.toast{
+  position:absolute; left:50%; bottom:78px; transform:translateX(-50%) translateY(20px);
+  background:var(--indigo-deep); color:var(--paper-soft); font-family:'Source Serif 4', serif; font-size:13px;
+  padding:10px 16px; border-radius:999px; box-shadow:var(--shadow); z-index:40; opacity:0;
+  pointer-events:none; transition:all .35s ease; white-space:nowrap;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-thumb{background:var(--ink-faint); border-radius:6px; opacity:0.4;}
+
+@media (min-width:641px){
+  body{padding:20px 0;}
+  .app{height:calc(100dvh - 40px); border-radius:22px; overflow:hidden;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="menu-btn" id="menuBtn"></div>
+    <div class="topbar-titles">
+      <div class="eyebrow">UPPSC GIC · English Lecturer Mains</div>
+      <h1 id="topTitle">Romanticism</h1>
+    </div>
+    <div class="progress-pill" id="progressPill">1 / 15</div>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="cap">Contents</div>
+      <h2>Study Map</h2>
+    </div>
+    <ul class="drawer-list" id="drawerList"></ul>
+  </nav>
+
+  <div class="content-wrap" id="contentWrap"></div>
+
+  <div class="toast" id="toast">Resumed from where you left off</div>
+
+  <div class="bottombar">
+    <button class="nav-btn" id="prevBtn">&larr; Prev</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn primary" id="nextBtn">Next &rarr;</button>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+
+{
+  id:"questions", color:"indigo", eyebrow:"Start Here",
+  title:"Expected Descriptive Questions",
+  sub:"What the examiner is likely to ask, based on the syllabus wording",
+  body:`
+  <p class="dropcap">The syllabus lists <b>"Romanticism"</b> as a topic under <b>Section B: Literary Terms, Movements, Forms, Literary Criticism</b>, and separately lists <b>Wordsworth, Shelley, and Keats</b> as major authors under <b>Section A</b>. This means Romanticism can appear as a <b>movement question</b> (20 marks), as an <b>individual-poet question</b> (20 marks each on Wordsworth / Shelley / Keats), or as a <b>comparison question</b> asking you to connect the movement to the poets. You must be ready for all three types.</p>
+
+  <div class="qn-item"><span class="qnum">1</span>
+    <p>What do you understand by "Romanticism"? Discuss its origin and main characteristics as a literary movement.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">2</span>
+    <p>Distinguish between the First Generation and Second Generation Romantic poets, with suitable examples.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">3</span>
+    <p>Discuss Wordsworth's concept/theory of poetry and Nature as expressed in the Preface to Lyrical Ballads and his major poems.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">4</span>
+    <p>"Shelley is the most idealistic and revolutionary of the Romantic poets." Discuss with reference to his major works.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">5</span>
+    <p>Discuss John Keats as a poet of Beauty and the senses. What do you understand by his idea of "Negative Capability"?</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">6</span>
+    <p>Compare and contrast the Romanticism of Wordsworth, Shelley and Keats.</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">7</span>
+    <p>Short notes (150-200 words): Lyrical Ballads (1798) / Romantic view of Nature / Negative Capability / Shelley's "Ode to the West Wind" as a Romantic poem.</p>
+    <span class="tag">Possible (Short Note)</span>
+  </div>
+
+  <div class="card gold">
+    <span class="card-label">How This Guide Is Organised</span>
+    <p style="margin:0">Every section builds one layer of understanding — starting from the simplest idea and going up to exam-ready detail. Read in order the first time. Before the exam, use the drawer menu (top-left icon) to jump straight to any topic for revision.</p>
+  </div>
+  `
+},
+
+{
+  id:"intro", color:"crimson", eyebrow:"1 · Foundation",
+  title:"What Is Romanticism?",
+  sub:"The basic idea, explained in the simplest way possible",
+  body:`
+  <p class="dropcap">Imagine England in the second half of the 1700s. For nearly a hundred years, poetry had been ruled by <b>reason, order, wit, and strict rules</b> — this earlier period is called <b>Neoclassicism</b> (poets like Alexander Pope wrote balanced, polished, intellectual poetry, following rules borrowed from ancient Greek and Roman writers). Poetry was expected to be clever, correct, and controlled — almost like a well-designed garden with every tree trimmed into shape.</p>
+
+  <p>Then, around the late 1700s, a new generation of poets got tired of all this control. They said: <em class="q">"Poetry should not be about rules and cleverness — it should be about strong feeling, imagination, and the individual human heart, and it should flow as naturally as a river, not as trimmed as a garden."</em> This change in thinking and writing is called <b>Romanticism</b>.</p>
+
+  <div class="card crimson">
+    <span class="card-label">Meaning of the Name</span>
+    <p style="margin:0">The word "Romantic" here does not mean "love story." It comes from old "romance" tales — adventurous, imaginative, emotional medieval stories, full of wonder and the supernatural, very different from cold, rule-based reasoning. So <b>Romanticism</b> means a movement that valued <b>feeling, imagination, individual freedom, and wonder</b> over reason, rules, and social convention.</p>
+  </div>
+
+  <p>In English literature, Romanticism is usually dated from <b>1798</b> (when Wordsworth and Coleridge published <i>Lyrical Ballads</i>) to about <b>1832</b> (roughly the death of Sir Walter Scott, and close to the passing of the Reform Act, which is often used as a convenient endpoint before the Victorian Age begins). The six most important Romantic poets are usually grouped as:</p>
+  <ul>
+    <li><b>First Generation:</b> William Wordsworth, S. T. Coleridge, William Blake</li>
+    <li><b>Second Generation:</b> Lord Byron, P. B. Shelley, John Keats</li>
+  </ul>
+
+  <h3 class="h">In One Line (write this first in your answer)</h3>
+  <div class="quote-block">Romanticism was a literary movement (roughly 1798-1832) that rejected the reason-based, rule-bound poetry of the Neoclassical Age and instead celebrated imagination, intense emotion, the beauty and power of Nature, the freedom of the individual, and a fascination with the supernatural and the distant past.</div>
+
+  <h3 class="h">Why You Must Understand This Before Anything Else</h3>
+  <ul>
+    <li>Every sub-topic in this guide (origin, characteristics, first/second generation, and each individual poet) is really just one branch growing out of this single idea: <b>"feeling and imagination over reason and rules."</b></li>
+    <li>If you remember this one sentence, you can build almost any answer on Romanticism around it, even if you forget small details.</li>
+  </ul>
+  `
+},
+
+{
+  id:"origin", color:"emerald", eyebrow:"2 · Background",
+  title:"Origin and Historical Background",
+  sub:"Why Romanticism began, and what events shaped it",
+  body:`
+  <p class="dropcap">To understand WHY Romanticism happened, you must connect it to three big things happening in the world at that time: a revolution in politics, a revolution in industry, and a change in philosophy. Together, these created the mood out of which Romantic poetry grew.</p>
+
+  <h3 class="h">1. The French Revolution (1789)</h3>
+  <ul>
+    <li>The French Revolution promised "Liberty, Equality, Fraternity" — the idea that ordinary people, not just kings and nobles, had the right to freedom and dignity.</li>
+    <li>Young poets like Wordsworth, Coleridge, and later Shelley and Byron were deeply excited by this idea of <b>freedom and individual rights</b>. Wordsworth even travelled to France and supported the Revolution in its early years.</li>
+    <li>This gave Romantic poetry its strong belief in <b>individual liberty, equality, and the dignity of the common man</b> — very different from the aristocratic, "polished" poetry of the Neoclassical Age, which was often written for and about the upper classes.</li>
+  </ul>
+
+  <h3 class="h">2. The Industrial Revolution</h3>
+  <ul>
+    <li>At the same time, England was rapidly industrialising — factories, machines, and crowded, dirty cities were replacing the older rural, agricultural way of life.</li>
+    <li>The Romantics reacted against this by turning to <b>Nature</b> as a source of comfort, truth, and spiritual renewal — a green, living world opposed to the grey, mechanical world of factories.</li>
+    <li>This is the root of the Romantics' famous, deep love of Nature — not just describing pretty scenery, but treating Nature as almost sacred, a teacher and healer of the human soul.</li>
+  </ul>
+
+  <h3 class="h">3. Reaction Against Neoclassicism (Reason and Rules)</h3>
+  <ul>
+    <li>The Neoclassical Age (roughly 1660-1798) had valued <b>reason, order, wit, decorum (correct social behaviour), and strict poetic rules</b> (such as the closed heroic couplet used by Pope).</li>
+    <li>The Romantics found this style cold, artificial, and disconnected from real, deeply-felt human experience.</li>
+    <li>They wanted poetry to come from <b>genuine emotion and the poet's own imagination</b>, not from following an inherited rulebook.</li>
+  </ul>
+
+  <h3 class="h">The Starting Point: Lyrical Ballads (1798)</h3>
+  <p>Most historians and examiners treat the year <b>1798</b> as the official beginning of English Romanticism, because that is when William Wordsworth and Samuel Taylor Coleridge jointly published a small collection of poems called <b><em>Lyrical Ballads</em></b>. This book is treated as a manifesto (a declaration of new beliefs) for the whole movement.</p>
+  <ul>
+    <li>In the <b>Preface</b> to the second edition (1800), Wordsworth explained what he and Coleridge were trying to do — this Preface is often called <b>"the manifesto of English Romanticism."</b></li>
+    <li>Wordsworth defined poetry as <em class="q">"the spontaneous overflow of powerful feelings"</em> and said poems should be written about ordinary life and ordinary people, in the language that such people actually use, not in artificial "poetic diction."</li>
+    <li>Coleridge, on the other hand, contributed poems dealing with the <b>supernatural and the strange</b> (such as "The Rime of the Ancient Mariner"), showing that Romanticism also had a fascination with mystery, wonder, and things beyond ordinary reason.</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Easy Way To Remember</span>
+    <p style="margin:0">Neoclassical poetry = a formal garden, trimmed and measured. Romantic poetry = a wild forest, alive and free. The French Revolution gave Romantics their love of freedom; the Industrial Revolution gave them their love of Nature; and <i>Lyrical Ballads</i> (1798) is the exact book where this new forest of poetry first grew.</p>
+  </div>
+  `
+},
+
+{
+  id:"characteristics", color:"crimson", eyebrow:"3 · Core Content",
+  title:"Main Characteristics of Romantic Poetry",
+  sub:"The single most important section — learn this thoroughly",
+  body:`
+  <p class="dropcap">This is the heart of the topic. Almost every question on Romanticism is really asking you to explain these features — understand each one as an <b>idea you can explain with an example</b>, not just a word to memorise.</p>
+
+  <h3 class="h">1. Importance of Imagination</h3>
+  <p>For the Romantics, <b>imagination</b> was not just decoration — it was the highest creative power of the human mind, almost god-like, able to create new truths, not merely copy the visible world.</p>
+  <ul>
+    <li>Coleridge, in his critical writing, called imagination <em class="q">"the living power and prime agent of all human perception"</em> — meaning imagination is not fantasy, but the very way the mind understands and shapes reality.</li>
+  </ul>
+
+  <h3 class="h">2. Emphasis on Emotion and Feeling</h3>
+  <p>Poetry, for the Romantics, must come from real, deeply-felt emotion, not clever calculation. Wordsworth's famous definition — <em class="q">"spontaneous overflow of powerful feelings"</em> — captures this perfectly.</p>
+  <ul>
+    <li>This is why Romantic poems often feel personal and confessional — the poet openly shares their own joy, grief, wonder, or fear.</li>
+  </ul>
+
+  <h3 class="h">3. Love of Nature</h3>
+  <p>Nature is one of the most central subjects of Romantic poetry, but it is treated very differently by different poets:</p>
+  <ul>
+    <li><b>Wordsworth</b> saw Nature as a living moral teacher and a source of spiritual comfort ("Nature never did betray the heart that loved her").</li>
+    <li><b>Shelley</b> often used Nature's forces (wind, clouds, skylark) as symbols of freedom and revolutionary change.</li>
+    <li><b>Keats</b> loved Nature mainly for its sensuous beauty — its colours, sounds, and textures — enjoyed for their own sake.</li>
+  </ul>
+
+  <h3 class="h">4. Glorification of the Individual (Individualism)</h3>
+  <ul>
+    <li>Romantic poetry celebrates the personal experience, thoughts, and feelings of the individual poet or ordinary common people, instead of general truths about "mankind" in the abstract Neoclassical style.</li>
+    <li>Common, humble subjects (a leech-gatherer, a solitary reaper, an idiot boy) become worthy subjects of great poetry — this was new and radical for its time.</li>
+  </ul>
+
+  <h3 class="h">5. Simplicity of Language ("Language Really Used by Men")</h3>
+  <ul>
+    <li>Wordsworth rejected the artificial, decorated "poetic diction" of the Neoclassical Age and insisted poetry should use the <b>real, natural language of common people</b>, especially rural people close to Nature.</li>
+  </ul>
+
+  <h3 class="h">6. Love of the Supernatural, Mystery and Wonder</h3>
+  <ul>
+    <li>Especially in Coleridge's poetry ("The Rime of the Ancient Mariner," "Kubla Khan"), Romantic poetry explores dreams, ghosts, curses, and strange, mysterious events beyond rational explanation.</li>
+  </ul>
+
+  <h3 class="h">7. Medievalism and Escape into the Past / Faraway Places</h3>
+  <ul>
+    <li>Romantics were often drawn to the medieval past, distant lands, and exotic settings as an escape from the ugly, industrial present — for example, Keats's use of medieval and classical settings in "The Eve of St. Agnes" and "Ode on a Grecian Urn."</li>
+  </ul>
+
+  <h3 class="h">8. Spirit of Revolt and Idealism</h3>
+  <ul>
+    <li>Many Romantics (especially Shelley and Byron) were politically radical, believing poetry could help bring about a better, freer world — Shelley famously called poets <em class="q">"the unacknowledged legislators of the World."</em></li>
+  </ul>
+
+  <h3 class="h">9. Subjectivity and Lyricism</h3>
+  <ul>
+    <li>Romantic poetry is heavily <b>lyrical</b> (personal, song-like, expressing inner feeling) rather than narrative or dramatic in the old grand, impersonal style.</li>
+  </ul>
+
+  <div class="card crimson">
+    <span class="card-label">How To Use This List In An Exam</span>
+    <p style="margin:0">Do not just write "imagination, emotion, nature..." as a bare list. For full marks, take 5-6 of these points, give each its own short paragraph, explain the idea in your own words, and support it with ONE example (poet + poem + brief detail). That structure alone can carry a 20-mark answer.</p>
+  </div>
+  `
+},
+
+{
+  id:"first-gen", color:"indigo", eyebrow:"4 · Grouping",
+  title:"First Generation Romantic Poets",
+  sub:"Wordsworth, Coleridge and Blake — the founders of the movement",
+  body:`
+  <p class="dropcap">The six major English Romantic poets are traditionally divided into two "generations" — not because of a strict rule, but because of a real difference in <b>when they were born, what historical mood shaped them, and how they treated Romantic ideas.</b> The First Generation poets were the ones who actually built and defined the movement from its start.</p>
+
+  <h3 class="h">Who They Are</h3>
+  <ul>
+    <li><b>William Wordsworth</b> (1770-1850)</li>
+    <li><b>Samuel Taylor Coleridge</b> (1772-1834)</li>
+    <li><b>William Blake</b> (1757-1827) — sometimes treated as an earlier, "pre-Romantic" or transitional figure, but usually grouped here since his ideas (imagination, revolt against convention, sympathy for the oppressed) match the First Generation spirit closely.</li>
+  </ul>
+
+  <h3 class="h">What Shaped Them</h3>
+  <ul>
+    <li>They were young adults <b>during the French Revolution (1789)</b> itself, and its early hopeful years shaped their outlook directly.</li>
+    <li>Wordsworth and Coleridge together produced the movement's founding text, <i>Lyrical Ballads</i> (1798), making them the true architects of English Romanticism as a literary programme.</li>
+  </ul>
+
+  <h3 class="h">Key Features of Their Romanticism</h3>
+  <ul>
+    <li><b>Deep, almost religious love of Nature</b> — especially in Wordsworth, Nature is treated as a living moral guide and a source of joy and healing.</li>
+    <li><b>Early revolutionary enthusiasm, later disappointment</b> — Wordsworth and Coleridge were initially thrilled by the French Revolution's promise of liberty, but became disillusioned after the Revolution turned violent (the Reign of Terror) and after Napoleon became a dictator. This shift from hope to disappointment marks their mature poetry.</li>
+    <li><b>Interest in ordinary, rural life and simple language</b> — Wordsworth's poetic programme in the Preface to <i>Lyrical Ballads</i> insists on writing about common people in their own natural language.</li>
+    <li><b>Interest in the supernatural and mystery</b> — carried mainly by Coleridge, whose poetry (unlike Wordsworth's) often deals with dream-like, eerie, and supernatural events.</li>
+  </ul>
+
+  <div class="card indigo">
+    <span class="card-label">One Line To Remember</span>
+    <p style="margin:0">"The First Generation Romantics (Wordsworth, Coleridge, and Blake) were the founders of the movement, shaped directly by the hope — and later disappointment — of the French Revolution, and they gave Romanticism its core beliefs: the sanctity of Nature, the value of ordinary life, and simple, natural language."</p>
+  </div>
+  `
+},
+
+{
+  id:"second-gen", color:"gold", eyebrow:"4 · Grouping",
+  title:"Second Generation Romantic Poets",
+  sub:"Byron, Shelley and Keats — the younger, more intense generation",
+  body:`
+  <p class="dropcap">The Second Generation poets were all born about a generation later than Wordsworth and Coleridge, and — strikingly — all three died very young, before the First Generation poets themselves. They did not experience the French Revolution as adults living through its hopeful early years; instead, they grew up already living in its aftermath, in a more disillusioned, restless political atmosphere. This shaped a different, often more intense and idealistic kind of Romanticism.</p>
+
+  <h3 class="h">Who They Are</h3>
+  <ul>
+    <li><b>Lord Byron</b> (1788-1824) — died at 36</li>
+    <li><b>Percy Bysshe Shelley</b> (1792-1822) — died at 29</li>
+    <li><b>John Keats</b> (1795-1821) — died at 25</li>
+  </ul>
+
+  <h3 class="h">What Shaped Them</h3>
+  <ul>
+    <li>They grew up in the years <b>after</b> the French Revolution had already turned violent and then given way to Napoleon's dictatorship — so, unlike Wordsworth, they never personally experienced that first innocent hope, but they still deeply admired the Revolution's original ideals of liberty.</li>
+    <li>All three lived short, intense lives, often abroad (in Italy, in Byron's and Shelley's case), and all three died before Wordsworth and Coleridge — a fact that gives their poetry, in hindsight, an extra sense of urgency and tragedy.</li>
+  </ul>
+
+  <h3 class="h">Key Features of Their Romanticism</h3>
+  <ul>
+    <li><b>More overtly political and revolutionary in spirit</b> — especially Shelley and Byron, who openly criticised tyranny, organised religion, and social injustice, and believed passionately in liberty and reform.</li>
+    <li><b>More idealistic and passionate</b> — Shelley in particular is often called the most idealistic of all Romantic poets, always reaching towards a perfect, free, beautiful world that does not yet exist.</li>
+    <li><b>Greater stress on personal intensity of feeling and sensuous beauty</b> — especially in Keats, whose poetry is famous for its rich appeal to the five senses rather than for political argument.</li>
+    <li><b>Less focus on humble rural nature, more focus on grand, dramatic, or classical/mythological imagery</b> — Byron's dramatic heroes, Shelley's cosmic imagery (winds, clouds, skylarks), and Keats's classical urns and Greek mythology are all larger and more "elevated" than Wordsworth's simple daffodils and leech-gatherers.</li>
+  </ul>
+
+  <div class="card gold">
+    <span class="card-label">One Line To Remember</span>
+    <p style="margin:0">"The Second Generation Romantics (Byron, Shelley, and Keats) inherited the movement from Wordsworth and Coleridge but gave it a more openly rebellious, idealistic, and intensely passionate character, before all three died tragically young."</p>
+  </div>
+  `
+},
+
+{
+  id:"gen-compare", color:"emerald", eyebrow:"5 · Comparison",
+  title:"First Generation vs Second Generation",
+  sub:"A comparison examiners often test directly",
+  body:`
+  <p class="dropcap">A very common exam question simply asks you to "distinguish" between the two generations. Use this table to build a clear, point-by-point answer.</p>
+
+  <table>
+    <tr><th>Point</th><th>First Generation</th><th>Second Generation</th></tr>
+    <tr><td><b>Poets</b></td><td>Wordsworth, Coleridge, Blake</td><td>Byron, Shelley, Keats</td></tr>
+    <tr><td><b>Relation to French Revolution</b></td><td>Lived through it as young adults; felt its early hope, then its later disappointment</td><td>Grew up after it had already failed/turned violent; admired its ideals from a distance</td></tr>
+    <tr><td><b>Political Tone</b></td><td>Started radical, became more conservative/settled with age (especially Wordsworth)</td><td>Remained rebellious and idealistic throughout their (short) lives</td></tr>
+    <tr><td><b>View of Nature</b></td><td>Nature as a moral teacher, healer, and source of quiet joy (especially Wordsworth)</td><td>Nature often used as grand symbol (wind, sea, sky) for freedom, beauty or power rather than a quiet teacher</td></tr>
+    <tr><td><b>Subject Matter</b></td><td>Ordinary rural people and simple life</td><td>Heroic, classical, mythological, or grandly emotional subjects</td></tr>
+    <tr><td><b>Style/Diction</b></td><td>Simple, natural language "really used by men"</td><td>Often more musical, rich, and elevated (especially Keats's sensuous style, Shelley's lyrical intensity)</td></tr>
+    <tr><td><b>Life Span</b></td><td>Lived long lives (Wordsworth to 80, Coleridge to 61)</td><td>All died tragically young (Byron 36, Shelley 29, Keats 25)</td></tr>
+  </table>
+
+  <h3 class="h">Best Way To Answer This Question</h3>
+  <div class="quote-block">"While both generations share the core Romantic beliefs in imagination, emotion, and freedom, the First Generation (Wordsworth, Coleridge) founded the movement out of the direct experience of the French Revolution's hope and disappointment, favouring Nature and simple rural life; the Second Generation (Byron, Shelley, Keats) inherited these ideals but expressed them with greater intensity, idealism, and a more classical or cosmic imagination, before dying tragically young."</div>
+  `
+},
+
+{
+  id:"wordsworth", color:"crimson", eyebrow:"6 · Major Poet",
+  title:"Wordsworth's Romanticism",
+  sub:"The founding poet of Nature, memory and the ordinary human heart",
+  body:`
+  <p class="dropcap">William Wordsworth (1770-1850) is usually called the <b>father of English Romanticism</b>, because he was the co-author (with Coleridge) of <i>Lyrical Ballads</i> (1798), and because he wrote the famous <b>Preface</b> that explained, in theory, what the whole movement was trying to do. To understand "Wordsworth's Romanticism," you must understand both his <b>theory</b> (what he said poetry should be) and his <b>practice</b> (what his actual poems do).</p>
+
+  <h3 class="h">His Theory of Poetry (from the Preface to Lyrical Ballads, 1800)</h3>
+  <ul>
+    <li><b>Definition of poetry:</b> Wordsworth defined poetry as <em class="q">"the spontaneous overflow of powerful feelings,"</em> which, importantly, he says is then <em class="q">"recollected in tranquillity"</em> — meaning the poet does not write in the heat of the emotion itself, but calms down afterward, remembers the feeling, and only then shapes it into art. This is a key idea: strong feeling PLUS calm, later reflection.</li>
+    <li><b>Subject matter:</b> He believed poetry should be about <b>humble and rustic (rural) life</b> — ordinary people, farmers, shepherds, children — because in such simple life, "the essential passions of the heart" are shown more clearly and honestly, without the artificial social manners of city life.</li>
+    <li><b>Language:</b> He rejected fancy "poetic diction" (special decorated language only used in poems) and insisted on using <b>the real language actually spoken by common men</b>, believing this language is more sincere and closer to true feeling.</li>
+    <li><b>The poet's role:</b> He described the poet as <em class="q">"a man speaking to men"</em> — someone with more sensitivity and imagination than the average person, but not a distant, superior genius; someone who shares deeply human experiences with fellow human beings.</li>
+  </ul>
+
+  <h3 class="h">His View of Nature</h3>
+  <p>This is the single most important idea in Wordsworth's poetry. For Wordsworth, Nature is not just scenery to admire — it is a living, active moral force:</p>
+  <ul>
+    <li><b>Nature as teacher and moral guide:</b> He believed Nature actively teaches human beings goodness, joy, and wisdom, almost like a wise parent — this idea is often called Wordsworth's <b>"pantheism"</b> or "Nature mysticism" (though he was not exactly pantheistic in a strict philosophical sense, he did believe a divine spirit moves through Nature).</li>
+    <li><b>Nature as healer:</b> Nature comforts and restores the human heart in times of sorrow — in "Tintern Abbey," he says Nature never betrays "the heart that loved her."</li>
+    <li><b>The importance of childhood and memory:</b> Wordsworth believed that our early childhood experiences of Nature leave permanent, powerful impressions on the mind, which continue to nourish and guide us throughout our whole adult life — this is central to his poem "Ode: Intimations of Immortality," where he says <em class="q">"The Child is father of the Man."</em></li>
+  </ul>
+
+  <h3 class="h">Major Works To Remember</h3>
+  <ul>
+    <li><b>"Tintern Abbey"</b> (1798) — his most famous nature poem, showing how Nature's beauty, once experienced, continues to comfort and shape the poet's mind even years later, from memory alone.</li>
+    <li><b>"Ode: Intimations of Immortality"</b> — explores how the glory and wonder we feel about the world in childhood slowly fades as we grow into adulthood, but leaves behind lasting philosophical wisdom.</li>
+    <li><b>"The Solitary Reaper," "The Prelude," "Michael," "Lucy poems"</b> — show his interest in humble, rural figures and simple, natural language.</li>
+  </ul>
+
+  <div class="card crimson">
+    <span class="card-label">Why He Matters For This Topic</span>
+    <p style="margin:0">Wordsworth is important because he is both the <b>theorist</b> (through his Preface) and the <b>practitioner</b> (through his actual poems) of Romanticism's core ideas: imagination, deep feeling recollected calmly, simple language, and above all, Nature as a living moral and spiritual guide.</p>
+  </div>
+  `
+},
+
+{
+  id:"shelley", color:"emerald", eyebrow:"6 · Major Poet",
+  title:"Shelley's Romanticism",
+  sub:"The idealist, the rebel, and the poet-prophet of change",
+  body:`
+  <p class="dropcap">Percy Bysshe Shelley (1792-1822) is usually described as the <b>most idealistic and most revolutionary</b> of all the Romantic poets. If Wordsworth's Romanticism is rooted in quiet Nature and memory, Shelley's Romanticism is rooted in <b>passionate belief in freedom, change, and a perfect future</b> that does not yet exist but that poetry can help bring about.</p>
+
+  <h3 class="h">His Core Beliefs</h3>
+  <ul>
+    <li><b>Idealism:</b> Shelley constantly imagines a better, freer, more beautiful world — his poetry is full of images of transformation, rebirth, and hope for the future of mankind.</li>
+    <li><b>Revolutionary Spirit:</b> He was fiercely opposed to tyranny (unjust rule by kings and governments), organised religion (he was even expelled from Oxford for writing a pamphlet on atheism), and social injustice. He believed passionately in liberty, equality, and free love.</li>
+    <li><b>The Poet as Prophet/Legislator:</b> In his critical essay <i>A Defence of Poetry</i>, Shelley makes his most famous statement: poets are <em class="q">"the unacknowledged legislators of the World"</em> — meaning poets, through their imaginative vision, secretly shape the moral and political direction of human society, even though they hold no official power.</li>
+  </ul>
+
+  <h3 class="h">His Use of Nature</h3>
+  <p>Unlike Wordsworth, who treats Nature as a gentle moral teacher, Shelley usually uses Nature's most powerful and dynamic forces — <b>wind, clouds, the sky, the sea</b> — as symbols of revolutionary energy and change.</p>
+  <ul>
+    <li>In "Ode to the West Wind," the wind is both a <b>destroyer</b> (blowing away dead leaves — old, dying ideas and social systems) and a <b>preserver</b> (spreading seeds for new life — new, better ideas for the future). This double symbol perfectly captures Shelley's revolutionary hope: destruction of the old must come before the birth of the new.</li>
+    <li>In "To a Skylark," the bird's song, coming from high above and unseen, symbolises pure, unreachable, ideal beauty and joy that human beings can only imagine, never fully possess.</li>
+  </ul>
+
+  <h3 class="h">Major Works To Remember</h3>
+  <ul>
+    <li><b>"Ode to the West Wind"</b> — his most famous poem; ends with the hopeful, often-quoted line, <em class="q">"If Winter comes, can Spring be far behind?"</em> — a perfect one-line summary of his revolutionary optimism.</li>
+    <li><b>"To a Skylark"</b> — a lyric praising the skylark's joyful, invisible song as a symbol of pure, unreachable ideal beauty.</li>
+    <li><b><i>Prometheus Unbound</i></b> — a long lyrical drama retelling the Greek myth of Prometheus, symbolising the ultimate triumph of human freedom, love, and goodness over tyranny.</li>
+    <li><b><i>A Defence of Poetry</i></b> — his major critical essay, defending the moral and social value of poetry and imagination against those who dismissed poetry as useless.</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Why He Matters For This Topic</span>
+    <p style="margin:0">Shelley represents Romanticism's most idealistic, political, and forward-looking side. Where Wordsworth looks inward and backward (to childhood memory and quiet Nature), Shelley looks outward and forward (to social change and a hoped-for perfect future) — this contrast is extremely useful when writing a comparison answer.</p>
+  </div>
+  `
+},
+
+{
+  id:"keats", color:"gold", eyebrow:"6 · Major Poet",
+  title:"Keats' Romanticism",
+  sub:"The poet of Beauty, the senses, and \u201cNegative Capability\u201d",
+  body:`
+  <p class="dropcap">John Keats (1795-1821) is usually described as the most purely <b>sensuous and aesthetic</b> (beauty-focused) of the Romantic poets. He was the least political and least philosophical of the three Second Generation poets — his Romanticism is centred on the intense, direct experience of <b>Beauty</b> itself, especially through the five senses.</p>
+
+  <h3 class="h">His Core Belief: Beauty and Truth</h3>
+  <ul>
+    <li>Keats's most famous idea, from the final lines of "Ode on a Grecian Urn," is: <em class="q">"Beauty is truth, truth beauty — that is all / Ye know on earth, and all ye need to know."</em> This means that for Keats, experiencing true Beauty deeply is itself a form of highest truth — Beauty is not separate from truth, but is one and the same ultimate value.</li>
+    <li>Keats loved Beauty in a very physical, sensuous way — rich colours, tastes, sounds, textures — his poetry appeals strongly to all five senses, more than any other Romantic poet.</li>
+  </ul>
+
+  <h3 class="h">"Negative Capability" — His Most Important Critical Idea</h3>
+  <p>This is one of the most-asked concepts from Keats, so understand it carefully. Keats explained this idea in a private letter to his brothers (1817), not in a formal essay, but it has become central to how we understand him.</p>
+  <div class="card gold">
+    <span class="card-label">Simple Explanation</span>
+    <p style="margin:0"><b>Negative Capability</b> means the capacity of a great writer (Keats specially praised Shakespeare for this) to remain comfortable living with <b>uncertainty, mystery, and doubt</b>, WITHOUT feeling a nervous, irritable need to chase after fixed facts and reasonable explanations for everything. In simple words: a truly great poet can accept "not knowing" and still create great beauty, instead of forcing everything into a neat logical answer.</p>
+  </div>
+  <ul>
+    <li>This idea shows Keats valued <b>pure imaginative experience and openness</b> over cold logical certainty — very much a Romantic value, but expressed by Keats in his own unique way.</li>
+    <li>It also explains why Keats's poetry can hold contradictory feelings together at once (joy and sadness, pleasure and pain, life and death) without needing to "solve" the contradiction.</li>
+  </ul>
+
+  <h3 class="h">Joy and Sadness Together (The "Pleasure-Pain" Theme)</h3>
+  <ul>
+    <li>A recurring idea in Keats is that intense joy and beauty are always closely connected to sadness and mortality (death) — beauty is precious precisely BECAUSE it does not last forever.</li>
+    <li>In "Ode on Melancholy," he says that true melancholy (sadness) lives in the very heart of delight and beauty, because we know beautiful things must fade.</li>
+  </ul>
+
+  <h3 class="h">Major Works To Remember</h3>
+  <ul>
+    <li><b>"Ode on a Grecian Urn"</b> — meditates on a Greek urn's carved figures, frozen forever in a moment of youth and beauty, never ageing or dying — ending in the famous "Beauty is truth" statement.</li>
+    <li><b>"Ode to a Nightingale"</b> — the poet, listening to a nightingale's song, longs to escape the pain and mortality of human life into the bird's timeless, joyful world, but is finally pulled back to harsh reality.</li>
+    <li><b>"To Autumn"</b> — considered by many critics his most perfect poem; a rich, sensuous, calm celebration of the autumn season's ripeness and fruitfulness, without the anxious longing found in his other odes.</li>
+    <li><b>"The Eve of St. Agnes"</b> — a richly decorated, medieval romantic narrative poem, full of sensuous colour and detail.</li>
+  </ul>
+
+  <div class="card gold">
+    <span class="card-label">Why He Matters For This Topic</span>
+    <p style="margin:0">Keats represents Romanticism's purest devotion to sensuous Beauty for its own sake, unmixed with Wordsworth's moral teaching or Shelley's political idealism — this makes him the perfect contrast poet in any comparison question.</p>
+  </div>
+  `
+},
+
+{
+  id:"poet-compare", color:"indigo", eyebrow:"7 · Comparison",
+  title:"Wordsworth vs Shelley vs Keats",
+  sub:"The comparison question examiners love — know it point by point",
+  body:`
+  <p class="dropcap">A frequent 20-mark question simply asks you to compare these three poets. Each represents a genuinely different "flavour" of Romanticism, even though all three share the same basic Romantic beliefs (imagination, emotion, love of beauty). Use this table to structure a clear, well-organised answer.</p>
+
+  <table>
+    <tr><th>Point</th><th>Wordsworth</th><th>Shelley</th><th>Keats</th></tr>
+    <tr><td><b>Generation</b></td><td>First</td><td>Second</td><td>Second</td></tr>
+    <tr><td><b>Main Focus</b></td><td>Nature as moral teacher; memory; ordinary rural life</td><td>Political freedom; idealism; revolutionary change</td><td>Sensuous Beauty; the five senses; art</td></tr>
+    <tr><td><b>Attitude to Nature</b></td><td>Gentle, healing, spiritual guide</td><td>Symbol of powerful, transforming force (wind, sky)</td><td>Source of rich sensuous pleasure and beauty</td></tr>
+    <tr><td><b>Tone/Mood</b></td><td>Calm, meditative, philosophical</td><td>Passionate, urgent, hopeful</td><td>Rich, sensuous, often tinged with sadness about mortality</td></tr>
+    <tr><td><b>View of the Poet</b></td><td>"A man speaking to men" — humble, sensitive observer</td><td>"Unacknowledged legislator of the World" — a prophet of change</td><td>A worshipper of Beauty who accepts mystery ("Negative Capability")</td></tr>
+    <tr><td><b>Key Line</b></td><td>"The Child is father of the Man"</td><td>"If Winter comes, can Spring be far behind?"</td><td>"Beauty is truth, truth beauty"</td></tr>
+    <tr><td><b>Best-Known Work</b></td><td>"Tintern Abbey"</td><td>"Ode to the West Wind"</td><td>"Ode on a Grecian Urn"</td></tr>
+  </table>
+
+  <h3 class="h">Best Way To Answer This Question</h3>
+  <div class="quote-block">"All three poets share the Romantic faith in imagination and intense feeling, but each channels it differently: Wordsworth turns inward to memory and to Nature as a quiet moral guide; Shelley turns outward to politics and a hoped-for revolutionary future, using Nature's grandest forces as his symbols; and Keats turns entirely to sensuous Beauty, valuing rich experience itself — even accepting mystery and uncertainty — above logical or moral explanation."</div>
+  `
+},
+
+{
+  id:"model-answers", color:"crimson", eyebrow:"8 · Practice",
+  title:"Full Model Answers",
+  sub:"Complete, exam-ready answers — study their structure carefully",
+  body:`
+  <p class="dropcap">Below are model answers written the way you should write them in the actual UPPSC GIC Mains exam: a short <b>introduction</b>, clearly organised <b>body points with sub-headings</b>, and a short <b>conclusion</b>. Notice the structure more than the exact words — you can use your own sentences, but follow this pattern.</p>
+
+  <div class="answer-block">
+  <h5>Model Answer 1</h5>
+  <p><b>Q. What do you understand by "Romanticism"? Discuss its origin and main characteristics. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>Romanticism was a literary movement in England, roughly spanning 1798 to 1832, which rejected the reason-based, rule-bound poetry of the preceding Neoclassical Age and instead celebrated imagination, intense personal emotion, the beauty and moral power of Nature, and the freedom of the individual. The movement is usually said to begin with the joint publication of Wordsworth and Coleridge's <i>Lyrical Ballads</i> in 1798.</p>
+
+  <h4 class="h4">Origin</h4>
+  <p>Romanticism arose out of three major historical forces: the French Revolution (1789), which inspired a passionate belief in liberty and the dignity of the common man; the Industrial Revolution, which pushed poets towards Nature as a source of comfort against the ugliness of factory life; and a growing dissatisfaction with the cold, artificial "poetic diction" and strict rules of Neoclassical poetry. Wordsworth's Preface to the 1800 edition of <i>Lyrical Ballads</i> is treated as the movement's manifesto.</p>
+
+  <h4 class="h4">Main Characteristics</h4>
+  <p>Romantic poetry is marked by several distinctive features: the supreme importance given to <b>imagination</b> as a creative power; poetry as the expression of deep, sincere <b>emotion</b>; a near-spiritual <b>love of Nature</b>; the glorification of the ordinary <b>individual</b> and common life; the use of <b>simple, natural language</b> instead of artificial poetic diction; a fascination with the <b>supernatural</b> and mystery (especially in Coleridge); interest in the <b>medieval past</b> and distant, exotic settings; and a spirit of <b>idealism and revolt</b> against injustice, most visible in Shelley.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>Romanticism thus marks a fundamental shift in English literature — from reason to feeling, from social convention to individual freedom, and from artificial rule to natural sincerity — and its influence, through poets like Wordsworth, Shelley, and Keats, continued to shape English poetry long after the movement itself formally ended.</p>
+  </div>
+
+  <div class="rule" style="color:var(--ink-faint)"></div>
+
+  <div class="answer-block">
+  <h5>Model Answer 2</h5>
+  <p><b>Q. Distinguish between the First Generation and Second Generation Romantic poets. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>The six major English Romantic poets are traditionally divided into two generations: the First Generation, comprising William Wordsworth, S. T. Coleridge, and William Blake, who founded and defined the movement; and the Second Generation, comprising Lord Byron, P. B. Shelley, and John Keats, who inherited its ideals but expressed them with greater intensity and idealism.</p>
+
+  <h4 class="h4">Relation to the French Revolution</h4>
+  <p>The First Generation poets were young adults during the French Revolution of 1789 and personally experienced both its early hope and its later disappointment, as the Revolution descended into violence and, eventually, Napoleon's dictatorship. The Second Generation poets, born a generation later, grew up after this disappointment had already occurred, and so admired the Revolution's ideals of liberty from a more distant, purely idealistic standpoint, without the personal disillusionment felt by Wordsworth and Coleridge.</p>
+
+  <h4 class="h4">Political and Emotional Tone</h4>
+  <p>Wordsworth, in particular, grew more politically conservative as he aged, while the Second Generation poets — especially Shelley and Byron — remained passionately rebellious against tyranny and injustice throughout their short lives.</p>
+
+  <h4 class="h4">Treatment of Nature and Subject Matter</h4>
+  <p>The First Generation, especially Wordsworth, treated Nature as a gentle moral teacher and wrote about humble, rural people in simple language. The Second Generation used Nature's grander, more dynamic forces — wind, sky, sea — as symbols of freedom and transformation (as in Shelley), or focused on sensuous beauty and classical/medieval imagery (as in Keats), moving away from Wordsworth's simple rustic subjects.</p>
+
+  <h4 class="h4">Life Span</h4>
+  <p>A striking historical fact reinforces this division: all three Second Generation poets died tragically young — Byron at 36, Shelley at 29, and Keats at only 25 — while both Wordsworth and Coleridge lived into old age, allowing their poetic outlook to mellow and change considerably over time.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>While both generations share the foundational Romantic belief in imagination, emotion, and individual freedom, they differ meaningfully in their historical experience, political tone, and treatment of Nature — making this generational division a genuinely useful way of understanding the full range of English Romantic poetry.</p>
+  </div>
+
+  <div class="rule" style="color:var(--ink-faint)"></div>
+
+  <div class="answer-block">
+  <h5>Model Answer 3</h5>
+  <p><b>Q. Compare and contrast the Romanticism of Wordsworth, Shelley and Keats. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>Although Wordsworth, Shelley, and Keats all share the core Romantic beliefs in imagination, intense feeling, and the value of Beauty, each poet channels these shared beliefs in a distinctly different direction, making a comparative study of the three especially useful for understanding the full range of Romantic poetry.</p>
+
+  <h4 class="h4">Wordsworth: Nature as Moral Teacher</h4>
+  <p>Wordsworth's Romanticism centres on a calm, meditative love of Nature, which he treats as a living moral guide capable of healing and instructing the human heart, as seen in "Tintern Abbey." He also values ordinary rural life, simple natural language, and the lasting influence of childhood memory, as expressed in his idea that "the Child is father of the Man."</p>
+
+  <h4 class="h4">Shelley: Idealism and Revolutionary Passion</h4>
+  <p>Shelley's Romanticism is far more political and idealistic. He uses Nature's most powerful forces — like the west wind — as symbols of revolutionary destruction and rebirth, and believes poets are, in his own words, "the unacknowledged legislators of the World," secretly guiding humanity towards a freer, better future.</p>
+
+  <h4 class="h4">Keats: Sensuous Beauty and Negative Capability</h4>
+  <p>Keats, by contrast, is the least political of the three. His Romanticism centres entirely on the direct, sensuous experience of Beauty, culminating in his belief that "Beauty is truth, truth beauty." His concept of "Negative Capability" further shows his comfort with mystery and uncertainty, valuing pure imaginative experience over logical explanation.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>Thus, Wordsworth looks inward to memory and Nature's quiet wisdom, Shelley looks outward to political transformation, and Keats looks toward Beauty and sensation for their own sake — together, the three poets reveal just how wide and varied the Romantic imagination could be.</p>
+  </div>
+  `
+},
+
+{
+  id:"revision", color:"emerald", eyebrow:"9 · Final Revision",
+  title:"Quick Revision Sheet",
+  sub:"Use this the night before the exam — everything in one place",
+  body:`
+  <p class="dropcap">This page is meant for very fast last-minute revision. Read it slowly at least once with full understanding first (using the earlier sections) — only then will these short points actually help you.</p>
+
+  <h3 class="h">Core Facts and Dates</h3>
+  <table>
+    <tr><th>Item</th><th>Fact</th></tr>
+    <tr><td>Period of Romanticism</td><td>Roughly 1798 - 1832</td></tr>
+    <tr><td>Starting text</td><td><i>Lyrical Ballads</i> by Wordsworth &amp; Coleridge (1798)</td></tr>
+    <tr><td>Manifesto</td><td>Preface to <i>Lyrical Ballads</i> (2nd edition, 1800)</td></tr>
+    <tr><td>First Generation</td><td>Wordsworth, Coleridge, Blake</td></tr>
+    <tr><td>Second Generation</td><td>Byron, Shelley, Keats</td></tr>
+    <tr><td>Reaction against</td><td>Neoclassicism (reason, rules, artificial "poetic diction")</td></tr>
+    <tr><td>Historical triggers</td><td>French Revolution (1789) + Industrial Revolution</td></tr>
+  </table>
+
+  <h3 class="h">Characteristics — One Word Each (memory hooks)</h3>
+  <ul>
+    <li><b>Imagination</b> — the highest creative power of the mind</li>
+    <li><b>Emotion</b> — "spontaneous overflow of powerful feelings"</li>
+    <li><b>Nature</b> — moral teacher / symbol of freedom / source of beauty</li>
+    <li><b>Individualism</b> — ordinary people and personal experience valued</li>
+    <li><b>Simple language</b> — "language really used by men"</li>
+    <li><b>Supernatural</b> — mystery, dreams, the eerie (mainly Coleridge)</li>
+    <li><b>Medievalism / distant past</b> — escape from the industrial present</li>
+    <li><b>Idealism and revolt</b> — belief in freedom and a better future (mainly Shelley)</li>
+  </ul>
+
+  <h3 class="h">Poet-to-Idea Quick Match</h3>
+  <table>
+    <tr><th>Poet</th><th>Core Idea</th><th>Key Line</th><th>Must-Know Work(s)</th></tr>
+    <tr><td>Wordsworth</td><td>Nature as moral teacher; memory</td><td>"The Child is father of the Man"</td><td>"Tintern Abbey"; "Intimations of Immortality"</td></tr>
+    <tr><td>Shelley</td><td>Idealism; revolution; poet as prophet</td><td>"If Winter comes, can Spring be far behind?"</td><td>"Ode to the West Wind"; "To a Skylark"; <i>Prometheus Unbound</i></td></tr>
+    <tr><td>Keats</td><td>Sensuous Beauty; Negative Capability</td><td>"Beauty is truth, truth beauty"</td><td>"Ode on a Grecian Urn"; "Ode to a Nightingale"; "To Autumn"</td></tr>
+  </table>
+
+  <h3 class="h">Three Definitions You Must Be Able To Write From Memory</h3>
+  <ol>
+    <li><b>Romanticism (in one line):</b> A literary movement (1798-1832) that valued imagination, feeling, Nature and individual freedom over reason and rigid rules.</li>
+    <li><b>Negative Capability (Keats):</b> The capacity to accept uncertainty and mystery without an irritable reaching after fixed fact and reason.</li>
+    <li><b>Poet as "Legislator" (Shelley):</b> The idea that poets, through imagination, secretly shape the moral and political direction of society, even without holding official power.</li>
+  </ol>
+
+  <h3 class="h">If You Remember Nothing Else, Remember This</h3>
+  <div class="card gold">
+    <p style="margin:0"><b>Romanticism (1798-1832)</b> = a revolt against reason and rules &rarr; began with <b>Lyrical Ballads</b> &rarr; valued <b>imagination, feeling, Nature, and the individual</b> &rarr; <b>First Generation</b> (Wordsworth, Coleridge, Blake) shaped by the French Revolution's hope and disappointment, loved quiet Nature and simple rural life &rarr; <b>Second Generation</b> (Byron, Shelley, Keats) more idealistic and intense, died young &rarr; <b>Wordsworth</b> = Nature as teacher, <b>Shelley</b> = revolutionary idealist, <b>Keats</b> = worshipper of sensuous Beauty.</p>
+  </div>
+  `
+}
+
+];
+
+/* ================= APP LOGIC ================= */
+(function(){
+  const COLOR_MAP = { crimson:'#9c2b3e', emerald:'#1f5c4a', gold:'#b8862f', indigo:'#2e3f6e' };
+  SECTIONS.forEach(s => { s.colorHex = COLOR_MAP[s.color] || '#9c2b3e'; });
+
+  const contentWrap = document.getElementById('contentWrap');
+  const drawerList = document.getElementById('drawerList');
+  const drawer = document.getElementById('drawer');
+  const scrim = document.getElementById('scrim');
+  const menuBtn = document.getElementById('menuBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const progressPill = document.getElementById('progressPill');
+  const topTitle = document.getElementById('topTitle');
+  const toast = document.getElementById('toast');
+
+  const STORAGE_KEY = 'romanticism-study-guide-progress';
+  let current = 0;
+
+  // Build SECTIONS
+  SECTIONS.forEach((s, i) => {
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.id = 'sec-' + s.id;
+    sec.innerHTML = `
+      <span class="sec-eyebrow" style="background:${s.colorHex}">${s.eyebrow}</span>
+      <h2 class="sec-title">${s.title}</h2>
+      <p class="sec-sub" style="border-color:${s.colorHex}; color:${s.colorHex}">${s.sub}</p>
+      ${s.body}
+    `;
+    contentWrap.appendChild(sec);
+  });
+
+  // Build drawer list
+  SECTIONS.forEach((s, i) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.innerHTML = `<span class="num" style="background:${s.colorHex}">${i+1}</span><span class="ttl">${s.title}</span>`;
+    btn.addEventListener('click', () => { goTo(i); closeDrawer(); });
+    btn.dataset.idx = i;
+    li.appendChild(btn);
+    drawerList.appendChild(li);
+  });
+
+  // Build dots
+  SECTIONS.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  });
+
+  function saveProgress(i){
+    try{ localStorage.setItem(STORAGE_KEY, String(i)); }catch(e){}
+  }
+  function loadProgress(){
+    try{
+      const v = localStorage.getItem(STORAGE_KEY);
+      if(v !== null){
+        const n = parseInt(v, 10);
+        if(!isNaN(n) && n >= 0 && n < SECTIONS.length) return n;
+      }
+    }catch(e){}
+    return null;
+  }
+  function showToast(){
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  function render(){
+    document.querySelectorAll('.section').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.drawer-list button').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.dot').forEach((el, i) => {
+      el.classList.toggle('on', i === current);
+    });
+    progressPill.textContent = (current+1) + ' / ' + SECTIONS.length;
+    topTitle.textContent = SECTIONS[current].title.replace(/\u2014.*$/,'').trim();
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = current === SECTIONS.length-1 ? 'Restart \u2191' : 'Next \u2192';
+    contentWrap.scrollTop = 0;
+    saveProgress(current);
+  }
+
+  function goTo(i){
+    current = Math.max(0, Math.min(SECTIONS.length-1, i));
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current-1));
+  nextBtn.addEventListener('click', () => {
+    if(current === SECTIONS.length-1){ goTo(0); } else { goTo(current+1); }
+  });
+
+  function openDrawer(){ drawer.classList.add('open'); scrim.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); scrim.classList.remove('open'); }
+  menuBtn.addEventListener('click', openDrawer);
+  scrim.addEventListener('click', closeDrawer);
+
+  const saved = loadProgress();
+  if(saved !== null && saved > 0){
+    current = saved;
+    render();
+    showToast();
+  } else {
+    render();
+  }
+})();
+
+</script>
+</body>
+</html>

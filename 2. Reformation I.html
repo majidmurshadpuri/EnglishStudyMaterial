@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Reformation — UPPSC GIC Mains Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5edda;
+  --paper-soft:#fbf6ea;
+  --paper-deep:#eee2c4;
+  --ink:#2b2116;
+  --ink-soft:#5b4d35;
+  --ink-faint:#8a7a5c;
+  --crimson:#9c2b3e;
+  --crimson-deep:#711e2d;
+  --emerald:#1f5c4a;
+  --emerald-deep:#123d31;
+  --gold:#b8862f;
+  --gold-light:#d9ad5c;
+  --indigo:#2e3f6e;
+  --indigo-deep:#202d4f;
+  --line: rgba(43,33,22,0.14);
+  --shadow: 0 10px 30px rgba(43,33,22,0.18);
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:'Source Serif 4', Georgia, serif;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(184,134,47,0.10), transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(31,92,74,0.10), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  overscroll-behavior:none;
+}
+
+.app{
+  max-width:640px;
+  margin:0 auto;
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  background:var(--paper-soft);
+  box-shadow: 0 0 60px rgba(43,33,22,0.15);
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 14px;
+  background: linear-gradient(135deg, var(--indigo-deep), var(--indigo) 55%, var(--crimson-deep));
+  color:var(--paper-soft);
+  position:relative;
+  z-index:20;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  flex-shrink:0;
+}
+.topbar::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-4px; height:4px;
+  background: linear-gradient(90deg, var(--gold-light), var(--crimson), var(--emerald), var(--gold-light));
+  opacity:0.9;
+}
+.menu-btn{
+  width:38px; height:38px; border-radius:10px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; cursor:pointer;
+}
+.menu-btn span, .menu-btn::before, .menu-btn::after{
+  content:""; display:block; width:18px; height:2px; background:var(--paper-soft); border-radius:2px;
+}
+.menu-btn{flex-direction:column; gap:4px;}
+.topbar-titles{flex:1; min-width:0;}
+.topbar-titles .eyebrow{
+  font-family:'Cinzel', serif; font-size:10px; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold-light); opacity:0.95;
+}
+.topbar-titles h1{
+  margin:1px 0 0; font-family:'Playfair Display', serif; font-size:18px; font-weight:700; line-height:1.15;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.progress-pill{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:1px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3);
+  padding:5px 10px; border-radius:999px; flex-shrink:0; white-space:nowrap;
+}
+
+.scrim{
+  position:absolute; inset:0; background:rgba(20,15,8,0.55);
+  opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:29;
+}
+.scrim.open{opacity:1; pointer-events:auto;}
+.drawer{
+  position:absolute; top:0; bottom:0; left:0; width:86%; max-width:340px;
+  background:var(--paper-deep);
+  transform:translateX(-105%);
+  transition:transform .3s cubic-bezier(.22,.9,.32,1);
+  z-index:30;
+  display:flex; flex-direction:column;
+  box-shadow: 8px 0 30px rgba(0,0,0,0.3);
+  border-right:1px solid var(--line);
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{
+  padding:20px 18px 14px; border-bottom:1px solid var(--line);
+  background: linear-gradient(160deg, var(--paper-deep), var(--paper-soft));
+}
+.drawer-head .cap{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2px; color:var(--ink-faint); text-transform:uppercase;
+}
+.drawer-head h2{
+  margin:4px 0 0; font-family:'Playfair Display', serif; font-size:22px; color:var(--crimson-deep);
+}
+.drawer-list{list-style:none; margin:0; padding:8px; overflow-y:auto; flex:1;}
+.drawer-list li{margin-bottom:3px;}
+.drawer-list button{
+  width:100%; text-align:left; display:flex; align-items:center; gap:12px;
+  background:transparent; border:none; padding:10px 10px; border-radius:10px;
+  font-family:'Source Serif 4', serif; font-size:14.5px; color:var(--ink); cursor:pointer;
+}
+.drawer-list button .num{
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:11px; color:#fff;
+}
+.drawer-list button.active{background:rgba(43,33,22,0.08); font-weight:600;}
+.drawer-list button .ttl{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+.content-wrap{flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative;}
+.section{display:none; padding:22px 20px 40px;}
+.section.active{display:block; animation:fadein .35s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+.sec-eyebrow{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+  display:inline-block; padding:4px 12px; border-radius:999px; color:#fff; margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Playfair Display', serif; font-weight:800; font-size:27px; line-height:1.2;
+  color:var(--ink); margin:0 0 6px;
+}
+.sec-sub{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16.5px; color:var(--ink-soft);
+  margin:0 0 20px; border-left:3px solid; padding-left:12px;
+}
+.rule{
+  height:1px; background:linear-gradient(90deg, currentColor, transparent);
+  margin:18px 0; opacity:0.35;
+}
+
+.dropcap::first-letter{
+  font-family:'Playfair Display', serif; font-size:52px; font-weight:800; float:left;
+  line-height:0.8; padding:6px 8px 0 0; color:var(--crimson);
+}
+
+h3.h{
+  font-family:'Playfair Display', serif; font-size:18.5px; margin:22px 0 10px; color:var(--ink);
+  display:flex; align-items:center; gap:8px;
+}
+h3.h::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--gold); transform:rotate(45deg); flex-shrink:0;}
+h4.h4{
+  font-family:'Source Serif 4', serif; font-weight:700; font-size:15.5px; margin:16px 0 6px; color:var(--crimson-deep);
+}
+p{font-size:15.5px; line-height:1.7; margin:0 0 12px; color:var(--ink);}
+ul,ol{margin:0 0 14px; padding-left:20px;}
+li{font-size:15.2px; line-height:1.65; margin-bottom:7px; color:var(--ink);}
+li::marker{color:var(--gold);}
+b, strong{color:var(--crimson-deep); font-weight:700;}
+em.q{color:var(--emerald-deep); font-style:italic;}
+
+.card{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:14px;
+  padding:14px 16px; margin:14px 0; box-shadow: var(--shadow);
+}
+.card.gold{border-left:4px solid var(--gold);}
+.card.crimson{border-left:4px solid var(--crimson);}
+.card.emerald{border-left:4px solid var(--emerald);}
+.card.indigo{border-left:4px solid var(--indigo);}
+.card-label{
+  font-family:'Cinzel', serif; font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:6px; display:block;
+}
+
+.quote-block{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:19px; line-height:1.55;
+  color:var(--indigo-deep); padding:10px 0 10px 16px; border-left:3px solid var(--gold);
+  margin:14px 0;
+}
+.quote-block .src{
+  display:block; font-family:'Source Serif 4', serif; font-style:normal; font-size:12px;
+  color:var(--ink-faint); margin-top:4px; letter-spacing:0.3px;
+}
+
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.8px;}
+th,td{padding:9px 8px; border:1px solid var(--line); text-align:left; vertical-align:top;}
+th{background:var(--paper-deep); font-family:'Cinzel', serif; font-size:11px; letter-spacing:0.8px; text-transform:uppercase; color:var(--ink-soft);}
+
+.qn-item{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px;
+  position:relative; padding-left:44px;
+}
+.qn-item .qnum{
+  position:absolute; left:10px; top:12px; width:26px; height:26px; border-radius:50%;
+  background:var(--indigo); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:12px; font-weight:600;
+}
+.qn-item p{margin:0; font-weight:600; font-size:14.8px;}
+.qn-item .tag{
+  display:inline-block; margin-top:6px; font-family:'Cinzel', serif; font-size:9.5px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--emerald-deep); background:rgba(31,92,74,0.1); padding:2px 8px; border-radius:999px;
+}
+
+.answer-block h5{
+  font-family:'Cinzel', serif; font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--crimson);
+  margin:20px 0 8px;
+}
+
+.bottombar{
+  flex-shrink:0; display:flex; align-items:center; gap:10px; padding:10px 14px;
+  background:var(--paper-deep); border-top:1px solid var(--line); z-index:15;
+}
+.nav-btn{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 10px; border-radius:12px; border:1px solid var(--line);
+  background:var(--paper-soft); font-family:'Source Serif 4', serif; font-weight:600; font-size:13.5px;
+  color:var(--ink); cursor:pointer;
+}
+.nav-btn:disabled{opacity:0.35;}
+.nav-btn.primary{background:linear-gradient(135deg, var(--crimson), var(--crimson-deep)); color:#fff; border:none;}
+.dots{display:flex; gap:4px; flex-shrink:0; flex-wrap:wrap; max-width:110px; justify-content:flex-end;}
+.dot{width:5px; height:5px; border-radius:50%; background:var(--line);}
+.dot.on{background:var(--gold);}
+
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-thumb{background:var(--ink-faint); border-radius:6px; opacity:0.4;}
+
+@media (min-width:641px){
+  body{padding:20px 0;}
+  .app{height:calc(100dvh - 40px); border-radius:22px; overflow:hidden;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="menu-btn" id="menuBtn"></div>
+    <div class="topbar-titles">
+      <div class="eyebrow">UPPSC GIC · English Lecturer Mains</div>
+      <h1 id="topTitle">The Reformation</h1>
+    </div>
+    <div class="progress-pill" id="progressPill">1 / 12</div>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="cap">Contents</div>
+      <h2>Study Map</h2>
+    </div>
+    <ul class="drawer-list" id="drawerList"></ul>
+  </nav>
+
+  <div class="content-wrap" id="contentWrap"></div>
+
+  <div class="bottombar">
+    <button class="nav-btn" id="prevBtn">&larr; Prev</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn primary" id="nextBtn">Next &rarr;</button>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = "reformation_study_guide_last_section";
+
+const SECTIONS = [
+
+{
+  id:"questions", color:"indigo", eyebrow:"Start Here",
+  title:"Expected Descriptive Questions",
+  sub:"What the examiner is likely to ask, based on the syllabus wording",
+  body:`
+  <p class="dropcap">The syllabus lists <b>"Reformation"</b> as one bullet point under <b>Section B: Literary Terms, Movements, Forms, Literary Criticism</b>, placed right next to "Renaissance." This pairing is a strong hint: the examiner very often asks about the two together, or asks you to distinguish one from the other. Since the Reformation shaped English religious and intellectual life for two centuries, it can also be tested through its reflection in Shakespeare, Milton, and Dryden — all named separately in Section A. Prepare fully for all of the following.</p>
+
+  <div class="qn-item"><span class="qnum">1</span>
+    <p>What do you understand by the term "Reformation"? Discuss its origin, causes, and course in England.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">2</span>
+    <p>Distinguish between the Renaissance and the Reformation. How did both movements together shape English literature of the sixteenth and seventeenth centuries?</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">3</span>
+    <p>Discuss the impact of the Reformation on English prose and poetry, with suitable examples.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">4</span>
+    <p>"Milton is the greatest literary voice of English Puritanism." Discuss with reference to his major works.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">5</span>
+    <p>Examine the reflection of Reformation ideas and conflicts in the works of Dryden.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">6</span>
+    <p>How far does Shakespeare's work reflect the religious world of post-Reformation England?</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">7</span>
+    <p>Short note (in 150-200 words): The English Bible translations / The Book of Common Prayer / Puritanism and English Literature / Martin Luther and the Ninety-Five Theses.</p>
+    <span class="tag">Possible (Short Note)</span>
+  </div>
+
+  <div class="card gold">
+    <span class="card-label">How This Guide Is Organised</span>
+    <p style="margin:0">Each following section builds one layer of knowledge, from the simplest idea to exam-ready detail. Read in order the first time. Before the exam, use the drawer menu (top-left icon) to jump directly to any topic for revision.</p>
+  </div>
+  `
+},
+
+{
+  id:"intro", color:"crimson", eyebrow:"1 · Foundation",
+  title:"What Is the Reformation?",
+  sub:"The basic idea, explained in the simplest way possible",
+  body:`
+  <p class="dropcap">For roughly a thousand years before the 16th century, there was only <b>one</b> official Christian Church in Western Europe: the <b>Roman Catholic Church</b>, headed by the Pope in Rome. Every king, every ordinary person, every writer in England was, at least officially, a member of this one Church. The Church was not just a religious body — it owned huge amounts of land, collected money from ordinary people, and had enormous political power alongside kings and emperors.</p>
+
+  <p>By the early 1500s, many people — including serious, religious people — felt that this one, all-powerful Church had grown <b>corrupt</b>. Church leaders lived in luxury. The Church sold something called <b>"indulgences"</b> — basically, paying money to reduce punishment for sin — which looked to critics like buying and selling forgiveness. In <b>1517</b>, a German monk named <b>Martin Luther</b> nailed a list of 95 complaints (the <b>"Ninety-Five Theses"</b>) to a church door in Wittenberg, Germany, attacking these practices. This single act is usually taken as the spark that lit the <b>Reformation</b> — a movement to "reform" (fix, purify) the Church, which ended up splitting Western Christianity into two: the old <b>Roman Catholic</b> Church and new <b>Protestant</b> Churches.</p>
+
+  <div class="card crimson">
+    <span class="card-label">Meaning of the Word</span>
+    <p style="margin:0"><b>Reformation</b> comes from "reform" — to change something in order to improve it. It refers to the 16th-century religious movement that tried to "reform" (and ended up breaking away from) the Roman Catholic Church, leading to the rise of <b>Protestantism</b> as a separate branch of Christianity. In England, this led specifically to the creation of the <b>Church of England (Anglican Church)</b>, independent of the Pope's authority.</p>
+  </div>
+
+  <p>Do not confuse this with the Renaissance (a separate, earlier topic in your syllabus). The <b>Renaissance</b> is about reviving classical Greek/Roman learning and celebrating human reason and worldly life. The <b>Reformation</b> is specifically about religious reform — questioning and breaking away from the authority of the Catholic Church. They happened around the same time in history and influenced each other, but they are not the same movement. A dedicated comparison of the two is given later in this guide.</p>
+
+  <h3 class="h">In One Line (write this first in your answer)</h3>
+  <div class="quote-block">The Reformation was a 16th-century religious movement, beginning with Martin Luther's protest against Catholic Church corruption in 1517, that led to a permanent split in Western Christianity and, in England, to the creation of an independent national Church, profoundly reshaping the country's religious, intellectual, and literary life for the next two centuries.</div>
+
+  <h3 class="h">Why You Must Understand This Before Anything Else</h3>
+  <ul>
+    <li>Almost every later point in this guide (Henry VIII's break with Rome, the English Bible, Puritanism, the religious conflicts in Dryden and Milton) is simply this one basic idea — the break from a single, all-powerful Church — playing out in a different area of English life.</li>
+    <li>Always mention that the Reformation is a <b>religious</b> movement, distinct from but overlapping with the Renaissance, which is a <b>cultural/intellectual</b> movement — examiners specifically reward this distinction.</li>
+  </ul>
+  `
+},
+
+{
+  id:"origin", color:"emerald", eyebrow:"2 · Background",
+  title:"Origin and Course of the Reformation",
+  sub:"How it began in Europe, and how it specifically unfolded in England",
+  body:`
+  <p class="dropcap">To write a strong "origin and course" paragraph, you need two separate stories clearly in your head: the story in <b>Europe</b> (especially Germany), and the very different, more political story in <b>England</b>.</p>
+
+  <h3 class="h">The European Story — Martin Luther and the Break from Rome</h3>
+  <ul>
+    <li><b>Martin Luther (1483-1546)</b>, a German monk and professor, published his <b>Ninety-Five Theses</b> in 1517, attacking the sale of indulgences and questioning the Pope's authority.</li>
+    <li>Luther argued for ideas that became central to Protestant belief: that salvation comes through <b>faith alone</b> (not through buying indulgences or performing Church rituals), and that ordinary believers should be able to read the <b>Bible in their own language</b> rather than relying only on priests reading it in Latin.</li>
+    <li>Luther's ideas spread rapidly (helped, just like Renaissance ideas, by the recently invented printing press), and other reformers such as <b>John Calvin</b> in Switzerland developed their own versions of Protestant belief, leading to many different Protestant Churches across Europe.</li>
+  </ul>
+
+  <h3 class="h">The English Story — A More Political Beginning</h3>
+  <p>England's break from Rome did not start purely out of religious conviction — it began with a political and personal crisis involving King <b>Henry VIII</b>, though genuine religious reform ideas took hold soon after.</p>
+  <ul>
+    <li><b>Henry VIII (reigned 1509-1547)</b> wanted the Pope to grant him an annulment (a cancellation) of his marriage to Catherine of Aragon, so that he could marry Anne Boleyn and try again for a male heir. The Pope refused.</li>
+    <li>In response, Henry had the English Parliament pass the <b>Act of Supremacy (1534)</b>, which declared the King (not the Pope) to be the <b>Supreme Head of the Church of England</b> — formally breaking England away from the authority of Rome.</li>
+    <li>Henry <b>dissolved the monasteries</b> (closed down Catholic monasteries across England and seized their wealth and land), a huge social and economic change alongside the religious one.</li>
+    <li>After Henry, England's religious direction swung back and forth: his son <b>Edward VI</b> pushed England further towards Protestantism; his daughter <b>Mary I ("Bloody Mary")</b> tried to restore Catholicism and persecuted Protestants; and finally his daughter <b>Elizabeth I (1558-1603)</b> settled England as a moderate, independent Protestant nation through the <b>"Elizabethan Religious Settlement"</b> — creating the Church of England as it remained for centuries afterward.</li>
+  </ul>
+
+  <h3 class="h">Key Tools That Spread the Reformation in England</h3>
+  <ul>
+    <li><b>The English Bible:</b> Reformers believed ordinary people should read the Bible for themselves. <b>William Tyndale</b> translated the New Testament into English (1526) despite this being illegal at the time (he was later executed for it); his translation heavily influenced the later official <b>King James Bible (1611)</b>, commissioned under King James I.</li>
+    <li><b>The Book of Common Prayer (1549, revised 1552 and later):</b> compiled mainly by <b>Thomas Cranmer</b>, this gave the Church of England its official English-language forms of worship, replacing the old Latin Catholic services — one of the most influential works of English prose ever written, shaping the rhythm and style of English religious language for centuries.</li>
+    <li><b>Foxe's Book of Martyrs (1563)</b> by <b>John Foxe</b>: a widely read book describing the sufferings of Protestants persecuted under Mary I, which strongly shaped English Protestant national identity and popular memory of the Reformation struggle.</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Easy Way To Remember The Timeline</span>
+    <p style="margin:0">Luther's protest lights the spark in Germany (1517) → Henry VIII breaks England from Rome for his own political reasons (1534) → religious direction swings between Edward VI (more Protestant), Mary I (Catholic revival) and finally settles under Elizabeth I (1558-1603) as a distinct, independent Protestant Church of England → the English Bible and Book of Common Prayer spread these new ideas in everyday language → religious tension continues into the next century, eventually feeding into the English Civil War (1642-1651), the world in which Milton wrote, and later, the Catholic-Protestant political conflicts that Dryden wrote about.</p>
+  </div>
+  `
+},
+
+{
+  id:"features", color:"gold", eyebrow:"3 · Core Content",
+  title:"Key Features and Effects of the Reformation on Literature",
+  sub:"The single most important section — learn this thoroughly",
+  body:`
+  <p class="dropcap">This is the heart of the topic. Almost every question on the Reformation is really asking you to explain how this religious upheaval changed the way English writers thought and wrote. Understand each idea below, don't just memorise the words.</p>
+
+  <h3 class="h">1. The English Bible as a Literary Force</h3>
+  <p>Once the Bible was available in English (through Tyndale and later the King James Bible of 1611), it became one of the most widely read books in the country, and its language — simple, rhythmic, image-rich — deeply influenced the style of English prose and poetry for centuries. Countless English writers, from Shakespeare to Milton to much later authors, use Biblical phrases, stories, and rhythms in their work.</p>
+
+  <h3 class="h">2. Growth of Religious and Controversial Prose</h3>
+  <p>The Reformation produced an explosion of prose writing arguing for or against religious positions — sermons, pamphlets, translations, and works of theology. This habit of writing forceful, persuasive prose to argue a position carried on into later English prose style, including political and controversial writing.</p>
+
+  <h3 class="h">3. Rise of Puritanism and Its Literary Effects</h3>
+  <ul>
+    <li><b>Puritans</b> were English Protestants who felt the Church of England had not reformed enough — they wanted simpler worship, stricter morality, and a more personal, intense relationship with God, without elaborate Catholic-style ritual.</li>
+    <li>Puritan values (seriousness, self-examination, distrust of luxury and "worldly" pleasure, intense personal faith) deeply shaped English literature, most powerfully in <b>John Milton</b>, who was himself a committed Puritan.</li>
+    <li>Puritan political power also directly affected literature: when Puritans gained control of England after the Civil War, the <b>theatres were closed (1642-1660)</b> under Puritan rule, showing how directly Reformation-descended religious belief could shape (and restrict) English literary life.</li>
+  </ul>
+
+  <h3 class="h">4. New Habits of Individual Conscience and Self-Examination</h3>
+  <p>A central Protestant idea is that each individual believer, not just a priest, is personally responsible for their own relationship with God and must examine their own conscience and read scripture for themselves. This new emphasis on the <b>individual believer's inner, personal spiritual life</b> encouraged a literature of deep self-examination, inner doubt, and personal spiritual struggle — visible later in Puritan spiritual writing and in the intensely personal religious poetry of writers like Donne and Milton.</p>
+
+  <h3 class="h">5. Anti-Catholic Feeling and Religious-Political Conflict as Literary Subject Matter</h3>
+  <p>Because England's national identity became bound up with being a <b>Protestant</b> nation (especially after conflicts with Catholic Spain, culminating in the defeat of the Spanish Armada in 1588), Catholic-Protestant tension became a recurring subject in English literature and politics for the next two centuries — most directly visible later in Dryden's poetry, written during a period of renewed Catholic-Protestant political crisis in England (discussed in a later section).</p>
+
+  <h3 class="h">6. Decline of Old Catholic Forms; Suspicion of Ritual and Image</h3>
+  <p>Protestant reformers were often suspicious of elaborate visual and ritual religion (statues, elaborate ceremony, praying to saints), preferring the plain "Word" (scripture, sermon, prayer in plain English) over image and ritual. This shift in religious sensibility indirectly encouraged a literary culture that valued the power of plain, direct language over ornamental ceremony, alongside a continuing love of rich poetic imagery inherited from the Renaissance.</p>
+
+  <h3 class="h">7. Interaction With the Renaissance — Shared Spirit of Questioning Authority</h3>
+  <p>A sophisticated point for top marks: both the Renaissance and the Reformation share one deep instinct — going back to <b>original sources</b> and questioning inherited authority instead of blindly accepting it. The Renaissance humanist went back to original classical texts instead of trusting medieval commentary on them; the Reformer went back to the original text of the Bible instead of trusting the Church's authority over its interpretation. This shared habit of mind is why the two movements, though different in subject, reinforced each other in shaping a new, more questioning, more individually responsible English mind.</p>
+
+  <div class="card crimson">
+    <span class="card-label">How To Use This List In An Exam</span>
+    <p style="margin:0">Do not just list "English Bible, Puritanism, individual conscience..." as bare terms. For full marks, take 5-6 of these points, explain each idea in your own words, and support it with ONE concrete example (a work, a writer, or a historical event). That structure alone can carry a full 20-mark answer.</p>
+  </div>
+  `
+},
+
+{
+  id:"writers", color:"indigo", eyebrow:"4 · Key Names",
+  title:"Key Writers and Works of the Reformation",
+  sub:"The people who carried Reformation ideas into English writing",
+  body:`
+  <p class="dropcap">You do not need full biographies — you need to know WHO each person was and WHY they matter to the Reformation story, so you can use them as supporting examples in an answer.</p>
+
+  <h3 class="h">The European Starting Point</h3>
+  <ul>
+    <li><b>Martin Luther (1483-1546)</b> — German monk; his <i>Ninety-Five Theses</i> (1517) sparked the Reformation; also translated the Bible into German, setting an example that inspired English translators like Tyndale.</li>
+    <li><b>John Calvin (1509-1564)</b> — French-Swiss reformer; developed a stricter, highly influential form of Protestant theology ("Calvinism") that shaped English Puritanism.</li>
+  </ul>
+
+  <h3 class="h">The English Bible Translators</h3>
+  <ul>
+    <li><b>William Tyndale (c. 1494-1536)</b> — translated the New Testament into English (1526) directly from Greek, against the law of his time; executed for heresy in 1536; his phrasing shaped almost every later English Bible translation.</li>
+    <li>The <b>King James Bible (1611)</b> — commissioned by King James I, a team translation that became the standard English Bible for centuries and one of the most influential works of English prose style ever produced, admired for its simple, dignified, rhythmic language.</li>
+  </ul>
+
+  <h3 class="h">Architects of the Church of England</h3>
+  <ul>
+    <li><b>Thomas Cranmer (1489-1556)</b> — Archbishop of Canterbury under Henry VIII and Edward VI; chief author of <i>The Book of Common Prayer</i> (1549), the founding text of English-language Anglican worship; executed under Mary I for his Protestant beliefs.</li>
+  </ul>
+
+  <h3 class="h">Chroniclers of the Struggle</h3>
+  <ul>
+    <li><b>John Foxe (1516/17-1587)</b> — author of <i>Actes and Monuments</i>, popularly known as <b>Foxe's Book of Martyrs</b> (1563), recording the suffering of Protestants persecuted under Mary I; hugely influential in shaping English Protestant identity and memory for generations.</li>
+  </ul>
+
+  <h3 class="h">Writers Who Carried Reformation Ideas Into Major Literature</h3>
+  <ul>
+    <li><b>Edmund Spenser (1552-1599)</b> — his epic <i>The Faerie Queene</i> blends Renaissance classical epic form with clear Protestant, anti-Catholic allegory (for example, the "Redcrosse Knight" battling a monstrous figure widely read as representing the corrupt Roman Church).</li>
+    <li><b>William Shakespeare (1564-1616)</b> — did not write directly "Reformation" literature but lived and wrote entirely within a post-Reformation Church of England society; his work shows the religious anxieties, caution, and doctrinal shifts of the age, discussed in a dedicated section below.</li>
+    <li><b>John Donne (1572-1631)</b> — born into a Catholic family (a dangerous position in Protestant England) but later became an Anglican clergyman (Dean of St Paul's Cathedral); his personal journey between the two faiths, and his intensely personal religious poetry (<i>Holy Sonnets</i>), reflects the individual, conscience-driven spirituality encouraged by the Reformation.</li>
+    <li><b>John Milton (1608-1674)</b> — the greatest literary voice of English Puritanism, discussed in full in a dedicated section below.</li>
+    <li><b>John Bunyan (1628-1688)</b> — Puritan preacher and writer; his prose allegory <i>The Pilgrim's Progress</i> (1678) is one of the most important pieces of Puritan literature, describing a Christian's spiritual journey towards salvation in the plain, direct, Bible-influenced English prose style encouraged by Reformation values.</li>
+    <li><b>John Dryden (1631-1700)</b> — wrote directly about Catholic-Protestant political and religious conflict in late-17th-century England, discussed in a dedicated section below.</li>
+  </ul>
+
+  <div class="card gold">
+    <span class="card-label">Exam Tip Line (memorise this)</span>
+    <p style="margin:0">"The Reformation in England moved from Luther's spark in Europe (1517), through Tyndale's English Bible and Henry VIII's political break from Rome (1534), to Cranmer's Book of Common Prayer and the Elizabethan Settlement, before its religious intensity found major literary expression in Spenser's allegory, Milton's Puritan epic, Bunyan's Puritan prose, and Dryden's religious-political poetry."</p>
+  </div>
+  `
+},
+
+{
+  id:"shakespeare", color:"emerald", eyebrow:"5 · Author Focus",
+  title:"Reflection of the Reformation in Shakespeare",
+  sub:"A cautious, indirect, but still visible presence",
+  body:`
+  <p class="dropcap">Shakespeare is a special case for this topic. Unlike Milton or Dryden, he never wrote directly "about" the Reformation, and he was famously careful never to take an open, public religious side — a caution that itself tells us something important about the tense, closely watched religious atmosphere of post-Reformation England. Still, several clear traces of the Reformation appear in his work.</p>
+
+  <h3 class="h">1. Writing Entirely Within a Post-Reformation Society</h3>
+  <p>Shakespeare was born (1564) and wrote his entire career after England's official break from Rome. His audiences lived under the Church of England, attended English-language services shaped by the Book of Common Prayer, and had grown up hearing the English Bible — this shared religious world forms the invisible background of all his plays, even when the plot is not directly religious.</p>
+
+  <h3 class="h">2. Deliberate Religious Caution and Ambiguity</h3>
+  <ul>
+    <li>Shakespeare avoids openly promoting either Catholic or Protestant doctrine in his plays — a very sensible choice in an age when religious controversy could be dangerous (his own family background has even been debated by historians as possibly having Catholic sympathies, though this remains uncertain).</li>
+    <li>This is itself an important exam point: Shakespeare's religious caution and ambiguity reflect the real tensions and dangers of post-Reformation England, where the "wrong" religious opinion, publicly stated, could destroy a career or a life.</li>
+  </ul>
+
+  <h3 class="h">3. Settings in Catholic Countries and Catholic Imagery</h3>
+  <ul>
+    <li>Many of Shakespeare's plays are set in still-Catholic countries (Italy, for example, in <i>Romeo and Juliet</i>, <i>Much Ado About Nothing</i>, <i>Othello</i>), which allowed him to include friars, confession, and other Catholic religious practices as part of the story's local colour without directly commenting on English religious politics.</li>
+    <li>Example: Friar Laurence in <i>Romeo and Juliet</i> plays a central, sympathetic role — showing that Shakespeare could present Catholic religious figures with warmth, even in officially Protestant England.</li>
+  </ul>
+
+  <h3 class="h">4. Ghosts, Purgatory, and Religious Uncertainty</h3>
+  <ul>
+    <li>The Ghost in <i>Hamlet</i> describes being confined to suffer "till the foul crimes done in my days of nature / Are burnt and purged away" — language that closely echoes the Catholic doctrine of <b>Purgatory</b> (a place of purification after death), a doctrine that Protestant reformers officially rejected.</li>
+    <li>This creates a fascinating, deliberately unresolved tension in the play: a hero educated at a Protestant university (Wittenberg — the very city where Luther began the Reformation) is confronted by evidence of an "old," pre-Reformation Catholic belief. Scholars often read this as Shakespeare quietly dramatising the genuine confusion and uncertainty many ordinary English people felt as their religious world changed around them.</li>
+  </ul>
+
+  <h3 class="h">5. Language Shaped by the English Bible</h3>
+  <ul>
+    <li>Shakespeare's language is full of Biblical phrasing, imagery, and allusion — evidence of how deeply the newly available, widely read English Bible had entered ordinary English speech and imagination since the Reformation.</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">One Sentence To Remember</span>
+    <p style="margin:0">Shakespeare reflects the Reformation not through open religious argument but through the cautious, religiously mixed, sometimes uncertain world of his plays — Catholic settings and figures treated sympathetically, Biblically shaped language, and moments like the Ghost in <i>Hamlet</i> that quietly dramatise the doctrinal confusion of a society still adjusting to its post-Reformation identity.</p>
+  </div>
+  `
+},
+
+{
+  id:"milton", color:"crimson", eyebrow:"6 · Author Focus",
+  title:"Reflection of the Reformation in Milton",
+  sub:"The greatest literary voice of English Puritanism",
+  body:`
+  <p class="dropcap">If Shakespeare reflects the Reformation cautiously and indirectly, <b>John Milton (1608-1674)</b> reflects it directly, passionately, and as a matter of deep personal conviction. Milton was a committed <b>Puritan</b> — writing more than a century after Luther's original protest, at a time when Reformation-descended religious conflict had grown into full political revolution in England (the Civil War of 1642-1651, and the execution of King Charles I in 1649).</p>
+
+  <h3 class="h">1. Milton the Puritan Pamphleteer</h3>
+  <ul>
+    <li>Before he was primarily a poet, Milton spent years as a political and religious prose writer, defending Puritan and Parliamentary causes against the King and the Church hierarchy.</li>
+    <li>His prose work <i>Areopagitica</i> (1644) argues passionately against censorship and for freedom of the press — rooted in the Protestant/Reformation belief that individual readers, using their own God-given reason and conscience, should be free to encounter ideas (including the Bible) directly, without a controlling authority deciding what they may read.</li>
+  </ul>
+
+  <h3 class="h">2. Puritan Distrust of Ceremony and Church Hierarchy</h3>
+  <ul>
+    <li>Milton wrote strongly against the elaborate ceremony and episcopal (bishop-based) hierarchy of the Church of England, which many Puritans felt was still too close to Catholic practice — a direct continuation of the Reformation's push to "purify" the Church further.</li>
+  </ul>
+
+  <h3 class="h">3. Emphasis on Individual Conscience and Direct Relationship With God</h3>
+  <ul>
+    <li>In <i>Paradise Lost</i> (1667), Milton's God grants Adam and Eve genuine free will and reason so that their choice to obey or disobey is truly their own — reflecting the Reformation-Puritan belief that faith and salvation depend on the individual's own free, reasoned choice and inner conviction, not on ritual performed on their behalf by a priest.</li>
+    <li>Milton's famous declaration of purpose in <i>Paradise Lost</i> — to "justify the ways of God to men" — shows a very Protestant confidence that ordinary human reason, applied directly to scripture and theology, can genuinely understand and explain God's purposes, without needing the Church hierarchy as an in-between authority.</li>
+  </ul>
+
+  <h3 class="h">4. Political Puritanism</h3>
+  <ul>
+    <li>Milton served as a government official (Secretary for Foreign Tongues) under Oliver Cromwell's Puritan-led Commonwealth after the execution of King Charles I, and wrote prose defending the execution of the king — showing how far Reformation-rooted religious belief had, by his time, developed into a full political programme, prepared to overturn even the monarchy in the name of religious and political reform.</li>
+  </ul>
+
+  <h3 class="h">5. Puritan Seriousness and Moral Purpose in His Poetry</h3>
+  <ul>
+    <li>Milton's poetry is marked by high moral seriousness, a concern with sin, temptation, obedience, and redemption, and a rejection of frivolous or purely decorative writing — all reflecting the serious, self-examining, morally intense Puritan temperament that grew out of Reformation belief.</li>
+  </ul>
+
+  <div class="card crimson">
+    <span class="card-label">One Sentence To Remember</span>
+    <p style="margin:0">Milton is the greatest literary voice of English Puritanism because his prose (<i>Areopagitica</i>) and his epic (<i>Paradise Lost</i>) both express core Reformation-Puritan convictions: freedom of individual conscience, the sufficiency of reason and scripture without priestly mediation, deep moral seriousness, and, in his political career, a willingness to carry religious conviction into revolutionary political action.</p>
+  </div>
+  `
+},
+
+{
+  id:"dryden", color:"gold", eyebrow:"7 · Author Focus",
+  title:"Reflection of the Reformation in Dryden",
+  sub:"Religious-political conflict returns to the centre of English poetry",
+  body:`
+  <p class="dropcap"><b>John Dryden (1631-1700)</b> wrote nearly a century after Milton, during a period when Reformation-descended Catholic-Protestant conflict flared up again as a live, dangerous political issue in England — giving Dryden direct, dramatic material for some of his greatest poetry. Because Dryden is separately named in your syllabus (and studied as a major critic and poet), this makes an excellent, specific example for a Reformation question.</p>
+
+  <h3 class="h">1. The Political-Religious Crisis of Dryden's Time</h3>
+  <ul>
+    <li>By the later 17th century, England still feared a return to Catholic rule. A major crisis (the <b>"Exclusion Crisis," 1679-1681</b>) erupted over whether the Catholic <b>James, Duke of York</b> (the king's own brother) should be allowed to inherit the throne, given that England was officially Protestant.</li>
+    <li>This is a direct, later echo of exactly the same Catholic-versus-Protestant tension created by the original 16th-century Reformation — showing your examiner that you understand the Reformation was not a single event but a source of conflict lasting for centuries.</li>
+  </ul>
+
+  <h3 class="h">2. <i>Absalom and Achitophel</i> (1681)</h3>
+  <ul>
+    <li>Dryden's great political-satirical poem uses a Biblical story (King David and his rebellious son Absalom) as an allegory for the Exclusion Crisis, defending King Charles II and the principle of legitimate royal succession against plots to exclude the Catholic heir.</li>
+    <li>Using a <b>Biblical</b> story to comment on a current <b>political-religious</b> crisis is itself a very Reformation-shaped habit of mind — remember, the Reformation had made the Bible a shared, widely known text that English writers and readers instinctively reached for when discussing power, loyalty, and legitimacy.</li>
+  </ul>
+
+  <h3 class="h">3. <i>Religio Laici</i> (1682) — "A Layman's Religion"</h3>
+  <ul>
+    <li>This long poem directly discusses religious controversy: Dryden, writing as an ordinary Anglican layman, defends the Church of England's moderate, reasonable middle position, arguing against Catholic overconfidence in Church authority on one side and (still very Reformation-linked) Puritan/Protestant overconfidence in every individual's private interpretation of scripture on the other.</li>
+    <li>This poem is a direct, explicit engagement with exactly the theological questions the Reformation had raised over a century earlier: how much authority should the Church have, and how much should be left to the individual believer's own reading of scripture?</li>
+  </ul>
+
+  <h3 class="h">4. <i>The Hind and the Panther</i> (1687)</h3>
+  <ul>
+    <li>Remarkably, Dryden converted to <b>Roman Catholicism</b> in 1685, and this later poem is an allegory (a milk-white Hind representing the Catholic Church, a spotted Panther representing the Church of England) defending the Catholic position — showing that, even in the late 17th century, more than 150 years after Henry VIII's break with Rome, a leading English poet could still place Catholic-versus-Protestant religious argument at the very centre of major published poetry.</li>
+  </ul>
+
+  <h3 class="h">5. Why Dryden Matters So Much For This Topic</h3>
+  <p>Dryden proves, better than almost any other syllabus author, that the Reformation was not a single 16th-century event that finished and was forgotten — its central question (Catholic authority versus Protestant individual conscience) remained a genuinely dangerous, live political and literary subject in England for well over a century afterward, right into Dryden's own lifetime and his own personal religious journey.</p>
+
+  <div class="card gold">
+    <span class="card-label">One Sentence To Remember</span>
+    <p style="margin:0">Dryden's <i>Absalom and Achitophel</i>, <i>Religio Laici</i>, and <i>The Hind and the Panther</i> together show that the Catholic-Protestant conflict created by the Reformation remained a live, central subject of English political and religious poetry well into the late 17th century, illustrated most personally by Dryden's own conversion from Anglicanism to Catholicism.</p>
+  </div>
+  `
+},
+
+{
+  id:"comparison", color:"indigo", eyebrow:"8 · Comparison",
+  title:"Reformation vs Renaissance",
+  sub:"A comparison examiners love to test — the two movements side by side",
+  body:`
+  <p class="dropcap">Because your syllabus lists Renaissance and Reformation as neighbouring bullet points, a comparison question between them is highly likely. A good answer needs both the similarities and the clear differences.</p>
+
+  <h3 class="h">What They Share</h3>
+  <ul>
+    <li>Both movements share the instinct of going back to an <b>original source</b> and questioning inherited authority: the Renaissance humanist goes back to original classical texts instead of trusting medieval commentary; the Reformer goes back to the original Bible text instead of trusting the Church's authority over its meaning.</li>
+    <li>Both encourage a new confidence in the <b>individual</b>: the Renaissance in the individual's reason and worldly achievement; the Reformation in the individual believer's own conscience and direct relationship with God.</li>
+    <li>Both were helped enormously by the <b>printing press</b>, which allowed classical texts and vernacular Bibles alike to spread quickly across Europe.</li>
+    <li>Both unfolded across the same broad historical period in England (roughly the 16th and into the 17th century) and shaped many of the same writers (Spenser, Shakespeare, Donne, Milton all show the influence of both).</li>
+  </ul>
+
+  <table>
+    <tr><th>Point</th><th>Renaissance</th><th>Reformation</th></tr>
+    <tr><td><b>Nature of Movement</b></td><td>Cultural and intellectual — revival of classical learning, art, and humanism</td><td>Religious — reform of and break from the Roman Catholic Church</td></tr>
+    <tr><td><b>Starting Point</b></td><td>Italy, 14th century (Petrarch)</td><td>Germany, 1517 (Martin Luther's Ninety-Five Theses)</td></tr>
+    <tr><td><b>Central Value</b></td><td>Human reason, classical beauty, worldly achievement</td><td>Individual faith, conscience, and direct access to scripture</td></tr>
+    <tr><td><b>Key English Event</b></td><td>Elizabethan literary flowering (1558-1603)</td><td>Act of Supremacy (1534); Church of England established</td></tr>
+    <tr><td><b>Key Texts</b></td><td>Classical translations, sonnets, epics (Spenser's <i>Faerie Queene</i>)</td><td>English Bible (Tyndale, King James Version); Book of Common Prayer</td></tr>
+    <tr><td><b>Attitude To The Church</b></td><td>Not primarily concerned with Church authority</td><td>Directly challenges and redefines Church authority</td></tr>
+    <tr><td><b>Literary Legacy</b></td><td>Sonnet, epic, classical allusion, individualist heroes (Marlowe, Shakespeare)</td><td>Biblical prose style, Puritan self-examination, religious-political poetry (Milton, Dryden)</td></tr>
+  </table>
+
+  <h3 class="h">Best Way To Answer This Question</h3>
+  <div class="quote-block">"The Renaissance and the Reformation were twin movements of the same historical age, both born from a new willingness to question inherited authority by returning to original sources — but where the Renaissance turned to classical texts to celebrate human reason and worldly achievement, the Reformation turned to scripture to reform the individual believer's relationship with God, and together the two movements gave English literature both its new humanist confidence and its enduring religious seriousness."</div>
+  `
+},
+
+{
+  id:"model-answers", color:"crimson", eyebrow:"9 · Practice",
+  title:"Full Model Answers",
+  sub:"Two complete, exam-ready answers — study their structure carefully",
+  body:`
+  <p class="dropcap">Below are two full-length model answers written the way you should write them in the actual UPPSC GIC Mains exam: a short <b>introduction</b>, clearly organised <b>body points with sub-headings</b>, and a short <b>conclusion</b>. Focus on the structure — you can use your own sentences, but follow this pattern.</p>
+
+  <div class="answer-block">
+  <h5>Model Answer 1</h5>
+  <p><b>Q. What do you understand by the term "Reformation"? Discuss its origin, causes, and course in England. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>The Reformation was a sixteenth-century religious movement that began as an attempt to reform corruption within the Roman Catholic Church and ended in a permanent split within Western Christianity, giving rise to Protestantism. In England, it led to the creation of an independent national Church and profoundly reshaped the country's religious, intellectual, and literary life for the next two centuries.</p>
+
+  <h4 class="h4">Origin in Europe</h4>
+  <p>The Reformation is usually dated from 1517, when the German monk Martin Luther published his Ninety-Five Theses, attacking the sale of indulgences and questioning Church authority, and arguing instead that salvation comes through faith alone and that believers should read the Bible in their own language. These ideas spread rapidly across Europe, aided by the printing press, and further reformers like John Calvin developed their own Protestant theologies.</p>
+
+  <h4 class="h4">Course in England</h4>
+  <p>England's break from Rome began more politically than theologically, when King Henry VIII, denied an annulment by the Pope, had Parliament pass the Act of Supremacy in 1534, declaring himself Head of the Church of England and dissolving the monasteries. Religious direction then swung between the more Protestant Edward VI and the Catholic-restoring Mary I, before Elizabeth I established a lasting, moderate Protestant settlement from 1558 onward. Key texts such as Tyndale's English New Testament, the later King James Bible, and Cranmer's Book of Common Prayer spread Reformation ideas in plain English to ordinary readers and worshippers.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>The Reformation thus transformed England from a Catholic country under Rome's authority into an independent Protestant nation with its own English-language Church, laying the religious and intellectual foundation for the Puritan convictions of Milton, the personal faith of Donne, and the continuing religious-political conflicts later dramatised in Dryden's poetry.</p>
+  </div>
+
+  <div class="rule" style="color:var(--ink-faint)"></div>
+
+  <div class="answer-block">
+  <h5>Model Answer 2</h5>
+  <p><b>Q. Distinguish between the Renaissance and the Reformation. How did both movements together shape English literature? (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>The Renaissance and the Reformation were two closely related but distinct movements that together shaped English literature and thought between roughly 1500 and 1700. The Renaissance was a cultural and intellectual revival of classical Greek and Roman learning, while the Reformation was a religious movement that broke England away from the authority of the Roman Catholic Church. Both shared a common instinct of questioning inherited authority by returning to original sources.</p>
+
+  <h4 class="h4">Key Differences</h4>
+  <p>The Renaissance began in Italy in the fourteenth century and centred on human reason, classical beauty, and worldly achievement, producing forms like the sonnet and the epic and individualist literary heroes such as Marlowe's Doctor Faustus. The Reformation began in Germany in 1517 with Martin Luther and centred on individual faith and direct access to scripture, producing the English Bible, the Book of Common Prayer, and a literature marked by moral seriousness and self-examination.</p>
+
+  <h4 class="h4">Shared Influence on English Literature</h4>
+  <p>Together, the two movements shaped writers who combined both strands: Spenser's <i>The Faerie Queene</i> blends Renaissance classical epic form with Protestant, anti-Catholic allegory; Donne combines Renaissance intellectual daring with intensely personal, conscience-driven religious poetry; and Milton fuses Renaissance classical learning with committed Puritan conviction in <i>Paradise Lost</i>, while Dryden's later poetry shows Reformation-rooted Catholic-Protestant conflict remaining central to English literature well into the seventeenth century.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>The Renaissance gave English literature its confidence in human reason and classical form, while the Reformation gave it its enduring seriousness of conscience and engagement with religious truth; together, these twin movements produced the richest period in the history of English literature.</p>
+  </div>
+  `
+},
+
+{
+  id:"revision", color:"emerald", eyebrow:"10 · Final Revision",
+  title:"Quick Revision Sheet",
+  sub:"Use this the night before the exam — everything in one place",
+  body:`
+  <p class="dropcap">This page is for very fast last-minute revision. Read it slowly at least once with full understanding first (using the earlier sections) — only then will these short points actually help you.</p>
+
+  <h3 class="h">Core Facts and Dates</h3>
+  <table>
+    <tr><th>Item</th><th>Fact</th></tr>
+    <tr><td>Reformation begins</td><td>1517, Martin Luther's Ninety-Five Theses, Wittenberg (Germany)</td></tr>
+    <tr><td>Meaning of "Reformation"</td><td>Movement to "reform" the Catholic Church; led to Protestantism</td></tr>
+    <tr><td>Act of Supremacy</td><td>1534, Henry VIII declared Head of Church of England</td></tr>
+    <tr><td>Tyndale's New Testament</td><td>1526 (illegal at the time; Tyndale executed 1536)</td></tr>
+    <tr><td>Book of Common Prayer</td><td>1549, compiled by Thomas Cranmer</td></tr>
+    <tr><td>Foxe's Book of Martyrs</td><td>1563, John Foxe</td></tr>
+    <tr><td>King James Bible</td><td>1611</td></tr>
+    <tr><td>Elizabethan Religious Settlement</td><td>From 1558, under Elizabeth I</td></tr>
+    <tr><td>Theatres closed by Puritans</td><td>1642-1660</td></tr>
+    <tr><td>Exclusion Crisis (Dryden's context)</td><td>1679-1681</td></tr>
+  </table>
+
+  <h3 class="h">Features — One Word Each (memory hooks)</h3>
+  <ul>
+    <li><b>English Bible</b> — scripture in the people's own language</li>
+    <li><b>Religious/controversial prose</b> — sermons, pamphlets, arguments</li>
+    <li><b>Puritanism</b> — stricter reform, plain worship, moral seriousness</li>
+    <li><b>Individual conscience</b> — personal, direct relationship with God</li>
+    <li><b>Anti-Catholic feeling</b> — national Protestant identity vs Rome/Spain</li>
+    <li><b>Suspicion of ritual/image</b> — plain "Word" over ceremony</li>
+    <li><b>Shared spirit with Renaissance</b> — return to original sources, question authority</li>
+  </ul>
+
+  <h3 class="h">Author-to-Reflection Quick Match</h3>
+  <table>
+    <tr><th>Author</th><th>Key Work(s)</th><th>How Reformation Appears</th></tr>
+    <tr><td>Spenser</td><td><i>The Faerie Queene</i></td><td>Protestant/anti-Catholic allegory</td></tr>
+    <tr><td>Shakespeare</td><td><i>Hamlet</i>, others</td><td>Cautious, indirect — Purgatory reference, Catholic settings</td></tr>
+    <tr><td>Donne</td><td><i>Holy Sonnets</i></td><td>Catholic-to-Anglican journey; personal conscience</td></tr>
+    <tr><td>Milton</td><td><i>Areopagitica</i>, <i>Paradise Lost</i></td><td>Puritan conscience, free will, anti-censorship</td></tr>
+    <tr><td>Bunyan</td><td><i>The Pilgrim's Progress</i></td><td>Puritan allegory of personal salvation</td></tr>
+    <tr><td>Dryden</td><td><i>Absalom and Achitophel</i>, <i>Religio Laici</i>, <i>The Hind and the Panther</i></td><td>Direct Catholic-Protestant political-religious debate</td></tr>
+  </table>
+
+  <h3 class="h">Reformation vs Renaissance (Quick Contrast)</h3>
+  <ul>
+    <li><b>Renaissance</b> = revival of classical learning, humanism, worldly reason (cultural movement).</li>
+    <li><b>Reformation</b> = break from Catholic Church, rise of Protestantism, individual faith (religious movement).</li>
+    <li>Shared spirit: both return to an original source (classical texts / scripture) and challenge inherited authority.</li>
+  </ul>
+
+  <h3 class="h">Timeline Flow (memorise as a chain)</h3>
+  <div class="quote-block">Luther's Ninety-Five Theses (1517, Germany) &rarr; Henry VIII's Act of Supremacy (1534, England) &rarr; Tyndale's Bible + Cranmer's Prayer Book (1526-1549) &rarr; Elizabethan Settlement (1558) &rarr; Puritan literature: Milton, Bunyan (mid-1600s) &rarr; Renewed Catholic-Protestant crisis: Dryden (1679-1687)</div>
+
+  <h3 class="h">If You Remember Nothing Else, Remember This</h3>
+  <div class="card gold">
+    <p style="margin:0"><b>The Reformation (Germany, 1517 → England, 1534 onward)</b> = a religious movement that broke Western Christianity in two &rarr; brought the <b>English Bible, Puritanism, and individual conscience</b> into English life &rarr; appears cautiously in Shakespeare (Catholic settings, the Ghost's Purgatory), directly and passionately in Milton's Puritan conviction (<i>Areopagitica</i>, <i>Paradise Lost</i>), and as live political-religious conflict in Dryden's poetry (<i>Absalom and Achitophel</i>, <i>Religio Laici</i>, <i>The Hind and the Panther</i>).</p>
+  </div>
+  `
+}
+
+];
+
+/* ================= APP LOGIC ================= */
+(function(){
+  const COLOR_MAP = { crimson:'#9c2b3e', emerald:'#1f5c4a', gold:'#b8862f', indigo:'#2e3f6e' };
+  SECTIONS.forEach(s => { s.colorHex = COLOR_MAP[s.color] || '#9c2b3e'; });
+
+  const contentWrap = document.getElementById('contentWrap');
+  const drawerList = document.getElementById('drawerList');
+  const drawer = document.getElementById('drawer');
+  const scrim = document.getElementById('scrim');
+  const menuBtn = document.getElementById('menuBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const progressPill = document.getElementById('progressPill');
+  const topTitle = document.getElementById('topTitle');
+
+  let current = 0;
+
+  function loadLastSection(){
+    try{
+      const saved = window.localStorage.getItem(STORAGE_KEY);
+      if(saved !== null){
+        const idx = parseInt(saved, 10);
+        if(!isNaN(idx) && idx >= 0 && idx < SECTIONS.length) return idx;
+      }
+    }catch(e){ /* localStorage unavailable — silently ignore */ }
+    return 0;
+  }
+
+  function saveCurrentSection(idx){
+    try{ window.localStorage.setItem(STORAGE_KEY, String(idx)); }catch(e){ /* ignore */ }
+  }
+
+  function showResumeToast(idx){
+    if(idx === 0) return;
+    const toast = document.createElement('div');
+    toast.textContent = 'Resumed at: ' + SECTIONS[idx].title;
+    toast.style.cssText = 'position:absolute; left:50%; bottom:78px; transform:translateX(-50%);'
+      + 'background:var(--indigo-deep); color:#fbf6ea; font-family:"Source Serif 4",serif; font-size:12.5px;'
+      + 'padding:8px 16px; border-radius:999px; box-shadow:0 6px 18px rgba(0,0,0,0.3); z-index:40; opacity:0;'
+      + 'transition:opacity .3s ease; white-space:nowrap; max-width:85%; overflow:hidden; text-overflow:ellipsis;';
+    document.querySelector('.app').appendChild(toast);
+    requestAnimationFrame(() => { toast.style.opacity = '1'; });
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 350);
+    }, 2200);
+  }
+
+  // Build SECTIONS
+  SECTIONS.forEach((s, i) => {
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.id = 'sec-' + s.id;
+    sec.innerHTML = `
+      <span class="sec-eyebrow" style="background:${s.colorHex}">${s.eyebrow}</span>
+      <h2 class="sec-title">${s.title}</h2>
+      <p class="sec-sub" style="border-color:${s.colorHex}; color:${s.colorHex}">${s.sub}</p>
+      ${s.body}
+    `;
+    contentWrap.appendChild(sec);
+  });
+
+  // Build drawer list
+  SECTIONS.forEach((s, i) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.innerHTML = `<span class="num" style="background:${s.colorHex}">${i+1}</span><span class="ttl">${s.title}</span>`;
+    btn.addEventListener('click', () => { goTo(i); closeDrawer(); });
+    btn.dataset.idx = i;
+    li.appendChild(btn);
+    drawerList.appendChild(li);
+  });
+
+  // Build dots
+  SECTIONS.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  });
+
+  function render(){
+    document.querySelectorAll('.section').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.drawer-list button').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.dot').forEach((el, i) => {
+      el.classList.toggle('on', i === current);
+    });
+    progressPill.textContent = (current+1) + ' / ' + SECTIONS.length;
+    topTitle.textContent = SECTIONS[current].title.replace(/\u2014.*$/,'').trim();
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = current === SECTIONS.length-1 ? 'Restart \u2191' : 'Next \u2192';
+    contentWrap.scrollTop = 0;
+    saveCurrentSection(current);
+  }
+
+  function goTo(i){
+    current = Math.max(0, Math.min(SECTIONS.length-1, i));
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current-1));
+  nextBtn.addEventListener('click', () => {
+    if(current === SECTIONS.length-1){ goTo(0); } else { goTo(current+1); }
+  });
+
+  function openDrawer(){ drawer.classList.add('open'); scrim.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); scrim.classList.remove('open'); }
+  menuBtn.addEventListener('click', openDrawer);
+  scrim.addEventListener('click', closeDrawer);
+
+  current = loadLastSection();
+  render();
+  showResumeToast(current);
+})();
+
+</script>
+</body>
+</html>

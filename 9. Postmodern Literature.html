@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Postmodern Literature — UPPSC GIC Mains Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5edda;
+  --paper-soft:#fbf6ea;
+  --paper-deep:#eee2c4;
+  --ink:#2b2116;
+  --ink-soft:#5b4d35;
+  --ink-faint:#8a7a5c;
+  --crimson:#9c2b3e;
+  --crimson-deep:#711e2d;
+  --emerald:#1f5c4a;
+  --emerald-deep:#123d31;
+  --gold:#b8862f;
+  --gold-light:#d9ad5c;
+  --indigo:#2e3f6e;
+  --indigo-deep:#202d4f;
+  --line: rgba(43,33,22,0.14);
+  --shadow: 0 10px 30px rgba(43,33,22,0.18);
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:'Source Serif 4', Georgia, serif;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(184,134,47,0.10), transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(31,92,74,0.10), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  overscroll-behavior:none;
+}
+
+/* ---------- App shell ---------- */
+.app{
+  max-width:640px;
+  margin:0 auto;
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  background:var(--paper-soft);
+  box-shadow: 0 0 60px rgba(43,33,22,0.15);
+}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 14px;
+  background: linear-gradient(135deg, var(--indigo-deep), var(--indigo) 55%, var(--crimson-deep));
+  color:var(--paper-soft);
+  position:relative;
+  z-index:20;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  flex-shrink:0;
+}
+.topbar::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-4px; height:4px;
+  background: linear-gradient(90deg, var(--gold-light), var(--crimson), var(--emerald), var(--gold-light));
+  opacity:0.9;
+}
+.menu-btn{
+  width:38px; height:38px; border-radius:10px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; cursor:pointer;
+}
+.menu-btn span, .menu-btn::before, .menu-btn::after{
+  content:""; display:block; width:18px; height:2px; background:var(--paper-soft); border-radius:2px;
+}
+.menu-btn{flex-direction:column; gap:4px;}
+.topbar-titles{flex:1; min-width:0;}
+.topbar-titles .eyebrow{
+  font-family:'Cinzel', serif; font-size:10px; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold-light); opacity:0.95;
+}
+.topbar-titles h1{
+  margin:1px 0 0; font-family:'Playfair Display', serif; font-size:18px; font-weight:700; line-height:1.15;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.progress-pill{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:1px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3);
+  padding:5px 10px; border-radius:999px; flex-shrink:0; white-space:nowrap;
+}
+
+/* ---------- Drawer ---------- */
+.scrim{
+  position:absolute; inset:0; background:rgba(20,15,8,0.55);
+  opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:29;
+}
+.scrim.open{opacity:1; pointer-events:auto;}
+.drawer{
+  position:absolute; top:0; bottom:0; left:0; width:86%; max-width:340px;
+  background:var(--paper-deep);
+  transform:translateX(-105%);
+  transition:transform .3s cubic-bezier(.22,.9,.32,1);
+  z-index:30;
+  display:flex; flex-direction:column;
+  box-shadow: 8px 0 30px rgba(0,0,0,0.3);
+  border-right:1px solid var(--line);
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{
+  padding:20px 18px 14px; border-bottom:1px solid var(--line);
+  background: linear-gradient(160deg, var(--paper-deep), var(--paper-soft));
+}
+.drawer-head .cap{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2px; color:var(--ink-faint); text-transform:uppercase;
+}
+.drawer-head h2{
+  margin:4px 0 0; font-family:'Playfair Display', serif; font-size:22px; color:var(--crimson-deep);
+}
+.drawer-list{list-style:none; margin:0; padding:8px; overflow-y:auto; flex:1;}
+.drawer-list li{margin-bottom:3px;}
+.drawer-list button{
+  width:100%; text-align:left; display:flex; align-items:center; gap:12px;
+  background:transparent; border:none; padding:10px 10px; border-radius:10px;
+  font-family:'Source Serif 4', serif; font-size:14.5px; color:var(--ink); cursor:pointer;
+}
+.drawer-list button .num{
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:11px; color:#fff;
+}
+.drawer-list button.active{background:rgba(43,33,22,0.08); font-weight:600;}
+.drawer-list button .ttl{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+/* ---------- Main content ---------- */
+.content-wrap{flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative;}
+.section{display:none; padding:22px 20px 40px;}
+.section.active{display:block; animation:fadein .35s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+.sec-eyebrow{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+  display:inline-block; padding:4px 12px; border-radius:999px; color:#fff; margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Playfair Display', serif; font-weight:800; font-size:27px; line-height:1.2;
+  color:var(--ink); margin:0 0 6px;
+}
+.sec-sub{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16.5px; color:var(--ink-soft);
+  margin:0 0 20px; border-left:3px solid; padding-left:12px;
+}
+.rule{
+  height:1px; background:linear-gradient(90deg, currentColor, transparent);
+  margin:18px 0; opacity:0.35;
+}
+
+.dropcap::first-letter{
+  font-family:'Playfair Display', serif; font-size:52px; font-weight:800; float:left;
+  line-height:0.8; padding:6px 8px 0 0; color:var(--crimson);
+}
+
+h3.h{
+  font-family:'Playfair Display', serif; font-size:18.5px; margin:22px 0 10px; color:var(--ink);
+  display:flex; align-items:center; gap:8px;
+}
+h3.h::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--gold); transform:rotate(45deg); flex-shrink:0;}
+h4.h4{
+  font-family:'Source Serif 4', serif; font-weight:700; font-size:15.5px; margin:16px 0 6px; color:var(--crimson-deep);
+}
+p{font-size:15.5px; line-height:1.7; margin:0 0 12px; color:var(--ink);}
+ul,ol{margin:0 0 14px; padding-left:20px;}
+li{font-size:15.2px; line-height:1.65; margin-bottom:7px; color:var(--ink);}
+li::marker{color:var(--gold);}
+b, strong{color:var(--crimson-deep); font-weight:700;}
+em.q{color:var(--emerald-deep); font-style:italic;}
+
+.card{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:14px;
+  padding:14px 16px; margin:14px 0; box-shadow: var(--shadow);
+}
+.card.gold{border-left:4px solid var(--gold);}
+.card.crimson{border-left:4px solid var(--crimson);}
+.card.emerald{border-left:4px solid var(--emerald);}
+.card.indigo{border-left:4px solid var(--indigo);}
+.card-label{
+  font-family:'Cinzel', serif; font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:6px; display:block;
+}
+
+.quote-block{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:19px; line-height:1.55;
+  color:var(--indigo-deep); padding:10px 0 10px 16px; border-left:3px solid var(--gold);
+  margin:14px 0;
+}
+.quote-block .src{
+  display:block; font-family:'Source Serif 4', serif; font-style:normal; font-size:12px;
+  color:var(--ink-faint); margin-top:4px; letter-spacing:0.3px;
+}
+
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.8px;}
+th,td{padding:9px 8px; border:1px solid var(--line); text-align:left; vertical-align:top;}
+th{background:var(--paper-deep); font-family:'Cinzel', serif; font-size:11px; letter-spacing:0.8px; text-transform:uppercase; color:var(--ink-soft);}
+
+.qn-item{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px;
+  position:relative; padding-left:44px;
+}
+.qn-item .qnum{
+  position:absolute; left:10px; top:12px; width:26px; height:26px; border-radius:50%;
+  background:var(--indigo); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:12px; font-weight:600;
+}
+.qn-item p{margin:0; font-weight:600; font-size:14.8px;}
+.qn-item .tag{
+  display:inline-block; margin-top:6px; font-family:'Cinzel', serif; font-size:9.5px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--emerald-deep); background:rgba(31,92,74,0.1); padding:2px 8px; border-radius:999px;
+}
+
+.answer-block h5{
+  font-family:'Cinzel', serif; font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--crimson);
+  margin:20px 0 8px;
+}
+
+/* ---------- Bottom nav ---------- */
+.bottombar{
+  flex-shrink:0; display:flex; align-items:center; gap:10px; padding:10px 14px;
+  background:var(--paper-deep); border-top:1px solid var(--line); z-index:15;
+}
+.nav-btn{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 10px; border-radius:12px; border:1px solid var(--line);
+  background:var(--paper-soft); font-family:'Source Serif 4', serif; font-weight:600; font-size:13.5px;
+  color:var(--ink); cursor:pointer;
+}
+.nav-btn:disabled{opacity:0.35;}
+.nav-btn.primary{background:linear-gradient(135deg, var(--crimson), var(--crimson-deep)); color:#fff; border:none;}
+.dots{display:flex; gap:4px; flex-shrink:0;}
+.dot{width:5px; height:5px; border-radius:50%; background:var(--line);}
+.dot.on{background:var(--gold);}
+
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-thumb{background:var(--ink-faint); border-radius:6px; opacity:0.4;}
+
+@media (min-width:641px){
+  body{padding:20px 0;}
+  .app{height:calc(100dvh - 40px); border-radius:22px; overflow:hidden;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="menu-btn" id="menuBtn"></div>
+    <div class="topbar-titles">
+      <div class="eyebrow">UPPSC GIC · English Lecturer Mains</div>
+      <h1 id="topTitle">Postmodern Literature</h1>
+    </div>
+    <div class="progress-pill" id="progressPill">1 / 14</div>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="cap">Contents</div>
+      <h2>Study Map</h2>
+    </div>
+    <ul class="drawer-list" id="drawerList"></ul>
+  </nav>
+
+  <div class="content-wrap" id="contentWrap"></div>
+
+  <div class="bottombar">
+    <button class="nav-btn" id="prevBtn">&larr; Prev</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn primary" id="nextBtn">Next &rarr;</button>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+
+{
+  id:"questions", color:"indigo", eyebrow:"Start Here",
+  title:"Expected Descriptive Questions",
+  sub:"What the examiner is likely to ask, based on the syllabus wording",
+  body:`
+  <p class="dropcap">The syllabus lists <b>"Post Modern Literature"</b> as one single bullet point under <b>Section B: Literary Terms, Movements, Forms, Literary Criticism</b> — right after "Modern Literature". This placement is important: examiners very often ask a comparison-type question ("Modernism vs Postmodernism") precisely because the two topics sit next to each other in the syllabus. Based on how this exact topic is asked in UGC NET, UP PCS, and other State PCS English papers, here are the questions you should be fully ready for.</p>
+
+  <div class="qn-item"><span class="qnum">1</span>
+    <p>What do you understand by the term "Postmodern Literature"? Discuss its main characteristics.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">2</span>
+    <p>Distinguish between Modernism and Postmodernism as literary movements.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">3</span>
+    <p>Discuss the philosophical/theoretical basis of postmodernism with reference to thinkers such as Lyotard, Derrida, Foucault and Baudrillard.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">4</span>
+    <p>Write a critical note on any two of the following as postmodern narrative techniques: metafiction, intertextuality, pastiche, magic realism, historiographic metafiction.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">5</span>
+    <p>Discuss postmodernism with close reference to any major postmodern novelist/text you have studied (e.g. Fowles, Vonnegut, Rushdie).</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">6</span>
+    <p>"Postmodernism grows out of Modernism even as it reacts against it." Discuss.</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">7</span>
+    <p>Short note (in 150-200 words): Metanarrative / Historiographic Metafiction / Simulacra and Hyperreality / Magic Realism / Pastiche.</p>
+    <span class="tag">Possible (Short Note)</span>
+  </div>
+
+  <div class="card gold">
+    <span class="card-label">How This Guide Is Organised</span>
+    <p style="margin:0">Every section after this one builds one layer of knowledge — starting from the simplest possible idea and going up to exam-ready detail. Read them in order the first time. Before your exam, use the drawer menu (top-left icon) to jump straight to any topic for revision. The app will automatically reopen on whichever section you were last reading.</p>
+  </div>
+  `
+},
+
+{
+  id:"intro", color:"crimson", eyebrow:"1 · Foundation",
+  title:"What Is Postmodern Literature?",
+  sub:"The basic idea, explained in the simplest way possible",
+  body:`
+  <p class="dropcap">Imagine you are reading a novel, and suddenly, in the middle of the story, the narrator turns to you and says: <em class="q">"By the way, I am making all of this up. This is just a novel, and I am its author, sitting at my desk, unsure how to end it."</em> Fifty years ago, this would have felt like a strange trick. In postmodern literature, this kind of trick is completely normal. That single example already contains the whole spirit of postmodernism: it does not let you forget that a story is a made-up construction, built out of language, and it constantly questions whether we can ever know "the truth" about anything at all — history, identity, reality itself.</p>
+
+  <p>To understand the word, break it into two parts:</p>
+
+  <div class="card crimson">
+    <span class="card-label">Meaning of the Name</span>
+    <p style="margin:0"><b>Postmodernism</b> = "Post" (after / going beyond) + "Modernism" (the early 20th-century movement of Eliot, Joyce, Woolf, Pound). So Postmodernism literally means <b>"the literature that comes after Modernism"</b> — but it is not simply "modernism part two". It takes Modernism's own experiments (broken narrative, questioning of old certainties) and pushes them even further, while also mocking, playing with, and doubting Modernism's remaining faith that art could still find some deep, unified truth or meaning.</p>
+  </div>
+
+  <p>Modernist writers like Eliot and Joyce broke traditional storytelling because they believed the modern world (after World War I) had become fragmented and meaningless, and they were sad about this — they still hoped art could somehow put the broken pieces back together into a pattern. Postmodern writers, roughly from the 1960s onward, go one step further: they say that the very idea of "one true pattern," "one true history," "one true self" was probably always an illusion — and instead of mourning this, they often treat it playfully, with irony, humour, and self-aware games.</p>
+
+  <h3 class="h">In One Line (write this first in your answer)</h3>
+  <div class="quote-block">Postmodern literature is a late-twentieth-century literary movement, growing out of Modernism but reacting against its remaining faith in unity and deep meaning, marked by self-conscious playfulness, distrust of "grand truths" (metanarratives), blending of high and popular culture, and techniques such as metafiction, intertextuality, pastiche, fragmentation and magic realism.</div>
+
+  <h3 class="h">Why You Must Understand This Before Anything Else</h3>
+  <ul>
+    <li>Every sub-topic in this guide (theory, techniques, authors, comparison with Modernism) grows out of this one basic idea: <b>"postmodern writers doubt that any single, final truth or pattern exists — and they turn this doubt itself into the subject and the game of their writing."</b></li>
+    <li>If you remember this one sentence, you can build almost any answer around it, even if you forget small details.</li>
+  </ul>
+  `
+},
+
+{
+  id:"origin", color:"emerald", eyebrow:"2 · Background",
+  title:"Origin and Historical Background",
+  sub:"When it began, why it began, and how the word travelled into literature",
+  body:`
+  <p class="dropcap">Postmodernism is not a movement with one clean founding date (unlike, say, the Pre-Raphaelite Brotherhood in 1848). It grew slowly, out of a mixture of history, philosophy, and changes in everyday life. Understanding this background will help you explain "why" postmodernism happened, not just "what" it is — and "why" questions score very well in descriptive exams.</p>
+
+  <h3 class="h">The Historical Setting: After 1945</h3>
+  <ul>
+    <li><b>World War II (1939-45)</b> and the horror of the Holocaust and the atomic bomb shook Western faith in "progress," "reason," and "civilisation" far more deeply than World War I had already shaken the Modernists.</li>
+    <li>The <b>Cold War</b>, the constant fear of nuclear destruction, and the collapse of colonial empires all added to a feeling that older, confident "big stories" about history moving toward a better future could no longer be fully trusted.</li>
+    <li>From the 1950s onward, <b>consumer culture, advertising, cinema, and later television</b> flooded everyday life with images and copies of things, blurring the line between what is "real" and what is a manufactured image — a condition later theorised by Jean Baudrillard (see the next section).</li>
+  </ul>
+
+  <h3 class="h">The Word Itself: From Architecture to Literature</h3>
+  <ul>
+    <li>The term <b>"postmodern"</b> was first used seriously in <b>architecture</b> in the 1970s (writers like Charles Jencks used it for buildings that mixed historical styles playfully, instead of following the strict, unornamented rules of modernist architecture).</li>
+    <li>In literature, the term gradually spread through the <b>1960s-1980s</b>, helped enormously by literary critics and theorists such as <b>Ihab Hassan</b> and <b>Linda Hutcheon</b>, who tried to define what made certain post-war novels, poems, and plays feel different from Modernism (see the "Key Critics" section later in this guide).</li>
+  </ul>
+
+  <h3 class="h">The Philosophical Push: French Theory</h3>
+  <p>Postmodern literature did not grow in isolation — it grew alongside a matching revolution in <b>philosophy</b>, mostly coming out of France from the 1960s onward. Thinkers like <b>Jean-François Lyotard, Jacques Derrida, Michel Foucault, and Jean Baudrillard</b> questioned whether language could ever give us stable, certain truth, and whether history had any single, correct story. Literature absorbed these ideas directly — many postmodern novelists were themselves reading, and reacting to, this new philosophy (see the next section for full detail on each thinker).</p>
+
+  <h3 class="h">Roughly When It "Happened" in Literature</h3>
+  <ul>
+    <li><b>Late 1940s-1950s:</b> Early ground-preparing works — Samuel Beckett's Theatre of the Absurd (e.g. <i>Waiting for Godot</i>, 1953) already shows the bleak, uncertain, self-questioning mood that postmodernism will later run with.</li>
+    <li><b>1960s:</b> The movement takes clear shape — Kurt Vonnegut, John Barth, and others begin openly self-aware, playful, boundary-breaking fiction.</li>
+    <li><b>1970s-1980s:</b> The high point — Thomas Pynchon, Italo Calvino, John Fowles, Umberto Eco, and (joining postcolonial concerns to postmodern technique) Salman Rushdie produce the movement's most studied works.</li>
+    <li><b>1990s onward:</b> Postmodernism becomes so widespread that critics start asking whether it has quietly ended, or turned into something new (see the "Debate" section later).</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Easy Way To Remember</span>
+    <p style="margin:0">Modernism = the shock of World War I, still hoping art could rebuild meaning out of the pieces. Postmodernism = the shock of World War II, the Cold War, and mass media, no longer believing there was ever one true, whole picture to rebuild — so it plays with the pieces instead of mourning them.</p>
+  </div>
+  `
+},
+
+{
+  id:"philosophy", color:"gold", eyebrow:"3 · The Ideas Behind It",
+  title:"Philosophical Roots: The Key Thinkers",
+  sub:"You cannot get full marks on this topic without these four names",
+  body:`
+  <p class="dropcap">Postmodern literature is unusual among literary movements because it is impossible to fully explain without also explaining the philosophy behind it. Examiners specifically test this connection, so learn these four thinkers as clear, simple ideas — not as difficult jargon.</p>
+
+  <h3 class="h">1. Jean-François Lyotard — "Incredulity Toward Metanarratives"</h3>
+  <p>In his book <i>The Postmodern Condition</i> (1979), Lyotard gave what is probably the single most quoted definition of postmodernism. A <b>"metanarrative"</b> (also called a "grand narrative") is a big, confident story that claims to explain everything and promises a happy ending — for example, "science will keep making human life better and better," or "history is marching toward one final, perfect form of society."</p>
+  <ul>
+    <li>Lyotard said postmodernism means <b>"incredulity toward metanarratives"</b> — that is, we simply no longer believe these grand, all-explaining stories the way earlier generations did.</li>
+    <li>Instead, postmodern thought (and literature) prefers many small, local, competing stories, none of which can claim to be the one final truth.</li>
+  </ul>
+
+  <h3 class="h">2. Jacques Derrida — Deconstruction</h3>
+  <p>Derrida developed a way of reading texts called <b>"deconstruction."</b> His basic claim is that language is never perfectly stable — every word gets its meaning only by being different from other words (not by directly, perfectly matching some fixed "thing" in the world), so meaning is always shifting, always open to more than one reading.</p>
+  <ul>
+    <li>A deconstructive reading looks for the small contradictions and gaps inside a text that quietly undo the single, "obvious" meaning the text seems to be presenting.</li>
+    <li>For postmodern writers, this idea becomes a licence to write texts that deliberately contain multiple, even contradictory, meanings and endings (see John Fowles's <i>The French Lieutenant's Woman</i>, which literally offers more than one ending).</li>
+  </ul>
+
+  <h3 class="h">3. Michel Foucault — Power, Knowledge and Discourse</h3>
+  <p>Foucault argued that what a society calls "truth" or "knowledge" at any given time is never neutral — it is shaped by <b>power</b>: by who is allowed to speak, who is silenced, and which institutions (prisons, hospitals, schools) decide what counts as "normal" or "true."</p>
+  <ul>
+    <li>He also argued that <b>history is not one single, continuous, logical story</b> of progress, but a series of ruptures and power struggles between competing versions of "truth."</li>
+    <li>This directly feeds into postmodern fiction's habit of rewriting official history from unexpected, marginal, or excluded points of view (a technique closely linked to "historiographic metafiction" — see the Techniques section).</li>
+  </ul>
+
+  <h3 class="h">4. Jean Baudrillard — Simulacra and Hyperreality</h3>
+  <p>Baudrillard argued that in a media-saturated, consumer society, we increasingly live surrounded by <b>copies of copies ("simulacra")</b> that no longer refer back to any real original at all — advertisements, brand images, television, and later the internet, create a kind of <b>"hyperreality"</b> that can feel more vivid and more "real" to us than actual reality.</p>
+  <ul>
+    <li>Postmodern fiction often represents this hyperreal, image-saturated world directly — a world where it becomes genuinely hard for characters (and readers) to tell the "real" from the copy, the sincere from the performed.</li>
+  </ul>
+
+  <h3 class="h">A Fifth Name Worth Knowing: Fredric Jameson</h3>
+  <p>The Marxist critic Fredric Jameson described postmodernism as <b>"the cultural logic of late capitalism"</b> — meaning that postmodern culture's obsession with surface, image, pastiche, and the blending of high and low culture is not an accident, but a direct reflection of a globalised, consumer-driven, media-saturated economic system.</p>
+
+  <div class="card gold">
+    <span class="card-label">Exam Tip Line (memorise this)</span>
+    <p style="margin:0">"Postmodern literature is inseparable from postmodern philosophy: Lyotard's distrust of grand narratives, Derrida's deconstruction of stable meaning, Foucault's view of truth as shaped by power, and Baudrillard's idea of a hyperreal, image-saturated world together explain why postmodern texts are self-questioning, multiple in meaning, and playfully aware of their own artificiality."</p>
+  </div>
+  `
+},
+
+{
+  id:"vs-modernism", color:"indigo", eyebrow:"4 · Comparison",
+  title:"Postmodernism vs Modernism",
+  sub:"The comparison examiners love to test most — know both the link and the break",
+  body:`
+  <p class="dropcap">Postmodernism did not appear out of nowhere — it grew directly out of Modernism (Eliot, Joyce, Woolf, Pound), and shares several of its techniques. But it takes those techniques in a very different emotional and philosophical direction. A strong answer must show both the continuity and the sharp break.</p>
+
+  <h3 class="h">What They Share</h3>
+  <ul>
+    <li>Both reject simple, old-fashioned, linear "beginning-middle-end" storytelling in favour of experimental form.</li>
+    <li>Both are suspicious of easy, comforting Victorian-style certainty about the world.</li>
+    <li>Both use fragmentation, multiple points of view, and difficult, demanding structures.</li>
+  </ul>
+
+  <table>
+    <tr><th>Point</th><th>Modernism</th><th>Postmodernism</th></tr>
+    <tr><td><b>Time Period</b></td><td>Roughly 1900-1945 (Eliot, Joyce, Woolf, Pound)</td><td>Roughly 1960s onward, after World War II</td></tr>
+    <tr><td><b>Attitude To Fragmentation</b></td><td>Sees the fragmented modern world as a real <b>loss</b>; still hopes art can find or build some deep unity or meaning out of the pieces</td><td>Accepts fragmentation as the normal condition; often does not even try to "rebuild" one true meaning — treats this playfully rather than tragically</td></tr>
+    <tr><td><b>Tone</b></td><td>Serious, often melancholic, searching, "high seriousness"</td><td>Ironic, playful, self-mocking, full of dark or absurd humour</td></tr>
+    <tr><td><b>View of Truth / Reality</b></td><td>Believes an underlying truth or pattern probably still exists, even if it is hard to find</td><td>Doubts that any single, final truth exists at all (Lyotard's "incredulity toward metanarratives")</td></tr>
+    <tr><td><b>Culture: High vs Popular</b></td><td>Values "high culture" and keeps a clear boundary from popular/mass culture</td><td>Deliberately mixes and blurs high culture (classics, philosophy) with popular/mass culture (comics, advertising, television, pulp fiction)</td></tr>
+    <tr><td><b>Self-Awareness of the Text</b></td><td>Experiments with form, but usually still asks you to "believe in" the fictional world</td><td>Constantly reminds you that you are reading a made-up construction (<b>metafiction</b>) — breaks the illusion on purpose</td></tr>
+    <tr><td><b>Attitude To History</b></td><td>Sees history as something that can still, painfully, be understood or ordered (e.g. Eliot's use of myth to "give shape" to modern chaos)</td><td>Sees history as a set of competing stories written by those in power; rewrites official history from new/marginal angles (<b>historiographic metafiction</b>)</td></tr>
+    <tr><td><b>The Self / Character</b></td><td>The individual self is fragmented and in crisis, but still assumed to be a real, unified thing underneath</td><td>Even the idea of a single, stable "self" or "identity" is questioned — identity is treated as constructed, multiple, or performed</td></tr>
+  </table>
+
+  <h3 class="h">Best Way To Answer This Question</h3>
+  <div class="quote-block">"Postmodernism can be seen as Modernism's own logic taken to its final conclusion: where the Modernists broke traditional form because they mourned a lost unity, the Postmodernists broke it further because they no longer believed that unity, or even final truth itself, had ever really existed — so what was tragedy for the Modernists becomes irony and play for the Postmodernists."</div>
+  `
+},
+
+{
+  id:"techniques", color:"crimson", eyebrow:"5 · Core Content",
+  title:"Main Techniques and Characteristics",
+  sub:"The single most important section — learn this thoroughly",
+  body:`
+  <p class="dropcap">This is the heart of the topic. Almost every question on postmodern literature is really asking you to describe these techniques, so understand each one properly — not just as a term to memorise, but as an <b>idea you can explain with a real example</b>.</p>
+
+  <h3 class="h">1. Metafiction</h3>
+  <p>"Metafiction" means <b>fiction that is aware of, and openly talks about, its own status as fiction</b>. The narrator or the story itself may comment on the act of writing, remind the reader that "this is just a story," or offer more than one possible plot or ending.</p>
+  <ul>
+    <li>Example: John Fowles's <i>The French Lieutenant's Woman</i> (1969) is set in Victorian times, but the narrator repeatedly steps in as a 20th-century author commenting on the story, and the novel offers <b>three different possible endings</b>.</li>
+    <li>Example: Italo Calvino's <i>If on a winter's night a traveler</i> (1979) is a novel about the very act of you, the reader, trying to read this novel.</li>
+  </ul>
+
+  <h3 class="h">2. Intertextuality</h3>
+  <p>"Intertextuality" means a text is deliberately full of <b>references, quotations, and echoes of other texts</b> — the postmodern belief being that no text is ever fully original; every text is really a weaving-together of earlier texts.</p>
+  <ul>
+    <li>Example: Tom Stoppard's play <i>Rosencrantz and Guildenstern Are Dead</i> retells Shakespeare's <i>Hamlet</i> entirely from the point of view of two minor characters, constantly quoting and reworking Shakespeare's original lines.</li>
+  </ul>
+
+  <h3 class="h">3. Pastiche and Parody</h3>
+  <p>Both mean <b>imitating the style of earlier writers or genres</b>, but with a difference: <b>parody</b> imitates in order to mock or criticise; <b>pastiche</b> imitates playfully, blending several different styles together without necessarily mocking any of them — like a patchwork quilt made of borrowed pieces of style.</p>
+  <ul>
+    <li>Postmodern texts often mix genres that "should not" go together — detective fiction, fairy tale, historical romance, science fiction — inside one serious literary novel, refusing to respect the old boundary between "high" literary art and "low" popular genre fiction.</li>
+  </ul>
+
+  <h3 class="h">4. Fragmentation and Non-Linear Structure</h3>
+  <ul>
+    <li>Postmodern narratives frequently break chronological (time) order completely, jump between different times and places without warning, or tell the same events more than once from different angles.</li>
+    <li>Example: Kurt Vonnegut's <i>Slaughterhouse-Five</i> (1969) famously has its main character, Billy Pilgrim, become "unstuck in time," so the novel jumps back and forth between World War II, his ordinary American life, and an imaginary alien planet — with no simple linear order.</li>
+  </ul>
+
+  <h3 class="h">5. The Unreliable / Multiple Narrator</h3>
+  <p>Postmodern texts often give the reader a narrator whose account you cannot fully trust, or several different narrators telling conflicting versions of the "same" story — reflecting the deeper postmodern doubt that any single, objective version of events can exist.</p>
+
+  <h3 class="h">6. Black Humour and Absurdity</h3>
+  <p>Serious, even horrifying subjects (war, death, atomic destruction) are often treated with a strange, dark comedy rather than straightforward tragedy — a way of coping with a world that seems to have lost any single meaningful pattern.</p>
+  <ul>
+    <li>Example: In <i>Slaughterhouse-Five</i>, the terrible firebombing of Dresden is narrated in a flat, darkly comic tone, punctuated by the repeated, almost joke-like phrase <em class="q">"So it goes"</em> after every mention of death.</li>
+  </ul>
+
+  <h3 class="h">7. Historiographic Metafiction</h3>
+  <p>A term coined by the critic <b>Linda Hutcheon</b> for a very typical kind of postmodern novel: fiction that is deeply interested in <b>history</b>, but that constantly reminds you that "history," like the novel itself, is also just a constructed story, written by particular people, from a particular point of view, and therefore never fully neutral or complete.</p>
+  <ul>
+    <li>Example: Umberto Eco's <i>The Name of the Rose</i> (1980) is a detective story set in a medieval monastery that is also deeply self-aware about how manuscripts, records, and "official" history get made and altered.</li>
+    <li>Example: Salman Rushdie's <i>Midnight's Children</i> (1981) retells the history of India's independence and partition through an unreliable narrator, openly mixing personal memory, myth, and admitted factual errors.</li>
+  </ul>
+
+  <h3 class="h">8. Magic Realism</h3>
+  <p>A style in which <b>fantastic, impossible, or magical events are described in the same calm, matter-of-fact tone as ordinary, realistic events</b>, with no sense of surprise from the characters or narrator. (Magic realism has its own separate section later in this guide, because it deserves fuller treatment.)</p>
+
+  <h3 class="h">9. Simulacra, Hyperreality and the Image-Saturated World</h3>
+  <p>Following Baudrillard's ideas (see the Philosophy section), postmodern fiction often shows characters living inside a world of copies, media images, brand names, and performances, where it becomes genuinely difficult to locate anything "authentic" or "original" underneath.</p>
+  <ul>
+    <li>Example: Thomas Pynchon's <i>The Crying of Lot 49</i> (1966) follows a woman, Oedipa Maas, trying (and failing) to work out whether a vast secret postal conspiracy is real or an elaborate, meaningless illusion — the reader, like Oedipa, is never given a final, certain answer.</li>
+  </ul>
+
+  <h3 class="h">10. Indeterminacy and Open Endings</h3>
+  <p>Postmodern texts frequently refuse to give the reader one clear, final, "correct" resolution or meaning — endings may be multiple, ambiguous, or left deliberately open, forcing the reader to actively construct meaning rather than passively receive it.</p>
+
+  <div class="card crimson">
+    <span class="card-label">How To Use This List In An Exam</span>
+    <p style="margin:0">Do not just write "metafiction, intertextuality, pastiche..." as a bare list. For full marks, take any 5-6 of these techniques, give each its own short paragraph, explain the idea in your own words, and support it with ONE example (writer + text + brief detail). That structure alone can carry a 20-mark answer.</p>
+  </div>
+  `
+},
+
+{
+  id:"fiction", color:"emerald", eyebrow:"6 · Major Writers",
+  title:"Major Postmodern Novelists and Their Works",
+  sub:"The names and texts examiners expect you to know",
+  body:`
+  <p class="dropcap">You do not need to have read every novel below in full — but you must be able to name each writer, their most important postmodern work, and one clear reason why that work counts as postmodern (link it back to the techniques in the previous section).</p>
+
+  <h3 class="h">Samuel Beckett (1906-1989) — The Bridge Figure</h3>
+  <ul>
+    <li>Best known for <i>Waiting for Godot</i> (1953), a landmark play of the <b>Theatre of the Absurd</b>. Two tramps wait endlessly for a mysterious figure, "Godot," who never arrives — the play has almost no plot, no clear meaning, and no resolution.</li>
+    <li>Beckett is usually placed at the very end of Modernism / start of Postmodernism, because his bleak, uncertain, meaning-refusing world prepares the ground for full postmodern literature.</li>
+  </ul>
+
+  <h3 class="h">John Fowles (1926-2005)</h3>
+  <ul>
+    <li><i>The French Lieutenant's Woman</i> (1969) — a Victorian-style love story constantly interrupted by a self-aware 20th-century narrator, offering the reader three alternative endings. A textbook example of <b>metafiction</b>.</li>
+  </ul>
+
+  <h3 class="h">Kurt Vonnegut (1922-2007)</h3>
+  <ul>
+    <li><i>Slaughterhouse-Five</i> (1969) — a non-linear, time-jumping, darkly comic novel about the World War II firebombing of Dresden, blended with science-fiction elements (an alien planet called Tralfamadore). A key example of <b>fragmentation and black humour</b>.</li>
+  </ul>
+
+  <h3 class="h">John Barth (1930-2024)</h3>
+  <ul>
+    <li>Wrote the influential essay <b>"The Literature of Exhaustion"</b> (1967), arguing that traditional storytelling possibilities felt "used up," pushing writers toward self-aware, playful new forms.</li>
+    <li>His story collection <i>Lost in the Funhouse</i> (1968) is full of metafictional games about the difficulty of writing fiction itself.</li>
+  </ul>
+
+  <h3 class="h">Thomas Pynchon (b. 1937)</h3>
+  <ul>
+    <li><i>The Crying of Lot 49</i> (1966) and <i>Gravity's Rainbow</i> (1973) — dense, paranoid, encyclopaedic novels full of conspiracy, uncertainty, and refusal to resolve into one clear meaning. Excellent examples of <b>indeterminacy</b> and the hyperreal, image-saturated world.</li>
+  </ul>
+
+  <h3 class="h">Italo Calvino (1923-1985)</h3>
+  <ul>
+    <li><i>If on a winter's night a traveler</i> (1979) — an Italian novel built entirely as a game with the reader, addressed directly as "you," about the experience of trying to read this very novel. A pure example of <b>metafiction</b>.</li>
+  </ul>
+
+  <h3 class="h">Umberto Eco (1932-2016)</h3>
+  <ul>
+    <li><i>The Name of the Rose</i> (1980) — a medieval murder-mystery that is also a deep meditation on signs, manuscripts, and how "truth" and history get written and controlled. A key example of <b>historiographic metafiction</b>.</li>
+  </ul>
+
+  <h3 class="h">Angela Carter (1940-1992)</h3>
+  <ul>
+    <li><i>Nights at the Circus</i> (1984) — a novel blending magic realism, fairy tale, feminism, and circus performance, about a winged trapeze artist whose true nature (human or magical bird-woman) is never fully confirmed.</li>
+  </ul>
+
+  <h3 class="h">Salman Rushdie (b. 1947)</h3>
+  <ul>
+    <li><i>Midnight's Children</i> (1981) — links postmodern technique directly to postcolonial concerns: an unreliable narrator, Saleem Sinai, born at the exact moment of India's independence, retells the nation's history mixed with magic realism, admitted errors, and self-conscious storytelling. Extremely important because it connects this topic forward to <b>Postcolonial Literature</b> and <b>Indian Writing in English</b> — two other syllabus topics.</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Quick Memory Trick</span>
+    <p style="margin:0">Pair each writer with ONE technique in your mind: Fowles = multiple endings (metafiction); Vonnegut = time-jumps + black humour; Pynchon = paranoia + indeterminacy; Calvino = reader-as-character (metafiction); Eco = history-as-construction; Carter = magic realism + fairy tale; Rushdie = unreliable narrator + magic realism + history.</p>
+  </div>
+  `
+},
+
+{
+  id:"drama-poetry", color:"gold", eyebrow:"7 · Beyond the Novel",
+  title:"Postmodern Drama and Poetry",
+  sub:"The novel is the centre of this topic, but drama and poetry matter too",
+  body:`
+  <p class="dropcap">Most exam questions on this topic focus on the novel, because postmodern technique (metafiction, intertextuality, fragmentation) is easiest to demonstrate in long prose fiction. But a well-rounded answer, or a short note, may also expect a line or two on drama and poetry — so know at least the basics.</p>
+
+  <h3 class="h">Postmodern Drama</h3>
+  <ul>
+    <li><b>Samuel Beckett's Theatre of the Absurd</b> (see previous section) is the crucial bridge into postmodern drama — plays with no clear plot, no certain meaning, and characters who cannot even be sure why they are on stage.</li>
+    <li><b>Tom Stoppard's</b> <i>Rosencrantz and Guildenstern Are Dead</i> (1966) is the clearest example of postmodern drama proper: it takes two minor characters from Shakespeare's <i>Hamlet</i> and builds an entire absurdist, intertextual, self-aware play around their confusion about their own role in someone else's story — a perfect metaphor for the postmodern feeling of not being sure who is really in control of "the story" of our lives.</li>
+    <li>Later Harold Pinter plays also show postmodern traits: uncertain identity, menace without clear explanation, and dialogue where meaning constantly slips away.</li>
+  </ul>
+
+  <h3 class="h">Postmodern Poetry</h3>
+  <ul>
+    <li>Postmodern poetry is less unified as a "movement" than postmodern fiction, but shares the same distrust of one fixed meaning, and often uses fragmentation, found language (bits of everyday speech, advertising, or media collaged together), and open form.</li>
+    <li><b>John Ashbery</b> (American) is the poet most often named as central to postmodern poetry — his poems resist a single, paraphraseable "message," constantly shifting tone and reference, asking the reader to accept uncertainty rather than search for one hidden meaning.</li>
+    <li>The American <b>"Language poets"</b> (L=A=N=G=U=A=G=E poetry, from the late 1970s) pushed this furthest, treating language itself, rather than a clear message or emotion, as the true subject of the poem — directly influenced by Derrida's idea that meaning is never fixed or stable.</li>
+  </ul>
+
+  <div class="card gold">
+    <span class="card-label">Exam Tip Line</span>
+    <p style="margin:0">If a question simply says "Postmodern Literature" without specifying genre, lead with fiction (it is the richest, most tested area), but add one short paragraph each on drama (Beckett, Stoppard) and poetry (Ashbery) to show breadth of knowledge.</p>
+  </div>
+  `
+},
+
+{
+  id:"magic-realism", color:"indigo", eyebrow:"8 · Special Topic",
+  title:"Magic Realism and Postmodernism",
+  sub:"A technique often confused with the whole movement — learn the exact relationship",
+  body:`
+  <p class="dropcap">Many students wrongly think "magic realism" and "postmodernism" are simply the same thing. They are closely related, but not identical, and an examiner may specifically test whether you understand the difference.</p>
+
+  <h3 class="h">What Magic Realism Actually Means</h3>
+  <div class="card indigo">
+    <span class="card-label">Definition</span>
+    <p style="margin:0"><b>Magic realism</b> is a narrative style in which magical, impossible, or supernatural events are presented in a completely calm, ordinary, matter-of-fact tone, side by side with realistic, everyday detail — with no sign that the characters or narrator find this strange at all.</p>
+  </div>
+  <ul>
+    <li>Example: In Gabriel García Márquez's <i>One Hundred Years of Solitude</i> (1967), a character ascends physically into the sky while hanging out laundry, and this is described as calmly as any ordinary household chore.</li>
+  </ul>
+
+  <h3 class="h">Where It Comes From</h3>
+  <ul>
+    <li>Magic realism began mainly as a <b>Latin American</b> literary tradition (Gabriel García Márquez, Colombia; Jorge Luis Borges and Isabel Allende are also often mentioned), growing out of a mixture of local folklore, indigenous belief systems, and political/historical trauma that "realistic" writing alone could not fully capture.</li>
+    <li>It is technically its own distinct literary tradition — it did NOT begin as a "postmodern technique" and can exist without any of the philosophical scepticism (Lyotard, Derrida) discussed earlier in this guide.</li>
+  </ul>
+
+  <h3 class="h">Why It Overlaps So Strongly With Postmodernism</h3>
+  <ul>
+    <li>When postmodern writers in English adopted magic realism, they used it for very postmodern purposes: to question the reliability of "official," rational, single-version history, and to show that different cultures (colonial rulers vs colonised peoples, for example) may experience "reality" itself in genuinely different, equally valid ways.</li>
+    <li>Salman Rushdie's <i>Midnight's Children</i> is the clearest English-language example: magical elements (children born at midnight with telepathic powers) are blended with real Indian political history, deliberately blurring fact and fantasy to suggest that "official" history is only one version of the truth among many.</li>
+    <li>Angela Carter's <i>Nights at the Circus</i> uses magic realism (a possibly winged woman) combined with feminist and metafictional concerns.</li>
+  </ul>
+
+  <h3 class="h">The Exact Relationship — How To State It In An Exam</h3>
+  <div class="quote-block">"Magic realism is not itself a postmodern invention — it is a distinct literary tradition rooted mainly in Latin American fiction — but it became one of postmodern literature's most powerful tools, because its calm blending of the magical and the real perfectly serves postmodernism's larger aim of questioning whether any single, 'realistic,' official version of truth or history can be trusted."</div>
+  `
+},
+
+{
+  id:"critics", color:"crimson", eyebrow:"9 · Literary Criticism",
+  title:"Key Critics and Critical Terms",
+  sub:"The scholars who defined this movement as a subject of study",
+  body:`
+  <p class="dropcap">Just as the Pre-Raphaelites had William Michael Rossetti recording their aims, postmodernism as a literary (not just philosophical) movement was shaped and defined by specific literary critics. Knowing their names and their key terms will make your answer sound authoritative and well-read.</p>
+
+  <h3 class="h">Ihab Hassan</h3>
+  <ul>
+    <li>One of the earliest critics to seriously theorise postmodernism in literature (from the 1970s onward).</li>
+    <li>Famous for drawing up a list of <b>paired opposites</b> to explain the shift from Modernism to Postmodernism — for example, Modernism's "Form" versus Postmodernism's "Antiform"; Modernism's "Purpose" versus Postmodernism's "Play"; Modernism's "Design" versus Postmodernism's "Chance." This kind of clear, paired contrast is very useful for exam answers on the Modernism-vs-Postmodernism comparison.</li>
+  </ul>
+
+  <h3 class="h">Linda Hutcheon</h3>
+  <ul>
+    <li>Author of <i>A Poetics of Postmodernism</i> (1988), one of the most important critical studies of postmodern fiction.</li>
+    <li>Coined the term <b>"historiographic metafiction"</b> (already explained in the Techniques section) — fiction that is both self-consciously fictional AND seriously engaged with real historical events, questioning how history itself gets written.</li>
+    <li>Argued that postmodern texts do not simply abandon meaning; instead, they use <b>irony and parody</b> to question established ideas from the inside, while still remaining engaged with real political and historical questions.</li>
+  </ul>
+
+  <h3 class="h">Brian McHale</h3>
+  <ul>
+    <li>In his book <i>Postmodernist Fiction</i> (1987), McHale proposed a useful distinction: Modernist fiction is dominated by <b>epistemological questions</b> ("How can I know the truth? Whose interpretation is correct?"), while Postmodernist fiction is dominated by <b>ontological questions</b> ("Which world is this? Is this real or fictional? How many possible worlds exist inside this text?").</li>
+    <li>This is a slightly advanced point, but very impressive to use in a top-scoring answer, especially for a question that specifically asks you to distinguish Modernism from Postmodernism at a deeper level than just "technique."</li>
+  </ul>
+
+  <div class="card crimson">
+    <span class="card-label">One-Line Summary To Memorise</span>
+    <p style="margin:0">"Ihab Hassan mapped postmodernism through paired opposites with Modernism; Linda Hutcheon named its most important technique as 'historiographic metafiction'; and Brian McHale distinguished the two movements by their dominant questions — Modernism asks 'how can we know the truth?', Postmodernism asks 'which reality are we even in?'"</p>
+  </div>
+  `
+},
+
+{
+  id:"debate", color:"emerald", eyebrow:"10 · Criticism of the Movement",
+  title:"Criticism of Postmodernism, and \u201cIs It Over?\u201d",
+  sub:"A balanced view is what separates a good answer from an excellent one",
+  body:`
+  <p class="dropcap">A truly excellent descriptive answer does not just praise or describe postmodernism — it also shows awareness that the movement has been criticised, and that critics still debate whether it has ended. This section gives you exactly that balance.</p>
+
+  <h3 class="h">Common Criticisms of Postmodern Literature</h3>
+  <ul>
+    <li><b>Difficulty and elitism:</b> Critics argue that postmodern fiction's constant games, dense intertextual references, and refusal of clear meaning can make it needlessly difficult, appealing mainly to academic readers rather than ordinary readers.</li>
+    <li><b>Moral relativism:</b> If postmodernism doubts every "grand narrative" (including moral and political ones), some critics ask whether it leaves any solid ground at all for making real ethical or political judgements — for example, how can you clearly condemn injustice if you doubt that any single version of "truth" can be trusted?</li>
+    <li><b>Emotional coldness:</b> The postmodern love of irony, parody, and self-aware games is sometimes criticised for keeping the reader at an emotional distance, preventing the kind of deep, sincere feeling that earlier literature could offer.</li>
+    <li><b>Repetition and self-indulgence:</b> By the 1990s, some critics felt that postmodern techniques (fragmentation, metafiction, pastiche) had themselves become a predictable formula, no longer feeling fresh or radical.</li>
+  </ul>
+
+  <h3 class="h">Is Postmodernism Over?</h3>
+  <ul>
+    <li>Many critics argue that major world events — especially the terrorist attacks of <b>11 September 2001</b> — created a cultural demand for more sincerity, seriousness, and a return to "real" emotional and moral engagement, which postmodern irony seemed unable to fully provide.</li>
+    <li>This has led to talk of a "post-postmodern" period, sometimes called <b>"metamodernism"</b> — a term used by some contemporary critics for literature that oscillates between postmodern irony and a new, more sincere kind of feeling, rather than simply choosing one or the other.</li>
+    <li>Other critics disagree, and argue that postmodern techniques (fragmentation, self-awareness, blending of high and popular culture) have simply become the normal, permanent condition of literature in the internet age, rather than something that has "ended."</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Good Line For A Conclusion Paragraph</span>
+    <p style="margin:0">"While postmodernism has been criticised for elitism, moral relativism, and emotional distance, and while some critics now speak of a 'post-postmodern' or 'metamodern' turn since the early 2000s, its central techniques — self-aware fiction, distrust of single 'grand' truths, and playful blending of styles and cultures — remain deeply embedded in how contemporary literature is written and read."</p>
+  </div>
+  `
+},
+
+{
+  id:"legacy", color:"gold", eyebrow:"11 · What Came After",
+  title:"Legacy and Wider Influence",
+  sub:"Where postmodern ideas travelled next — including into your other syllabus topics",
+  body:`
+  <p class="dropcap">Understanding postmodernism's legacy will help you write stronger, more connected answers across your whole syllabus, not just this one topic — because postmodern technique feeds directly into two other syllabus bullet points: <b>Postcolonial Literature</b> and <b>Indian Writings in English</b>.</p>
+
+  <h3 class="h">Postmodernism and Postcolonial Literature</h3>
+  <ul>
+    <li>Postcolonial writers found postmodern techniques extremely useful for their own, different purpose: questioning the "official" history and "grand narrative" written by colonial powers, and telling history instead from the point of view of the colonised.</li>
+    <li>Salman Rushdie's <i>Midnight's Children</i> is the clearest bridge text — postmodern technique (unreliable narration, magic realism, historiographic metafiction) used specifically to retell the history of India's independence from a personal, admittedly imperfect, non-official point of view.</li>
+  </ul>
+
+  <h3 class="h">Influence on Indian Writing in English</h3>
+  <ul>
+    <li>Beyond Rushdie, later major Indian English novelists (for example, Arundhati Roy) also use fragmented time, poetic/experimental language, and a distrust of single "official" narratives, showing postmodernism's continuing influence on Indian fiction in English.</li>
+  </ul>
+
+  <h3 class="h">Influence on Popular and Digital Culture</h3>
+  <ul>
+    <li>Postmodern habits of pastiche, intertextual reference, and blending "high" and "low" culture are now extremely common outside literature too — in cinema, television, and internet culture, which constantly quote, remix, and playfully rework earlier material.</li>
+    <li>Some critics argue that <b>hypertext and digital, non-linear reading</b> (clicking between links, choosing your own path through information) is a natural extension of postmodern fiction's love of fragmented, non-linear, reader-constructed narrative.</li>
+  </ul>
+
+  <h3 class="h">A Balanced Final Judgement (good for a conclusion paragraph)</h3>
+  <div class="quote-block">"Though critics still debate whether postmodernism as a distinct historical movement has ended, its core insight — that truth, history, and identity are constructed through language and power rather than simply 'given' — continues to shape not only later postcolonial and Indian English fiction, but the wider culture of remix, irony, and self-awareness that defines the contemporary world."</div>
+  `
+},
+
+{
+  id:"model-answers", color:"indigo", eyebrow:"12 · Practice",
+  title:"Full Model Answers",
+  sub:"Two complete, exam-ready answers — study their structure carefully",
+  body:`
+  <p class="dropcap">Below are two full-length model answers written the way you should write them in the actual UPPSC GIC Mains exam: a short <b>introduction</b>, clearly organised <b>body points with sub-headings</b>, and a short <b>conclusion</b>. Notice the structure more than the exact words — you can use your own sentences, but follow this pattern.</p>
+
+  <div class="answer-block">
+  <h5>Model Answer 1</h5>
+  <p><b>Q. What do you understand by the term "Postmodern Literature"? Discuss its main characteristics. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>Postmodern literature refers to a body of writing, emerging mainly from the 1960s onward, that grew out of Modernism but reacted sharply against its remaining faith in unity and deep meaning. Where Modernist writers like Eliot and Joyce mourned the fragmentation of the modern world while still hoping to find some underlying pattern, postmodern writers doubted that any single, final "grand truth" about reality, history, or the self had ever really existed, and turned this doubt itself into the central subject and game of their writing.</p>
+
+  <h4 class="h4">Philosophical Background</h4>
+  <p>Postmodern literature is closely tied to postmodern philosophy. Jean-François Lyotard described postmodernism as "incredulity toward metanarratives" — the loss of belief in grand, all-explaining stories such as steady historical progress. Jacques Derrida's idea of deconstruction showed that language and meaning are never fully stable, while Michel Foucault argued that "truth" is always shaped by power. These ideas directly shaped how postmodern writers told stories.</p>
+
+  <h4 class="h4">Main Characteristics</h4>
+  <p>Postmodern literature shows several distinctive features: <b>metafiction</b>, where a text openly acknowledges its own fictional status, as in John Fowles's <i>The French Lieutenant's Woman</i>, which offers three alternative endings; <b>intertextuality</b>, where texts are woven out of references to earlier texts, as in Tom Stoppard's reworking of Shakespeare's <i>Hamlet</i> in <i>Rosencrantz and Guildenstern Are Dead</i>; <b>fragmentation and non-linear time</b>, seen in Kurt Vonnegut's <i>Slaughterhouse-Five</i>; <b>pastiche</b>, the playful blending of high and popular culture; <b>historiographic metafiction</b>, fiction that treats history itself as a constructed story, as in Umberto Eco's <i>The Name of the Rose</i> and Salman Rushdie's <i>Midnight's Children</i>; and <b>magic realism</b>, where magical events are narrated as calmly as ordinary ones.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>Postmodern literature therefore represents not simply a new set of techniques but a whole new attitude to truth, history, and storytelling — one that treats the impossibility of one final meaning not as a tragedy, as Modernism did, but as an occasion for irony, play, and constant self-aware invention.</p>
+  </div>
+
+  <div class="rule" style="color:var(--ink-faint)"></div>
+
+  <div class="answer-block">
+  <h5>Model Answer 2</h5>
+  <p><b>Q. Distinguish between Modernism and Postmodernism as literary movements. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>Modernism (roughly 1900-1945) and Postmodernism (roughly 1960s onward) are often discussed together because Postmodernism grew directly out of Modernism's own experiments with form. Yet the two movements differ sharply in tone, philosophy, and purpose, and a clear understanding of both the connection and the break between them is essential to answering this question well.</p>
+
+  <h4 class="h4">The Continuity Between Them</h4>
+  <p>Both movements reject simple, linear, old-fashioned storytelling; both use fragmentation, multiple points of view, and demanding, experimental structures; and both grew out of a historical shock to older certainties — Modernism out of the trauma of the First World War, Postmodernism out of the Second World War, the Cold War, and the rise of mass media.</p>
+
+  <h4 class="h4">The Sharp Break: Attitude to Meaning</h4>
+  <p>Modernist writers such as T. S. Eliot and James Joyce still hoped that art could rebuild some kind of order or meaning out of the fragments of the modern world — Eliot's use of myth in <i>The Waste Land</i> is an attempt to give shape to chaos. Postmodern writers, following philosophers like Lyotard, Derrida and Foucault, doubted that such an underlying order or truth had ever really existed, and so treated fragmentation not as loss but as the normal, even playful, condition of storytelling.</p>
+
+  <h4 class="h4">Tone: Seriousness versus Irony</h4>
+  <p>Where Modernism is generally serious, melancholic, and searching, Postmodernism is ironic, self-mocking, and often darkly comic, as in Kurt Vonnegut's <i>Slaughterhouse-Five</i>, which narrates the horror of the Dresden firebombing with flat, dark humour rather than tragic solemnity.</p>
+
+  <h4 class="h4">Self-Awareness and Culture</h4>
+  <p>Postmodern texts are also far more openly self-aware of their own fictionality (metafiction, as in Fowles and Calvino) than Modernist texts usually are, and they deliberately blur the boundary between "high" literary culture and "popular" mass culture, a boundary that Modernism was careful to preserve.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>In short, Postmodernism can be understood as Modernism's own logic taken to its final conclusion: it inherits Modernism's broken forms, but replaces Modernism's mourning for lost unity with an ironic, playful acceptance that unity, and perhaps final truth itself, may never have existed at all.</p>
+  </div>
+  `
+},
+
+{
+  id:"revision", color:"crimson", eyebrow:"13 · Final Revision",
+  title:"Quick Revision Sheet",
+  sub:"Use this the night before the exam — everything in one place",
+  body:`
+  <p class="dropcap">This page is meant for very fast last-minute revision. Read it slowly at least once with full understanding first (using the earlier sections) — only then will these short points actually help you.</p>
+
+  <h3 class="h">Core Facts</h3>
+  <table>
+    <tr><th>Item</th><th>Fact</th></tr>
+    <tr><td>Rough time period</td><td>1960s onward, after World War II</td></tr>
+    <tr><td>Grows out of</td><td>Modernism (1900-1945)</td></tr>
+    <tr><td>Term first used in</td><td>Architecture (1970s, Charles Jencks), then spread to literature</td></tr>
+    <tr><td>Bridge figure into the movement</td><td>Samuel Beckett (Theatre of the Absurd, 1950s)</td></tr>
+    <tr><td>Key philosophical idea</td><td>Lyotard's "incredulity toward metanarratives"</td></tr>
+    <tr><td>Key critical term</td><td>Linda Hutcheon's "historiographic metafiction"</td></tr>
+    <tr><td>Debated "end point"</td><td>Post-2001; talk of "metamodernism"</td></tr>
+  </table>
+
+  <h3 class="h">Four Key Thinkers — One Idea Each</h3>
+  <ul>
+    <li><b>Lyotard</b> — distrust of "grand narratives" (metanarratives)</li>
+    <li><b>Derrida</b> — deconstruction; meaning is never fixed</li>
+    <li><b>Foucault</b> — truth/history shaped by power</li>
+    <li><b>Baudrillard</b> — simulacra and hyperreality (copies without originals)</li>
+  </ul>
+
+  <h3 class="h">Techniques — One Word Each (memory hooks)</h3>
+  <ul>
+    <li><b>Metafiction</b> — fiction aware of being fiction</li>
+    <li><b>Intertextuality</b> — texts woven from other texts</li>
+    <li><b>Pastiche/Parody</b> — playful imitation of styles</li>
+    <li><b>Fragmentation</b> — broken, non-linear structure</li>
+    <li><b>Unreliable narrator</b> — cannot fully trust the storyteller</li>
+    <li><b>Black humour</b> — dark comedy about serious subjects</li>
+    <li><b>Historiographic metafiction</b> — history shown as a constructed story</li>
+    <li><b>Magic realism</b> — magic told in a calm, realistic tone</li>
+    <li><b>Simulacra/hyperreality</b> — copies replacing the "real"</li>
+    <li><b>Indeterminacy</b> — open, unresolved, multiple meanings</li>
+  </ul>
+
+  <h3 class="h">Writer-to-Work Quick Match</h3>
+  <table>
+    <tr><th>Writer</th><th>Must-Know Work</th><th>One-Word Link</th></tr>
+    <tr><td>Samuel Beckett</td><td><i>Waiting for Godot</i></td><td>Absurd (bridge figure)</td></tr>
+    <tr><td>John Fowles</td><td><i>The French Lieutenant's Woman</i></td><td>Metafiction, multiple endings</td></tr>
+    <tr><td>Kurt Vonnegut</td><td><i>Slaughterhouse-Five</i></td><td>Fragmentation, black humour</td></tr>
+    <tr><td>Thomas Pynchon</td><td><i>The Crying of Lot 49</i></td><td>Paranoia, indeterminacy</td></tr>
+    <tr><td>Italo Calvino</td><td><i>If on a winter's night a traveler</i></td><td>Reader-as-character</td></tr>
+    <tr><td>Umberto Eco</td><td><i>The Name of the Rose</i></td><td>Historiographic metafiction</td></tr>
+    <tr><td>Angela Carter</td><td><i>Nights at the Circus</i></td><td>Magic realism, feminism</td></tr>
+    <tr><td>Salman Rushdie</td><td><i>Midnight's Children</i></td><td>Magic realism + history + postcolonial</td></tr>
+    <tr><td>Tom Stoppard</td><td><i>Rosencrantz and Guildenstern Are Dead</i></td><td>Intertextuality (drama)</td></tr>
+
+  </table>
+
+  <h3 class="h">Critics — One Term Each</h3>
+  <ul>
+    <li><b>Ihab Hassan</b> — paired opposites (Modernism vs Postmodernism)</li>
+    <li><b>Linda Hutcheon</b> — "historiographic metafiction"</li>
+    <li><b>Brian McHale</b> — epistemological (Modernism) vs ontological (Postmodernism) dominant</li>
+    <li><b>Fredric Jameson</b> — "cultural logic of late capitalism"</li>
+  </ul>
+
+  <h3 class="h">Legacy Chain (memorise as a flow)</h3>
+  <div class="quote-block">Modernism (1900-1945) &rarr; Postmodernism (1960s onward, via Beckett, Barth, Vonnegut, Pynchon, Fowles, Calvino, Eco) &rarr; Postcolonial use of postmodern technique (Rushdie's <i>Midnight's Children</i>) &rarr; Continuing influence on Indian English fiction and digital/remix culture &rarr; Debated shift toward "metamodernism" post-2001</div>
+
+  <h3 class="h">If You Remember Nothing Else, Remember This</h3>
+  <div class="card gold">
+    <p style="margin:0"><b>Postmodernism (1960s onward)</b> = literature after Modernism that no longer believes in one final "grand truth" (Lyotard) &rarr; doubts stable meaning (Derrida), sees truth as shaped by power (Foucault), and shows a media-saturated, copy-filled world (Baudrillard) &rarr; expressed through <b>metafiction, intertextuality, pastiche, fragmentation, historiographic metafiction, and magic realism</b> &rarr; criticised for elitism and moral relativism, and debated as possibly giving way to <b>"metamodernism"</b> after 2001 &rarr; directly feeds into <b>postcolonial and Indian English writing</b>, especially through Rushdie.</p>
+  </div>
+  `
+}
+
+];
+
+/* ================= APP LOGIC ================= */
+(function(){
+  const COLOR_MAP = { crimson:'#9c2b3e', emerald:'#1f5c4a', gold:'#b8862f', indigo:'#2e3f6e' };
+  SECTIONS.forEach(s => { s.colorHex = COLOR_MAP[s.color] || '#9c2b3e'; });
+
+  const contentWrap = document.getElementById('contentWrap');
+  const drawerList = document.getElementById('drawerList');
+  const drawer = document.getElementById('drawer');
+  const scrim = document.getElementById('scrim');
+  const menuBtn = document.getElementById('menuBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const progressPill = document.getElementById('progressPill');
+  const topTitle = document.getElementById('topTitle');
+
+  const PROGRESS_KEY = 'postmodern-lit-progress';
+  let current = 0;
+
+  // Build SECTIONS
+  SECTIONS.forEach((s, i) => {
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.id = 'sec-' + s.id;
+    sec.innerHTML = `
+      <span class="sec-eyebrow" style="background:${s.colorHex}">${s.eyebrow}</span>
+      <h2 class="sec-title">${s.title}</h2>
+      <p class="sec-sub" style="border-color:${s.colorHex}; color:${s.colorHex}">${s.sub}</p>
+      ${s.body}
+    `;
+    contentWrap.appendChild(sec);
+  });
+
+  // Build drawer list
+  SECTIONS.forEach((s, i) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.innerHTML = `<span class="num" style="background:${s.colorHex}">${i+1}</span><span class="ttl">${s.title}</span>`;
+    btn.addEventListener('click', () => { goTo(i); closeDrawer(); });
+    btn.dataset.idx = i;
+    li.appendChild(btn);
+    drawerList.appendChild(li);
+  });
+
+  // Build dots
+  SECTIONS.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  });
+
+  function render(){
+    document.querySelectorAll('.section').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.drawer-list button').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.dot').forEach((el, i) => {
+      el.classList.toggle('on', i === current);
+    });
+    progressPill.textContent = (current+1) + ' / ' + SECTIONS.length;
+    topTitle.textContent = SECTIONS[current].title.replace(/\u2014.*$/,'').trim();
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = current === SECTIONS.length-1 ? 'Restart \u2191' : 'Next \u2192';
+    contentWrap.scrollTop = 0;
+  }
+
+  async function saveProgress(){
+    try{
+      if(window.storage && typeof window.storage.set === 'function'){
+        await window.storage.set(PROGRESS_KEY, String(current));
+      }
+    }catch(e){ /* storage unavailable — ignore silently */ }
+  }
+
+  async function loadProgress(){
+    try{
+      if(window.storage && typeof window.storage.get === 'function'){
+        const res = await window.storage.get(PROGRESS_KEY);
+        if(res && res.value != null){
+          const idx = parseInt(res.value, 10);
+          if(!isNaN(idx)){
+            current = Math.max(0, Math.min(SECTIONS.length - 1, idx));
+          }
+        }
+      }
+    }catch(e){ /* no saved progress yet, or storage unavailable — start at 0 */ }
+    render();
+  }
+
+  function goTo(i){
+    current = Math.max(0, Math.min(SECTIONS.length-1, i));
+    render();
+    saveProgress();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current-1));
+  nextBtn.addEventListener('click', () => {
+    if(current === SECTIONS.length-1){ goTo(0); } else { goTo(current+1); }
+  });
+
+  function openDrawer(){ drawer.classList.add('open'); scrim.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); scrim.classList.remove('open'); }
+  menuBtn.addEventListener('click', openDrawer);
+  scrim.addEventListener('click', closeDrawer);
+
+  loadProgress();
+})();
+
+</script>
+</body>
+</html>

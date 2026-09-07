@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Modern Literature — UPPSC GIC Mains Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5edda;
+  --paper-soft:#fbf6ea;
+  --paper-deep:#eee2c4;
+  --ink:#2b2116;
+  --ink-soft:#5b4d35;
+  --ink-faint:#8a7a5c;
+  --crimson:#9c2b3e;
+  --crimson-deep:#711e2d;
+  --emerald:#1f5c4a;
+  --emerald-deep:#123d31;
+  --gold:#b8862f;
+  --gold-light:#d9ad5c;
+  --indigo:#2e3f6e;
+  --indigo-deep:#202d4f;
+  --line: rgba(43,33,22,0.14);
+  --shadow: 0 10px 30px rgba(43,33,22,0.18);
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:'Source Serif 4', Georgia, serif;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(184,134,47,0.10), transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(31,92,74,0.10), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  overscroll-behavior:none;
+}
+
+/* ---------- App shell ---------- */
+.app{
+  max-width:640px;
+  margin:0 auto;
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  background:var(--paper-soft);
+  box-shadow: 0 0 60px rgba(43,33,22,0.15);
+  overflow: hidden; /* Ensure absolute children don't overflow */
+}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 14px;
+  background: linear-gradient(135deg, var(--indigo-deep), var(--indigo) 55%, var(--crimson-deep));
+  color:var(--paper-soft);
+  position:relative;
+  z-index:20;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  flex-shrink:0;
+}
+.topbar::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-4px; height:4px;
+  background: linear-gradient(90deg, var(--gold-light), var(--crimson), var(--emerald), var(--gold-light));
+  opacity:0.9;
+}
+.menu-btn{
+  width:38px; height:38px; border-radius:10px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; cursor:pointer;
+}
+.menu-btn span, .menu-btn::before, .menu-btn::after{
+  content:""; display:block; width:18px; height:2px; background:var(--paper-soft); border-radius:2px;
+}
+.menu-btn{flex-direction:column; gap:4px;}
+.topbar-titles{flex:1; min-width:0;}
+.topbar-titles .eyebrow{
+  font-family:'Cinzel', serif; font-size:10px; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold-light); opacity:0.95;
+}
+.topbar-titles h1{
+  margin:1px 0 0; font-family:'Playfair Display', serif; font-size:18px; font-weight:700; line-height:1.15;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.progress-pill{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:1px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3);
+  padding:5px 10px; border-radius:999px; flex-shrink:0; white-space:nowrap;
+}
+
+/* ---------- Drawer ---------- */
+.scrim{
+  position:absolute; inset:0; background:rgba(20,15,8,0.55);
+  opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:29;
+}
+.scrim.open{opacity:1; pointer-events:auto;}
+.drawer{
+  position:absolute; top:0; bottom:0; left:0; width:86%; max-width:340px;
+  background:var(--paper-deep);
+  transform:translateX(-105%);
+  transition:transform .3s cubic-bezier(.22,.9,.32,1);
+  z-index:30;
+  display:flex; flex-direction:column;
+  box-shadow: 8px 0 30px rgba(0,0,0,0.3);
+  border-right:1px solid var(--line);
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{
+  padding:20px 18px 14px; border-bottom:1px solid var(--line);
+  background: linear-gradient(160deg, var(--paper-deep), var(--paper-soft));
+}
+.drawer-head .cap{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2px; color:var(--ink-faint); text-transform:uppercase;
+}
+.drawer-head h2{
+  margin:4px 0 0; font-family:'Playfair Display', serif; font-size:22px; color:var(--crimson-deep);
+}
+.drawer-list{list-style:none; margin:0; padding:8px; overflow-y:auto; flex:1;}
+.drawer-list li{margin-bottom:3px;}
+.drawer-list button{
+  width:100%; text-align:left; display:flex; align-items:center; gap:12px;
+  background:transparent; border:none; padding:10px 10px; border-radius:10px;
+  font-family:'Source Serif 4', serif; font-size:14.5px; color:var(--ink); cursor:pointer;
+}
+.drawer-list button .num{
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:11px; color:#fff;
+}
+.drawer-list button.active{background:rgba(43,33,22,0.08); font-weight:600;}
+.drawer-list button .ttl{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+/* ---------- Main content ---------- */
+.content-wrap{flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative;}
+.section{display:none; padding:22px 20px 40px;}
+.section.active{display:block; animation:fadein .35s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+.sec-eyebrow{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+  display:inline-block; padding:4px 12px; border-radius:999px; color:#fff; margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Playfair Display', serif; font-weight:800; font-size:27px; line-height:1.2;
+  color:var(--ink); margin:0 0 6px;
+}
+.sec-sub{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:16.5px; color:var(--ink-soft);
+  margin:0 0 20px; border-left:3px solid; padding-left:12px;
+}
+.rule{
+  height:1px; background:linear-gradient(90deg, currentColor, transparent);
+  margin:18px 0; opacity:0.35;
+}
+
+.dropcap::first-letter{
+  font-family:'Playfair Display', serif; font-size:52px; font-weight:800; float:left;
+  line-height:0.8; padding:6px 8px 0 0; color:var(--crimson);
+}
+
+h3.h{
+  font-family:'Playfair Display', serif; font-size:18.5px; margin:22px 0 10px; color:var(--ink);
+  display:flex; align-items:center; gap:8px;
+}
+h3.h::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--gold); transform:rotate(45deg); flex-shrink:0;}
+h4.h4{
+  font-family:'Source Serif 4', serif; font-weight:700; font-size:15.5px; margin:16px 0 6px; color:var(--crimson-deep);
+}
+p{font-size:15.5px; line-height:1.7; margin:0 0 12px; color:var(--ink);}
+ul,ol{margin:0 0 14px; padding-left:20px;}
+li{font-size:15.2px; line-height:1.65; margin-bottom:7px; color:var(--ink);}
+li::marker{color:var(--gold);}
+b, strong{color:var(--crimson-deep); font-weight:700;}
+em.q{color:var(--emerald-deep); font-style:italic;}
+
+.card{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:14px;
+  padding:14px 16px; margin:14px 0; box-shadow: var(--shadow);
+}
+.card.gold{border-left:4px solid var(--gold);}
+.card.crimson{border-left:4px solid var(--crimson);}
+.card.emerald{border-left:4px solid var(--emerald);}
+.card.indigo{border-left:4px solid var(--indigo);}
+.card-label{
+  font-family:'Cinzel', serif; font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:6px; display:block;
+}
+
+.quote-block{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:19px; line-height:1.55;
+  color:var(--indigo-deep); padding:10px 0 10px 16px; border-left:3px solid var(--gold);
+  margin:14px 0;
+}
+.quote-block .src{
+  display:block; font-family:'Source Serif 4', serif; font-style:normal; font-size:12px;
+  color:var(--ink-faint); margin-top:4px; letter-spacing:0.3px;
+}
+
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.8px;}
+th,td{padding:9px 8px; border:1px solid var(--line); text-align:left; vertical-align:top;}
+th{background:var(--paper-deep); font-family:'Cinzel', serif; font-size:11px; letter-spacing:0.8px; text-transform:uppercase; color:var(--ink-soft);}
+
+.qn-item{
+  background:var(--paper-soft); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px;
+  position:relative; padding-left:44px;
+}
+.qn-item .qnum{
+  position:absolute; left:10px; top:12px; width:26px; height:26px; border-radius:50%;
+  background:var(--indigo); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel', serif; font-size:12px; font-weight:600;
+}
+.qn-item p{margin:0; font-weight:600; font-size:14.8px;}
+.qn-item .tag{
+  display:inline-block; margin-top:6px; font-family:'Cinzel', serif; font-size:9.5px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--emerald-deep); background:rgba(31,92,74,0.1); padding:2px 8px; border-radius:999px;
+}
+
+.answer-block h5{
+  font-family:'Cinzel', serif; font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--crimson);
+  margin:20px 0 8px;
+}
+
+/* ---------- Bottom nav ---------- */
+.bottombar{
+  flex-shrink:0; display:flex; align-items:center; gap:10px; padding:10px 14px;
+  background:var(--paper-deep); border-top:1px solid var(--line); z-index:15;
+}
+.nav-btn{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 10px; border-radius:12px; border:1px solid var(--line);
+  background:var(--paper-soft); font-family:'Source Serif 4', serif; font-weight:600; font-size:13.5px;
+  color:var(--ink); cursor:pointer;
+}
+.nav-btn:disabled{opacity:0.35;}
+.nav-btn.primary{background:linear-gradient(135deg, var(--crimson), var(--crimson-deep)); color:#fff; border:none;}
+.dots{display:flex; gap:4px; flex-shrink:0;}
+.dot{width:5px; height:5px; border-radius:50%; background:var(--line);}
+.dot.on{background:var(--gold);}
+
+/* ---------- Resume Banner ---------- */
+.resume-banner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--indigo-deep);
+  color: var(--paper-soft);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  z-index: 50;
+  /* Hidden state is translated down below the screen */
+  transform: translateY(110%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.3);
+}
+.resume-banner.visible {
+  transform: translateY(0);
+}
+.resume-banner .resume-text {
+  flex: 1;
+  font-family: 'Source Serif 4', serif;
+  font-size: 16px;
+  line-height: 1.3;
+}
+.resume-banner .resume-btn {
+  background: var(--gold);
+  color: var(--indigo-deep);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.resume-banner .resume-btn:active {
+  opacity: 0.8;
+}
+.resume-banner .resume-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 24px;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-thumb{background:var(--ink-faint); border-radius:6px; opacity:0.4;}
+
+@media (min-width:641px){
+  body{padding:20px 0;}
+  .app{height:calc(100dvh - 40px); border-radius:22px; overflow:hidden;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="menu-btn" id="menuBtn"></div>
+    <div class="topbar-titles">
+      <div class="eyebrow">UPPSC GIC · English Lecturer Mains</div>
+      <h1 id="topTitle">Modern Literature</h1>
+    </div>
+    <div class="progress-pill" id="progressPill">1 / 12</div>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="cap">Contents</div>
+      <h2>Study Map</h2>
+    </div>
+    <ul class="drawer-list" id="drawerList"></ul>
+  </nav>
+
+  <div class="content-wrap" id="contentWrap"></div>
+
+  <div class="bottombar">
+    <button class="nav-btn" id="prevBtn">&larr; Prev</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn primary" id="nextBtn">Next &rarr;</button>
+  </div>
+  
+  <!-- Add the functional Resume Popup -->
+  <div class="resume-banner" id="resumeBanner">
+    <div class="resume-text">Resume where<br>you left off?</div>
+    <button class="resume-btn" id="resumeActionBtn">RESUME</button>
+    <button class="resume-close" id="resumeCloseBtn">&times;</button>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+
+{
+  id:"questions", color:"indigo", eyebrow:"Start Here",
+  title:"Expected Descriptive Questions",
+  sub:"What the examiner is likely to ask, based on the syllabus wording",
+  body:`
+  <p class="dropcap">The syllabus lists <b>"Modern Literature"</b> as one single bullet point under <b>Section B: Literary Terms, Movements, Forms, Literary Criticism</b> — right next to "The Pre-Raphaelites" and just before "Major Stanza Forms." In UPPSC-type Mains papers, one bullet point like this usually turns into <b>one full descriptive question worth 20 marks</b> (sometimes split into two parts, like 10+10), or occasionally a short note. The syllabus also names <b>W. B. Yeats and T. S. Eliot</b> directly in the "Authors and Works" list (Section A), which is a very strong signal that questions on individual Modernist poets are equally likely. Based on this, and on how "Modern Literature / Modernism" has been asked in similar exams (UGC NET, UP PCS, other State PCS English papers), here are the questions you should be fully ready for.</p>
+
+  <div class="qn-item"><span class="qnum">1</span>
+    <p>What do you understand by the term "Modernism" in English Literature? Discuss its origin and main characteristics.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">2</span>
+    <p>Discuss the salient features of Modern English poetry with suitable references to its major poets.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">3</span>
+    <p>"Modern fiction is marked by the use of the stream of consciousness technique." Explain this statement with examples.</p>
+    <span class="tag">Most Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">4</span>
+    <p>Write a critical note on the contribution of W. B. Yeats to Modern poetry.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">5</span>
+    <p>Discuss T. S. Eliot as a Modernist poet, with reference to his theory of "Impersonality" and his poem <i>The Waste Land</i>.</p>
+    <span class="tag">Likely</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">6</span>
+    <p>Distinguish between Romanticism/Victorianism and Modernism as literary movements.</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">7</span>
+    <p>What is meant by "stream of consciousness"? Discuss this technique with reference to Virginia Woolf and/or James Joyce.</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">8</span>
+    <p>What was the First World War's impact on Modern English literature?</p>
+    <span class="tag">Possible</span>
+  </div>
+
+  <div class="qn-item"><span class="qnum">9</span>
+    <p>Short note (in 150-200 words): Imagism / The Mythical Method / Objective Correlative / Stream of Consciousness / Modernism and the "Make It New" principle.</p>
+    <span class="tag">Possible (Short Note)</span>
+  </div>
+
+  <div class="card gold">
+    <span class="card-label">How This Guide Is Organised</span>
+    <p style="margin:0">Every section after this one builds one layer of knowledge — starting from the simplest possible idea and going up to exam-ready detail. Read them in order the first time. Before your exam, use the drawer menu (top-left icon) to jump straight to any topic for revision.</p>
+  </div>
+  `
+},
+
+{
+  id:"intro", color:"crimson", eyebrow:"1 · Foundation",
+  title:"What Is Modernism?",
+  sub:"The basic idea, explained in the simplest way possible",
+  body:`
+  <p class="dropcap">Imagine it is the year 1910. The world you grew up believing in is falling apart. Queen Victoria — who had ruled for 63 years, giving her name to a whole age of confidence, order, religion, and moral certainty — is dead. Science (Darwin, Einstein), psychology (Freud), and philosophy (Nietzsche, Bergson) are all shaking the old, comfortable beliefs about God, the human mind, and even time itself. And then, in 1914, the <b>First World War</b> breaks out — a war so destructive, so senseless, that an entire generation loses its faith in progress, order, and civilisation.</p>
+
+  <p>Writers living through this shock felt that the old ways of writing — long, orderly Victorian novels with clear morals, and neat, rhyming Romantic-style poems about nature and feeling — could no longer describe this broken, confusing, fast-changing new world. So they broke the old rules on purpose. They said: <em class="q">"The old forms cannot hold this new, fragmented reality. We must invent new forms to tell the truth about modern life."</em> This break from old traditions, and this hunger for new ways of writing, is what we call <b>Modernism</b>.</p>
+
+  <div class="card crimson">
+    <span class="card-label">Meaning of the Term</span>
+    <p style="margin:0"><b>Modernism</b> = a literary and artistic movement (roughly 1890s/1900s to the 1940s) marked by a deliberate break from traditional, 19th-century ways of writing, and by bold experiments with <b>form, structure, language, and point of view</b> to capture the fragmented, uncertain experience of modern life. The poet <b>Ezra Pound</b> summed up the whole spirit of the movement in just three words: <b>"Make It New."</b></p>
+  </div>
+
+  <p>Modernism touched every branch of literature at once: <b>poetry</b> (Yeats, Eliot, Pound), <b>fiction</b> (Virginia Woolf, James Joyce, D. H. Lawrence), and <b>drama</b> too. But the underlying spirit was always the same: old forms feel false; reality itself must be shown as broken, layered, and uncertain, using new techniques.</p>
+
+  <h3 class="h">In One Line (write this first in your answer)</h3>
+  <div class="quote-block">Modernism was an early-20th-century literary movement that consciously broke away from traditional Victorian and Romantic forms, using experimental techniques — fragmentation, stream of consciousness, free verse, myth, and multiple points of view — to express the uncertainty, alienation, and disorder of the modern world after the collapse of old religious, moral and social certainties.</div>
+
+  <h3 class="h">Why You Must Understand This Before Anything Else</h3>
+  <ul>
+    <li>Every sub-topic in this guide (background, characteristics, poets, novelists) grows out of this one basic idea: <b>"the old, orderly ways of writing could no longer hold the new, broken reality — so writers had to break form on purpose."</b></li>
+    <li>If you remember this one sentence, you can build almost any answer around it, even if you forget small details.</li>
+  </ul>
+  `
+},
+
+{
+  id:"origin", color:"emerald", eyebrow:"2 · Background",
+  title:"Origin and Historical Background",
+  sub:"Why Modernism happened, and what forces shaped it",
+  body:`
+  <p class="dropcap">Modernism did not appear overnight. It grew out of a slow build-up of doubt during the late Victorian period, and then it exploded into full force because of a series of huge shocks in the early 20th century. To write a strong answer on "origin," explain these causes one by one, in your own words.</p>
+
+  <h3 class="h">1. The Decline of Victorian Certainty</h3>
+  <ul>
+    <li>The Victorian age (roughly 1837-1901) had been built on strong beliefs: firm religious faith, a clear moral code, confidence in the British Empire, and trust in scientific "progress."</li>
+    <li>By the late 19th century, this confidence was already cracking — Darwin's theory of evolution (1859) had challenged the biblical story of Creation, and rapid industrial and urban growth had created ugly, crowded cities alongside great wealth.</li>
+  </ul>
+
+  <h3 class="h">2. New Ideas in Science and Philosophy</h3>
+  <ul>
+    <li><b>Sigmund Freud</b> showed that human behaviour is shaped by a hidden, irrational <b>unconscious mind</b>, not just clear, rational thought — this directly inspired techniques like stream of consciousness, which try to show the messy, non-logical flow of a character's inner mind.</li>
+    <li><b>Henri Bergson</b>, a philosopher, argued that real, lived time ("duration") is not the neat, ticking clock-time of a calendar, but a flowing, overlapping, personal experience — this idea shaped Modernist experiments with time in fiction (moving back and forth between past and present within a single character's mind).</li>
+    <li><b>Albert Einstein's</b> theory of relativity (1905, 1915) suggested that even time and space are not fixed and absolute — reinforcing the general modern feeling that "nothing is certain anymore," even at the level of physics.</li>
+    <li><b>Friedrich Nietzsche's</b> philosophy (declaring "God is dead") added to the sense that old religious and moral certainties could no longer be taken for granted.</li>
+  </ul>
+
+  <h3 class="h">3. The First World War (1914-1918) — The Biggest Shock</h3>
+  <ul>
+    <li>This was the single most important cause of full-blown Modernism. Millions of young men were killed in horrific, senseless trench warfare, destroying the old, romantic idea that war was noble or glorious.</li>
+    <li>After the war, writers felt a deep sense of <b>disillusionment</b> (loss of faith and hope), <b>fragmentation</b> (life no longer felt whole or connected), and <b>alienation</b> (a feeling of being cut off from other people, from meaning, and from any stable sense of self).</li>
+    <li>T. S. Eliot's poem <i>The Waste Land</i> (1922) is often read as the single greatest literary expression of this post-war mood of spiritual emptiness and broken civilisation.</li>
+  </ul>
+
+  <h3 class="h">4. Rapid Urban, Industrial and Technological Change</h3>
+  <ul>
+    <li>Cities were growing fast, filled with noise, crowds, machines, advertisements, and strangers living side by side without real connection — this new, fast, impersonal city experience needed new literary techniques to capture it (fragmented images, quick cuts between scenes, multiple voices).</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Easy Way To Remember</span>
+    <p style="margin:0">Think of it like this: Victorian literature = a single, steady voice telling you a clear, orderly story with a clear moral, like a calm river. Modernist literature = many broken voices, jumping in time, showing a fractured mind or a fractured world, like shattered glass reflecting many different angles at once. That contrast is the whole origin story in one image.</p>
+  </div>
+
+  <h3 class="h">Rough Time Period</h3>
+  <p>Most examiners accept Modernism as running roughly from the <b>1890s/1900s to around 1945</b> (the end of the Second World War), with its most intense, "high Modernist" phase in the <b>1910s-1930s</b> — the years of Yeats's mature poetry, Eliot's <i>The Waste Land</i> (1922), and Joyce's <i>Ulysses</i> (1922).</p>
+  `
+},
+
+{
+  id:"manifesto", color:"gold", eyebrow:"3 · The Toolkit",
+  title:"Key Techniques and Movements Inside Modernism",
+  sub:"The specific tools Modernist writers used, and the smaller \u2018isms\u2019 inside the bigger movement",
+  body:`
+  <p class="dropcap">Modernism was not one single, organised club like the Pre-Raphaelite Brotherhood — it was a broad spirit shared by many writers, who each developed their own techniques and sometimes formed smaller sub-movements. Examiners often ask about these specific tools and terms, so learn each one as a separate, explainable idea.</p>
+
+  <h3 class="h">1. Stream of Consciousness</h3>
+  <p>A technique of narration that tries to capture the constant, flowing, often illogical stream of thoughts, feelings, memories, and sense-impressions moving through a character's mind — exactly as they occur, without the writer "tidying them up" into neat, grammatical sentences.</p>
+  <ul>
+    <li>Used most famously by <b>Virginia Woolf</b> (<i>Mrs Dalloway</i>, <i>To the Lighthouse</i>) and <b>James Joyce</b> (<i>Ulysses</i>).</li>
+  </ul>
+
+  <h3 class="h">2. Imagism (a Modernist poetry movement)</h3>
+  <p>A small but very influential poetry movement (around 1912-1917), led by <b>Ezra Pound</b> and including poets like H.D. (Hilda Doolittle). Its rules were almost the opposite of old, decorative Victorian poetry:</p>
+  <ul>
+    <li>Use the exact, direct word — never a vague or decorative one.</li>
+    <li>Create one sharp, clear visual <b>image</b> instead of long description.</li>
+    <li>Write in free verse (no fixed rhyme or metre) with the rhythm of natural speech, not a mechanical "beat."</li>
+  </ul>
+
+  <h3 class="h">3. Free Verse</h3>
+  <p>Poetry that does not follow a regular rhyme scheme or fixed metre (like the old iambic pentameter) — the poet is free to shape each line according to the natural rhythm of thought and speech. Both Eliot and Pound used free verse heavily.</p>
+
+  <h3 class="h">4. Fragmentation</h3>
+  <p>Instead of telling a story in one smooth, connected line (like a Victorian novel), Modernist works are often built from broken pieces — different times, different voices, different scenes placed side by side without smooth transition — deliberately showing a world (and a mind) that no longer feels whole.</p>
+
+  <h3 class="h">5. The Mythical Method</h3>
+  <p>A term Eliot himself used to describe how a Modernist writer can give shape and meaning to the chaos of modern life by placing it side-by-side with an old myth or ancient story.</p>
+  <ul>
+    <li>Example: <i>The Waste Land</i> constantly echoes old fertility myths and the Grail legend beneath its picture of the broken modern world, and Joyce's <i>Ulysses</i> retells Homer's ancient epic <i>The Odyssey</i> through one ordinary day in modern Dublin.</li>
+  </ul>
+
+  <h3 class="h">6. Impersonality and the Objective Correlative (Eliot's ideas)</h3>
+  <ul>
+    <li><b>Impersonality</b>: T. S. Eliot argued, in his essay "Tradition and the Individual Talent," that a poet should not simply pour out personal emotion; instead the poet's own personality should almost "disappear" behind the finished work, like a scientific catalyst that causes a reaction without itself changing.</li>
+    <li><b>Objective Correlative</b>: Eliot's term for a set of objects, a situation, or a chain of events that a writer uses to represent (and evoke) a particular emotion in the reader — instead of stating the emotion directly, the writer shows a concrete "formula" of images that produces that same feeling in us.</li>
+  </ul>
+
+  <h3 class="h">7. Symbolism (an influence coming from France)</h3>
+  <p>An earlier French movement (Baudelaire, Mallarmé) that inspired Modernist poets to suggest meaning indirectly, through private symbols and musical, suggestive language, rather than stating things plainly — Yeats in particular was strongly shaped by Symbolism early in his career.</p>
+
+  <div class="card gold">
+    <span class="card-label">Exam Tip Line (memorise this)</span>
+    <p style="margin:0">"Modernist writers built their new style from several tools: stream of consciousness in fiction, Imagism and free verse in poetry, deliberate fragmentation of form, Eliot's 'mythical method' and idea of poetic 'impersonality,' and the influence of French Symbolism — all aimed at capturing the broken, uncertain experience of the modern world."</p>
+  </div>
+  `
+},
+
+{
+  id:"characteristics", color:"crimson", eyebrow:"4 · Core Content",
+  title:"Main Characteristics of Modernist Literature",
+  sub:"The single most important section — learn this thoroughly",
+  body:`
+  <p class="dropcap">This is the heart of the topic. Almost every question on Modern Literature is really asking you to describe these features, so understand each one properly — not just as a list of words, but as an <b>idea you can explain with an example</b>.</p>
+
+  <h3 class="h">1. Break From Tradition / Experimentation With Form</h3>
+  <p>Modernist writers deliberately rejected the neat, orderly forms of the past (the well-made Victorian novel, the regular rhyming poem) and experimented boldly with new structures.</p>
+  <ul>
+    <li>Example: T. S. Eliot's <i>The Waste Land</i> jumps between different voices, languages, times and places without warning, refusing to give the reader one single, tidy story.</li>
+  </ul>
+
+  <h3 class="h">2. Fragmentation</h3>
+  <p>Modernist works often feel "broken into pieces" on purpose — short scenes, sudden jumps, missing connections — because the writers believed that modern life and the modern mind genuinely felt broken, not smooth and whole.</p>
+  <ul>
+    <li>Example: <i>The Waste Land</i> is built from fragments of myth, literary quotation, overheard conversation, and different languages, ending with the famous line, "These fragments I have shored against my ruins."</li>
+  </ul>
+
+  <h3 class="h">3. Subjectivity and the Inner Mind (Stream of Consciousness)</h3>
+  <p>Instead of an all-knowing narrator describing events from the outside, Modernist fiction often goes deep inside a single character's mind, showing thoughts and feelings exactly as they occur — messy, jumping, and personal.</p>
+  <ul>
+    <li>Example: Virginia Woolf's <i>Mrs Dalloway</i> follows the flowing thoughts of Clarissa Dalloway across a single day in London.</li>
+    <li>Example: James Joyce's <i>Ulysses</i> uses stream of consciousness to show the inner thoughts of Leopold Bloom during one ordinary day in Dublin.</li>
+  </ul>
+
+  <h3 class="h">4. Alienation and Disillusionment</h3>
+  <p>A recurring mood of loneliness, disconnection from other people, and loss of faith in the old religious, moral, and social certainties — largely caused by the horror of the First World War and the collapse of Victorian confidence.</p>
+  <ul>
+    <li>Example: <i>The Waste Land</i> shows modern city-dwellers as spiritually dead, unable to feel real connection or meaning — "I will show you fear in a handful of dust."</li>
+  </ul>
+
+  <h3 class="h">5. Use of Myth and the "Mythical Method"</h3>
+  <p>Modernist writers often placed the disorder of modern life against the background of old myths and legends, to give shape and deeper meaning to what would otherwise look like pure chaos.</p>
+  <ul>
+    <li>Example: Joyce's <i>Ulysses</i> retells Homer's <i>Odyssey</i> through one ordinary day in modern Dublin; Eliot's <i>The Waste Land</i> draws on the Grail legend and ancient fertility myths.</li>
+  </ul>
+
+  <h3 class="h">6. Multiple Points of View / Impersonal Narration</h3>
+  <p>Instead of one single, reliable narrator explaining everything (as in many Victorian novels), Modernist works often shift between several different characters' points of view, or hide the author's personal opinion completely (Eliot's idea of "Impersonality").</p>
+
+  <h3 class="h">7. Free Verse and New Poetic Technique</h3>
+  <ul>
+    <li>Modernist poets largely abandoned regular rhyme and metre in favour of <b>free verse</b>, sharp, exact <b>images</b> (Imagism), and everyday, spoken-sounding language instead of old-fashioned "poetic" diction.</li>
+    <li>Example: Ezra Pound's two-line Imagist poem "In a Station of the Metro" compresses a whole city experience into two sharp images, with no decoration at all.</li>
+  </ul>
+
+  <h3 class="h">8. Difficulty and Allusiveness</h3>
+  <p>Modernist writing is often deliberately difficult — packed with quotations, references, and allusions to other works of literature, myth, religion, and history (sometimes in several languages), demanding an active, educated reader rather than a passive one.</p>
+  <ul>
+    <li>Example: <i>The Waste Land</i> has more than 400 lines but includes references to Dante, Shakespeare, the Bible, Buddhist scripture, and ancient fertility myths — plus Eliot's own explanatory footnotes.</li>
+  </ul>
+
+  <h3 class="h">9. Urban, Industrial Setting</h3>
+  <p>Much Modernist literature is set in the modern city — crowded, noisy, impersonal — reflecting the real, lived experience of early-20th-century readers and writers, unlike the Romantic focus on wild nature or the Pre-Raphaelite focus on the medieval past.</p>
+
+  <h3 class="h">10. Irony and Anti-Heroism</h3>
+  <p>Modernist works often replace the noble, heroic characters of older literature with ordinary, uncertain, even weak or passive figures, and treat grand old ideas (heroism, romance, religion) with a tone of irony rather than simple celebration.</p>
+  <ul>
+    <li>Example: Leopold Bloom in <i>Ulysses</i> is a very ordinary, unheroic modern "everyman," standing in ironic contrast to the great warrior-hero Ulysses (Odysseus) of Homer's original epic.</li>
+  </ul>
+
+  <div class="card crimson">
+    <span class="card-label">How To Use This List In An Exam</span>
+    <p style="margin:0">Do not just write "fragmentation, alienation, stream of consciousness..." as a bare list. For full marks, take any 5-6 of these points, give each its own short paragraph, explain the idea in your own words, and support it with ONE example (writer + work + brief detail). That structure alone can carry a 20-mark answer.</p>
+  </div>
+  `
+},
+
+{
+  id:"poetry", color:"indigo", eyebrow:"5 · Modern Poetry",
+  title:"Modernism in Poetry",
+  sub:"How poetry changed shape in the Modernist period",
+  body:`
+  <p class="dropcap">Poetry was one of the two great battlegrounds of Modernism (fiction being the other). Modernist poets rejected the smooth, musical, rhyming style that had dominated English verse for centuries, and replaced it with something sharper, harder, and more fragmented — closer, they felt, to the true texture of modern thought and modern life.</p>
+
+  <h3 class="h">What Changed, Compared To Victorian/Romantic Poetry</h3>
+  <ul>
+    <li><b>Form</b>: regular rhyme and metre gave way to <b>free verse</b>, irregular rhythms, and broken, uneven lines.</li>
+    <li><b>Language</b>: old-fashioned "poetic" diction gave way to plain, exact, sometimes harsh, everyday language.</li>
+    <li><b>Subject</b>: instead of idealised nature or noble emotion, Modernist poems often show the ugly modern city, spiritual emptiness, and fragmented thought.</li>
+    <li><b>Structure</b>: instead of one smooth, connected argument or story, Modernist poems often jump between different voices, images, times, and even languages within a single poem.</li>
+  </ul>
+
+  <h3 class="h">W. B. Yeats (1865-1939) — The Bridge Figure</h3>
+  <p>Yeats began as a late Romantic/Symbolist poet writing about Irish myth and folklore, but his later poetry (after around 1910-1920) became sharper, harder, and more Modernist in style, while still using rich private symbolism.</p>
+  <ul>
+    <li>He developed his own complex, personal system of symbols (explained in his prose work <i>A Vision</i>), including the image of history moving in great cyclical "gyres" (spirals).</li>
+    <li><b>"The Second Coming"</b> (1919) is his most famous Modernist poem — written just after the First World War, it imagines an old civilisation collapsing into anarchy and a frightening new age about to be born: <i>"Things fall apart; the centre cannot hold."</i> This line is often quoted as the single best summary of the whole Modernist mood of collapse and uncertainty.</li>
+    <li>He was also a key figure in the <b>Irish Literary Revival</b>, drawing on Irish myths, legends, and folklore to build a new national literature — connecting Modernism to questions of Irish identity and nationhood.</li>
+  </ul>
+
+  <h3 class="h">T. S. Eliot (1888-1965) — The Central Figure</h3>
+  <p>Eliot is usually treated as the single most important Modernist poet in English. American-born, he settled in England and became the leading voice of "high Modernism" in poetry.</p>
+  <ul>
+    <li><b>"The Love Song of J. Alfred Prufrock"</b> (1915) — an early Modernist poem showing the anxious, indecisive, self-doubting inner voice of a modern man ("Do I dare to eat a peach?"), written in free verse with fragmented, wandering thought.</li>
+    <li><b>The Waste Land</b> (1922) — his masterpiece and the single most famous Modernist poem in English, showing a spiritually barren, broken post-war world through fragments of myth, multiple voices, several languages, and the "mythical method" (see previous section).</li>
+    <li>His critical essay <b>"Tradition and the Individual Talent"</b> introduced the idea of poetic <b>"Impersonality"</b> (see previous section) and argued that a truly great poet must be deeply aware of the whole tradition of literature that came before them.</li>
+    <li>His later poetry (e.g. <i>Four Quartets</i>) moved towards a more settled, religious vision, showing that even within one poet's career, Modernism could develop and change.</li>
+  </ul>
+
+  <h3 class="h">Ezra Pound (1885-1972)</h3>
+  <ul>
+    <li>Leader of the <b>Imagist</b> movement (see previous section) and a tireless promoter of other Modernist writers — he heavily edited and shaped Eliot's <i>The Waste Land</i> into its final, published form.</li>
+    <li>Famous for the slogan <b>"Make It New"</b>, which captures the whole spirit of Modernism's demand for constant experiment and renewal.</li>
+    <li>His long poem <i>The Cantos</i> is one of the most difficult and allusive works of Modernist poetry, packed with references to history, myth, and multiple languages.</li>
+  </ul>
+
+  <div class="card indigo">
+    <span class="card-label">Exam Tip Line</span>
+    <p style="margin:0">"Modern English poetry moved away from the regular metre, rhyme, and idealised subjects of the Victorian and Romantic ages towards free verse, exact imagery, fragmented structure, and themes of spiritual emptiness and disillusionment — a shift best seen in Yeats's later poetry, and most completely in Eliot's 'The Waste Land.'"</p>
+  </div>
+  `
+},
+
+{
+  id:"fiction", color:"emerald", eyebrow:"6 · Modern Fiction",
+  title:"Modernism in Fiction",
+  sub:"How the novel changed shape, and the rise of \u2018stream of consciousness\u2019",
+  body:`
+  <p class="dropcap">The Modernist novel made a similar break from tradition as Modernist poetry did. Victorian novels (Dickens, the Brontës, George Eliot) usually had a clear, connected plot, a reliable narrator explaining events and often their moral meaning, and a strong sense of "beginning, middle, and end." Modernist novelists rejected this in favour of showing the messy, subjective, inner experience of the human mind.</p>
+
+  <h3 class="h">What Changed, Compared To The Victorian Novel</h3>
+  <ul>
+    <li><b>Plot</b>: a clear, connected story gave way to loosely connected moments, often covering just one day or a short span of time, focused on inner experience rather than outer event.</li>
+    <li><b>Narration</b>: the confident, all-knowing ("omniscient") Victorian narrator gave way to shifting, limited, subjective points of view, often moving inside one character's mind at a time.</li>
+    <li><b>Time</b>: instead of moving forward in a straight line, Modernist fiction often moves back and forth between past and present within a character's memory, reflecting Bergson's idea of flowing, personal time (see the "Origin" section).</li>
+    <li><b>Style</b>: long, explanatory sentences gave way, in many cases, to the broken, associative rhythm of a mind actually thinking.</li>
+  </ul>
+
+  <h3 class="h">Stream of Consciousness — The Key Technique</h3>
+  <p>This is the single most important technical term in Modern fiction, so understand it clearly:</p>
+  <div class="card emerald">
+    <span class="card-label">Definition</span>
+    <p style="margin:0"><b>Stream of consciousness</b> is a narrative technique that tries to represent the continuous, flowing, and often illogical stream of thoughts, memories, sense-impressions, and half-formed feelings passing through a character's mind — presented directly to the reader, without the writer neatly organising them into normal, grammatical, orderly sentences.</p>
+  </div>
+  <ul>
+    <li>The term itself was borrowed from psychology (the philosopher-psychologist <b>William James</b> used the phrase "stream of consciousness" to describe how the human mind actually works — as a constant flow, not a set of separate, neat thoughts).</li>
+    <li>This technique is the fiction equivalent of what free verse and fragmentation do in Modernist poetry: both try to be honest to the real, broken, flowing shape of modern experience, instead of forcing it into a neat, artificial order.</li>
+  </ul>
+
+  <h3 class="h">Virginia Woolf (1882-1941)</h3>
+  <ul>
+    <li>One of the greatest Modernist novelists, and a leading member of the <b>Bloomsbury Group</b> of writers, thinkers, and artists in London.</li>
+    <li><b>Mrs Dalloway</b> (1925) follows the thoughts of Clarissa Dalloway during a single day in London, moving fluidly between her present-moment perceptions and her memories of the past — a perfect example of stream of consciousness and Modernist "flowing time."</li>
+    <li><b>To the Lighthouse</b> (1927) experiments even further with time and perspective, famously compressing ten years of change (including several deaths) into one short, poetic middle section called "Time Passes."</li>
+    <li>Her essay <b>"Modern Fiction"</b> directly criticises earlier "materialist" novelists (like H. G. Wells and Arnold Bennett) for focusing only on external detail, and calls instead for fiction to capture "the atoms as they fall upon the mind" — a clear statement of the Modernist, inward-looking aim.</li>
+  </ul>
+
+  <h3 class="h">James Joyce (1882-1941)</h3>
+  <ul>
+    <li>An Irish novelist whose work pushed stream of consciousness and formal experiment further than almost any other Modernist writer.</li>
+    <li><b>Ulysses</b> (1922) follows one single ordinary day (16 June 1904) in the life of Leopold Bloom in Dublin, using the "mythical method" to echo Homer's ancient epic <i>The Odyssey</i> — an ordinary modern "anti-hero" standing in ironic contrast to an ancient epic hero.</li>
+    <li><i>Ulysses</i> uses many different, constantly changing styles chapter by chapter (including one chapter written almost entirely as a play-script, and the famous closing chapter written as one long, almost unpunctuated stream of Molly Bloom's thoughts) — showing Modernist fiction's willingness to break every old rule of the novel form.</li>
+    <li>His earlier novel <b>A Portrait of the Artist as a Young Man</b> (1916) already shows Modernist technique, tracing the inner growth of its hero, Stephen Dedalus, through a style that changes and matures along with the character himself.</li>
+  </ul>
+
+  <h3 class="h">D. H. Lawrence (1885-1930)</h3>
+  <ul>
+    <li>A Modernist novelist of a different kind — less interested in fragmented form, more interested in exploring intense, often instinctive and sexual, emotional and psychological truth beneath the surface of ordinary social life.</li>
+    <li><b>Sons and Lovers</b> (1913) is a largely autobiographical novel about a young man's intense, difficult relationship with his mother, and his struggle to break free into his own independent emotional and sexual identity.</li>
+    <li>Lawrence's fiction reflects the Modernist distrust of Victorian repression and convention, insisting instead on the honesty of the body's instincts and unconscious desires — again showing Freud's influence on the age.</li>
+  </ul>
+
+  <div class="card emerald">
+    <span class="card-label">Exam Tip Line</span>
+    <p style="margin:0">"The Modernist novel replaced the Victorian novel's clear plot and confident, all-knowing narrator with inward-looking, fragmented narration — most powerfully through the technique of stream of consciousness, as seen in Virginia Woolf's 'Mrs Dalloway' and James Joyce's 'Ulysses,' while D. H. Lawrence explored the modern unconscious through instinct and desire in novels like 'Sons and Lovers.'"</p>
+  </div>
+  `
+},
+
+{
+  id:"comparison", color:"gold", eyebrow:"7 · Comparison",
+  title:"Modernism vs Victorianism / Romanticism",
+  sub:"A comparison examiners like to test — know both the break and the continuity",
+  body:`
+  <p class="dropcap">Modernism defined itself largely by <b>reacting against</b> the Victorian age immediately before it, though it also inherited some things from the Romantics (especially the value placed on the individual, inner self). A good answer must show both the difference and, where relevant, the connection.</p>
+
+  <table>
+    <tr><th>Point</th><th>Victorianism</th><th>Modernism</th></tr>
+    <tr><td><b>Time Period</b></td><td>Roughly 1837-1901 (Dickens, Tennyson, the Brontës, George Eliot)</td><td>Roughly 1890s/1900s-1945 (Yeats, Eliot, Woolf, Joyce)</td></tr>
+    <tr><td><b>View of the World</b></td><td>Confident in progress, religion, science, and clear moral order</td><td>Uncertain, fragmented, disillusioned, especially after the First World War</td></tr>
+    <tr><td><b>Narrative Voice / Form</b></td><td>Clear, connected plots; confident, often "all-knowing" narrator explaining events and morals</td><td>Broken, fragmented structure; shifting or limited points of view; inward focus (stream of consciousness)</td></tr>
+    <tr><td><b>Poetic Form</b></td><td>Regular metre and rhyme; "poetic," elevated language</td><td>Free verse; exact, sharp imagery; plain or fragmented, sometimes multilingual language</td></tr>
+    <tr><td><b>Attitude To Tradition</b></td><td>Generally respectful of established social, moral, and religious convention</td><td>Deliberately breaks tradition, though often uses old myths in new, ironic ways ("mythical method")</td></tr>
+    <tr><td><b>Central Concern</b></td><td>Social duty, moral progress, the individual's place within an ordered society</td><td>The individual mind's inner, often chaotic experience; alienation from a broken, impersonal modern world</td></tr>
+  </table>
+
+  <h3 class="h">Where Modernism Still Connects To Romanticism</h3>
+  <ul>
+    <li>Both movements value the individual mind and inner feeling very highly (though Romantic poets usually express feeling directly, while Modernists like Eliot argue for "Impersonality" and indirect expression through image and symbol).</li>
+    <li>Yeats's early poetry is close to late Romantic/Symbolist writing before it hardens into a more Modernist style — showing that the shift from Romanticism to Modernism, in Yeats's own career, was gradual rather than a single clean break.</li>
+  </ul>
+
+  <h3 class="h">Best Way To Answer This Question</h3>
+  <div class="quote-block">"Modernism arose as a direct reaction against Victorian confidence and order, replacing clear plots, regular verse form, and moral certainty with fragmentation, free verse, and spiritual doubt — yet it still carried forward the Romantic belief in the importance of individual inner experience, even while transforming how that experience was expressed, most clearly in Eliot's move from direct Romantic feeling towards deliberate poetic 'Impersonality.'"</div>
+  `
+},
+
+{
+  id:"drama-context", color:"indigo", eyebrow:"8 · Wider View",
+  title:"Modernism Beyond Poetry and the Novel",
+  sub:"Drama, and the transition from the Victorian/Edwardian stage",
+  body:`
+  <p class="dropcap">Drama in this period shows a slightly different pattern from poetry and fiction, so it deserves its own short, clear treatment in case an examiner asks about it directly.</p>
+
+  <h3 class="h">The "Problem Play" — A Bridge Into the Modern Period</h3>
+  <ul>
+    <li><b>George Bernard Shaw</b> (also named directly in the syllabus's Authors list) is the key transitional figure between the Victorian/Edwardian stage and Modern drama. His plays are often called <b>"problem plays"</b> or "plays of ideas," because instead of simple entertainment, they use witty, intelligent dialogue to attack Victorian hypocrisy and debate real social problems — poverty, class, marriage, medicine, war.</li>
+    <li>Example: <i>Mrs Warren's Profession</i> tackles prostitution and economic exploitation of women; <i>Arms and the Man</i> mocks the false glory of war and romantic heroism — themes that connect directly to the wider Modernist mood of disillusionment.</li>
+    <li>Shaw was strongly influenced by the Norwegian playwright <b>Henrik Ibsen</b>, whose realistic, socially critical plays (like <i>A Doll's House</i>) had already begun breaking away from old-fashioned, purely entertaining Victorian theatre.</li>
+  </ul>
+
+  <h3 class="h">Why Drama Is Slightly Different From Poetry and Fiction Here</h3>
+  <ul>
+    <li>Full-scale formal experiment in English-language drama (broken structure, absurd or non-realistic technique) mostly belongs to a <b>later</b> period — the Theatre of the Absurd of the mid-20th century (Samuel Beckett, Harold Pinter, who is separately named in the syllabus) is usually studied as part of <b>Post-Modern / later 20th-century</b> literature, not as "Modern Literature" in the strict early-20th-century sense.</li>
+    <li>So, if a question asks specifically about "Modern Literature," the safest, strongest examples for <b>drama</b> are the Shavian "problem play" and its break from Victorian theatrical convention — while Beckett/Pinter-style Absurd drama is better kept for a Post-Modern Literature answer.</li>
+  </ul>
+
+  <div class="card indigo">
+    <span class="card-label">Exam Tip Line</span>
+    <p style="margin:0">"In drama, the transition to Modern literature is best represented by George Bernard Shaw's 'problem plays,' which broke from Victorian theatrical convention by using witty, realistic dialogue to seriously debate social issues — a development influenced by Ibsen, and forming a bridge towards the more radical, non-realistic experiments of later 20th-century drama."</p>
+  </div>
+  `
+},
+
+{
+  id:"legacy", color:"crimson", eyebrow:"9 · What Came After",
+  title:"Decline and Legacy",
+  sub:"How the movement changed shape and what it left behind",
+  body:`
+  <p class="dropcap">Like most literary movements, Modernism did not end on one clean date — it gradually gave way to new concerns after the Second World War, while leaving a deep and lasting influence on all English literature written after it.</p>
+
+  <h3 class="h">Decline / Transition</h3>
+  <ul>
+    <li>By the 1930s-40s, some of the great "high Modernist" figures had either died (Yeats in 1939, Woolf in 1941, Joyce in 1941) or moved into different styles (Eliot's later poetry, such as <i>Four Quartets</i>, became more settled, meditative, and religious).</li>
+    <li>The <b>Second World War</b> (1939-1945) brought a new set of horrors (the Holocaust, the atomic bomb) that felt, to the next generation of writers, too vast and too different even for Modernist techniques to fully capture — this pushed literature towards what we now call <b>Postmodernism</b>, a separate topic on your syllabus.</li>
+  </ul>
+
+  <h3 class="h">Its Legacy — Where Modernist Ideas Went Next</h3>
+  <ul>
+    <li><b>Postmodern Literature</b>: many Postmodern techniques (fragmentation, unreliable narration, mixing of "high" and "low" culture, playful use of myth and allusion) directly continue and exaggerate Modernist experiments, though Postmodernism adds a more self-aware, playful, and often ironic attitude towards its own techniques.</li>
+    <li><b>Permanent change in the idea of "the novel" and "the poem"</b>: after Modernism, writers could never again simply assume that a novel must have a clear, connected plot, or that a poem must rhyme — the door to formal experiment was permanently opened.</li>
+    <li><b>Influence on world literature</b>: Modernist techniques (especially stream of consciousness and the mythical method) deeply influenced later writers across the world, including many Indian English writers on your syllabus.</li>
+    <li><b>Continuing relevance of its central mood</b>: the Modernist themes of alienation, fragmented identity, and the search for meaning in an uncertain world remain central concerns of literature even today.</li>
+  </ul>
+
+  <h3 class="h">A Balanced Final Judgement (good for a conclusion paragraph)</h3>
+  <div class="quote-block">"Though 'high Modernism' as an intense, unified literary energy gradually faded after the Second World War, its central achievement — proving that literary form itself could be broken and rebuilt to express the deepest uncertainties of an age — permanently changed the possibilities of English poetry and fiction, and directly prepared the ground for the Postmodern literature that followed it."</div>
+  `
+},
+
+{
+  id:"model-answers", color:"emerald", eyebrow:"10 · Practice",
+  title:"Full Model Answers",
+  sub:"Two complete, exam-ready answers — study their structure carefully",
+  body:`
+  <p class="dropcap">Below are two full-length model answers written the way you should write them in the actual UPPSC GIC Mains exam: a short <b>introduction</b>, clearly organised <b>body points with sub-headings</b>, and a short <b>conclusion</b>. Notice the structure more than the exact words — you can use your own sentences, but follow this pattern.</p>
+
+  <div class="answer-block">
+  <h5>Model Answer 1</h5>
+  <p><b>Q. What do you understand by the term "Modernism" in English Literature? Discuss its origin and main characteristics. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>Modernism was a literary movement of the early twentieth century (roughly the 1890s/1900s to 1945) that consciously broke away from the traditional, orderly forms of Victorian and Romantic literature. Faced with a world shaken by scientific discovery, new psychological theories, and above all the destruction of the First World War, Modernist writers felt that old literary forms could no longer express the fragmented, uncertain nature of modern experience, and so they deliberately experimented with new techniques of form, language, and point of view.</p>
+
+  <h4 class="h4">Origin</h4>
+  <p>Modernism grew out of several forces working together: the decline of Victorian religious and moral certainty; new ideas from Freud (the unconscious mind), Bergson (flowing, personal time), and Einstein (the relativity of time and space), which all suggested that reality was far less fixed and orderly than earlier generations had believed; and, most powerfully, the First World War, which destroyed old ideas of glory and progress and left a generation of writers disillusioned and alienated. Fast, impersonal urban and industrial change added further to this sense of a broken, fragmented modern world.</p>
+
+  <h4 class="h4">Main Characteristics</h4>
+  <p>Modernist literature shows several distinctive features: a deliberate <b>break from tradition</b> and experimentation with form; <b>fragmentation</b> of structure, as in T. S. Eliot's <i>The Waste Land</i>; deep <b>subjectivity</b>, shown especially through the technique of stream of consciousness in the fiction of Virginia Woolf and James Joyce; a recurring mood of <b>alienation and disillusionment</b>; the use of old <b>myths</b> to give shape to modern chaos (Eliot's "mythical method," Joyce's use of Homer's <i>Odyssey</i> in <i>Ulysses</i>); the move towards <b>free verse</b> and exact imagery in poetry, as seen in the Imagist movement led by Ezra Pound; and a demanding <b>difficulty and allusiveness</b>, requiring an active, well-read reader.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>Modernism thus represents a decisive turning point in English literary history: by breaking deliberately with the confident, orderly forms of the Victorian age, and by inventing new techniques to capture the fragmented, uncertain texture of modern life, writers such as Yeats, Eliot, Woolf, and Joyce permanently expanded what poetry and fiction could do, and laid the direct foundation for the later Postmodern literature that followed them.</p>
+  </div>
+
+  <div class="rule" style="color:var(--ink-faint)"></div>
+
+  <div class="answer-block">
+  <h5>Model Answer 2</h5>
+  <p><b>Q. Discuss the salient features of Modern English poetry with suitable references to its major poets. (20 marks)</b></p>
+
+  <h4 class="h4">Introduction</h4>
+  <p>Modern English poetry emerged in the early twentieth century as a decisive break from the regular metre, rhyme, and idealised subjects of Victorian and Romantic verse. Shaken by the disorder of the modern world and, above all, by the First World War, poets such as W. B. Yeats, T. S. Eliot, and Ezra Pound built a new kind of poetry marked by free verse, sharp imagery, fragmentation, and a mood of spiritual uncertainty.</p>
+
+  <h4 class="h4">Break From Traditional Form</h4>
+  <p>Modern poets largely abandoned regular rhyme and metre in favour of free verse, and abandoned old-fashioned "poetic" language in favour of plain, exact, and sometimes harsh, everyday words — a shift led decisively by Ezra Pound's Imagist movement, which demanded direct treatment of the "thing," economy of language, and rhythm based on natural speech rather than a fixed metrical beat.</p>
+
+  <h4 class="h4">Fragmentation and the Mythical Method</h4>
+  <p>Modern poems are often built from broken pieces rather than one smooth, connected argument. T. S. Eliot's <i>The Waste Land</i> (1922) is the clearest example, moving between different voices, times, and even languages, and using what Eliot called the "mythical method" — placing the chaos of the modern world against the background of ancient fertility myths and the Grail legend — to give the poem shape and meaning.</p>
+
+  <h4 class="h4">Disillusionment and Alienation</h4>
+  <p>Much Modern poetry reflects the shattered confidence of the post-war world. Yeats's "The Second Coming" (1919), written just after the First World War, imagines an old order collapsing into anarchy — "Things fall apart; the centre cannot hold" — while Eliot's <i>The Waste Land</i> presents a spiritually barren modern civilisation, unable to find meaning or renewal.</p>
+
+  <h4 class="h4">Impersonality and Allusiveness</h4>
+  <p>T. S. Eliot's critical theory of poetic "Impersonality," set out in his essay "Tradition and the Individual Talent," argued that a poet's personal emotion should be transformed into art rather than stated directly, often through what he called the "objective correlative." Modern poems are also densely allusive, weaving in quotations and references from myth, religion, and earlier literature, demanding careful, active reading.</p>
+
+  <h4 class="h4">Conclusion</h4>
+  <p>Taken together, free verse and exact imagery, fragmentation and the mythical method, a mood of disillusionment and alienation, and Eliot's theory of poetic impersonality make Modern English poetry one of the boldest and most influential periods of formal experiment in the whole history of English literature.</p>
+  </div>
+  `
+},
+
+{
+  id:"revision", color:"gold", eyebrow:"11 · Final Revision",
+  title:"Quick Revision Sheet",
+  sub:"Use this the night before the exam — everything in one place",
+  body:`
+  <p class="dropcap">This page is meant for very fast last-minute revision. Read it slowly at least once with full understanding first (using the earlier sections) — only then will these short points actually help you.</p>
+
+  <h3 class="h">Core Facts and Dates</h3>
+  <table>
+    <tr><th>Item</th><th>Fact</th></tr>
+    <tr><td>Rough time period</td><td>1890s/1900s to 1945 (peak: 1910s-1930s)</td></tr>
+    <tr><td>Biggest single cause</td><td>First World War (1914-1918) — disillusionment, alienation</td></tr>
+    <tr><td>Key thinkers behind the ideas</td><td>Freud (unconscious mind), Bergson (flowing time), Einstein (relativity), Nietzsche (loss of old certainty)</td></tr>
+    <tr><td>Slogan of the movement</td><td>"Make It New" — Ezra Pound</td></tr>
+    <tr><td>Most famous single Modernist poem</td><td>"The Waste Land" (T. S. Eliot, 1922)</td></tr>
+    <tr><td>Most famous single Modernist novel</td><td>"Ulysses" (James Joyce, 1922)</td></tr>
+    <tr><td>Poetry sub-movement</td><td>Imagism (led by Ezra Pound, c. 1912-1917)</td></tr>
+    <tr><td>Key fiction technique</td><td>Stream of Consciousness (term from psychologist William James)</td></tr>
+  </table>
+
+  <h3 class="h">Characteristics — One Phrase Each (memory hooks)</h3>
+  <ul>
+    <li><b>Break from tradition</b> — old forms rejected on purpose</li>
+    <li><b>Fragmentation</b> — broken pieces, no smooth whole</li>
+    <li><b>Subjectivity</b> — inner mind shown directly (stream of consciousness)</li>
+    <li><b>Alienation / disillusionment</b> — post-war loss of faith</li>
+    <li><b>Mythical method</b> — old myth gives shape to modern chaos</li>
+    <li><b>Free verse / Imagism</b> — no fixed rhyme/metre, sharp images</li>
+    <li><b>Difficulty / allusiveness</b> — dense references, active reading needed</li>
+    <li><b>Urban setting</b> — the modern city, not nature or the medieval past</li>
+    <li><b>Irony / anti-heroism</b> — ordinary "anti-heroes," not noble heroes</li>
+  </ul>
+
+  <h3 class="h">Writer-to-Work Quick Match</h3>
+  <table>
+    <tr><th>Writer</th><th>Must-Know Work(s)</th><th>One-Word Theme</th></tr>
+    <tr><td>W. B. Yeats</td><td>"The Second Coming"; <i>A Vision</i></td><td>Collapse of old order</td></tr>
+    <tr><td>T. S. Eliot</td><td><i>The Waste Land</i>; "Prufrock"; "Tradition and the Individual Talent"</td><td>Fragmentation, Impersonality</td></tr>
+    <tr><td>Ezra Pound</td><td>Imagist poems; <i>The Cantos</i></td><td>"Make It New," exact image</td></tr>
+    <tr><td>Virginia Woolf</td><td><i>Mrs Dalloway</i>; <i>To the Lighthouse</i>; "Modern Fiction"</td><td>Stream of consciousness</td></tr>
+    <tr><td>James Joyce</td><td><i>Ulysses</i>; <i>A Portrait of the Artist as a Young Man</i></td><td>Mythical method, inner mind</td></tr>
+    <tr><td>D. H. Lawrence</td><td><i>Sons and Lovers</i></td><td>Instinct, the unconscious</td></tr>
+    <tr><td>G. B. Shaw</td><td><i>Mrs Warren's Profession</i>; <i>Arms and the Man</i></td><td>Problem play, social critique</td></tr>
+  </table>
+
+  <h3 class="h">Key Terms (Numbered — recall in order)</h3>
+  <ol>
+    <li>Stream of Consciousness</li>
+    <li>Imagism</li>
+    <li>Free Verse</li>
+    <li>Fragmentation</li>
+    <li>Mythical Method</li>
+    <li>Impersonality / Objective Correlative</li>
+    <li>Symbolism (French influence)</li>
+  </ol>
+
+  <h3 class="h">Legacy Chain (memorise as a flow)</h3>
+  <div class="quote-block">Late-Victorian doubt &rarr; First World War (1914-18) shock &rarr; High Modernism (1910s-30s: Yeats, Eliot, Woolf, Joyce, Pound) &rarr; Second World War (1939-45) &rarr; Postmodern Literature</div>
+
+  <h3 class="h">If You Remember Nothing Else, Remember This</h3>
+  <div class="card gold">
+    <p style="margin:0"><b>Modernism (c. 1900-1945)</b> = writers rejecting old, orderly Victorian/Romantic forms because the modern world (shaken by science, Freud, and above all the First World War) felt broken and uncertain &rarr; new tools: <b>stream of consciousness, free verse/Imagism, fragmentation, the mythical method, and "Impersonality"</b> &rarr; central moods: <b>alienation and disillusionment</b> &rarr; landmark works: Eliot's <b>"The Waste Land"</b> and Joyce's <b>"Ulysses"</b> (both 1922) &rarr; later gave way to <b>Postmodern Literature</b> after 1945.</p>
+  </div>
+  `
+}
+
+];
+
+/* ================= APP LOGIC ================= */
+(function(){
+  const COLOR_MAP = { crimson:'#9c2b3e', emerald:'#1f5c4a', gold:'#b8862f', indigo:'#2e3f6e' };
+  SECTIONS.forEach(s => { s.colorHex = COLOR_MAP[s.color] || '#9c2b3e'; });
+
+  const contentWrap = document.getElementById('contentWrap');
+  const drawerList = document.getElementById('drawerList');
+  const drawer = document.getElementById('drawer');
+  const scrim = document.getElementById('scrim');
+  const menuBtn = document.getElementById('menuBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const progressPill = document.getElementById('progressPill');
+  const topTitle = document.getElementById('topTitle');
+  
+  // Resume Elements
+  const resumeBanner = document.getElementById('resumeBanner');
+  const resumeActionBtn = document.getElementById('resumeActionBtn');
+  const resumeCloseBtn = document.getElementById('resumeCloseBtn');
+  
+  const STORAGE_KEY = 'GIC_ModernLit_Progress';
+  let current = 0;
+  let savedIndex = 0;
+
+  // Build SECTIONS
+  SECTIONS.forEach((s, i) => {
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.id = 'sec-' + s.id;
+    sec.innerHTML = `
+      <span class="sec-eyebrow" style="background:${s.colorHex}">${s.eyebrow}</span>
+      <h2 class="sec-title">${s.title}</h2>
+      <p class="sec-sub" style="border-color:${s.colorHex}; color:${s.colorHex}">${s.sub}</p>
+      ${s.body}
+    `;
+    contentWrap.appendChild(sec);
+  });
+
+  // Build drawer list
+  SECTIONS.forEach((s, i) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.innerHTML = `<span class="num" style="background:${s.colorHex}">${i+1}</span><span class="ttl">${s.title}</span>`;
+    btn.addEventListener('click', () => { goTo(i); closeDrawer(); });
+    btn.dataset.idx = i;
+    li.appendChild(btn);
+    drawerList.appendChild(li);
+  });
+
+  // Build dots
+  SECTIONS.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  });
+
+  function render(){
+    document.querySelectorAll('.section').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.drawer-list button').forEach((el, i) => {
+      el.classList.toggle('active', i === current);
+    });
+    document.querySelectorAll('.dot').forEach((el, i) => {
+      el.classList.toggle('on', i === current);
+    });
+    progressPill.textContent = (current+1) + ' / ' + SECTIONS.length;
+    topTitle.textContent = SECTIONS[current].title.replace(/\u2014.*$/,'').trim();
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = current === SECTIONS.length-1 ? 'Restart \u2191' : 'Next \u2192';
+    contentWrap.scrollTop = 0;
+  }
+
+  function goTo(i){
+    current = Math.max(0, Math.min(SECTIONS.length-1, i));
+    render();
+    
+    // Attempt to save progress safely
+    try {
+      localStorage.setItem(STORAGE_KEY, current);
+    } catch (error) {
+      console.warn("Could not save progress:", error);
+    }
+    
+    // Automatically hide banner if user navigates manually
+    if (resumeBanner.classList.contains('visible')) {
+      resumeBanner.classList.remove('visible');
+    }
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current-1));
+  nextBtn.addEventListener('click', () => {
+    if(current === SECTIONS.length-1){ goTo(0); } else { goTo(current+1); }
+  });
+
+  function openDrawer(){ drawer.classList.add('open'); scrim.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); scrim.classList.remove('open'); }
+  menuBtn.addEventListener('click', openDrawer);
+  scrim.addEventListener('click', closeDrawer);
+
+  // Resume Banner Interactions
+  resumeActionBtn.addEventListener('click', () => {
+    goTo(savedIndex);
+  });
+
+  resumeCloseBtn.addEventListener('click', () => {
+    resumeBanner.classList.remove('visible');
+  });
+
+  // Initial setup and check for saved progress
+  render();
+  
+  // On Page Load: Check localStorage to show Resume Banner safely
+  try {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData !== null) {
+      savedIndex = parseInt(savedData, 10);
+      
+      // If there is valid progress beyond the first page, show banner
+      if (savedIndex > 0 && savedIndex < SECTIONS.length) {
+        setTimeout(() => {
+          resumeBanner.classList.add('visible');
+        }, 600); // Slight delay for an entrance animation
+      }
+    }
+  } catch (error) {
+    console.warn("Local storage blocked or unavailable:", error);
+  }
+
+})();
+
+</script>
+</body>
+</html>

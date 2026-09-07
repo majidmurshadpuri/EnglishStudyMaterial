@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Romanticism — Master Study Guide | UPPSC GIC English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --parchment-bg: #ece0c4;
+  --parchment-bg2: #e4d5ae;
+  --parchment-panel: #f4ead0;
+  --parchment-ink: #3c2c17;
+  --parchment-ink-soft: #5c4a30;
+  --parchment-accent: #8a2e2e;
+  --parchment-gold: #a67c1f;
+  --parchment-green: #4a5d3a;
+  --parchment-rule: #c9b489;
+  --parchment-shadow: rgba(60,44,23,0.25);
+}
+[data-theme="sepia"]{
+  --parchment-bg: #d9c49a;
+  --parchment-bg2: #cdb583;
+  --parchment-panel: #e6d3a8;
+  --parchment-ink: #2e2013;
+  --parchment-ink-soft: #4a3a22;
+  --parchment-accent: #7a2020;
+  --parchment-gold: #8f6413;
+  --parchment-green: #3c4c2e;
+  --parchment-rule: #b39a63;
+  --parchment-shadow: rgba(40,28,14,0.3);
+}
+[data-theme="night"]{
+  --parchment-bg: #1c1712;
+  --parchment-bg2: #241d16;
+  --parchment-panel: #29221a;
+  --parchment-ink: #e7d9b8;
+  --parchment-ink-soft: #c7b590;
+  --parchment-accent: #d98c5f;
+  --parchment-gold: #d4af5a;
+  --parchment-green: #8fae74;
+  --parchment-rule: #4a3f2f;
+  --parchment-shadow: rgba(0,0,0,0.5);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:'Lora', serif;
+  background:
+    radial-gradient(ellipse at top left, var(--parchment-bg2), var(--parchment-bg) 60%);
+  color:var(--parchment-ink);
+  overflow:hidden;
+  font-size:var(--fs, 17px);
+  transition:background .4s ease, color .4s ease;
+}
+/* paper grain texture */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  opacity:.5;
+  mix-blend-mode:multiply;
+  background-image:
+    repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,0.02) 0, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 3px),
+    repeating-radial-gradient(circle at 80% 70%, rgba(0,0,0,0.02) 0, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 4px);
+  z-index:0;
+}
+[data-theme="night"] body::before{opacity:.15;}
+
+.app{
+  position:relative;
+  height:100vh; height:100dvh;
+  display:flex;
+  flex-direction:column;
+  max-width:900px;
+  margin:0 auto;
+  z-index:1;
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+  display:flex; align-items:center; gap:12px;
+  padding:14px 16px;
+  border-bottom:1px solid var(--parchment-rule);
+  background:var(--parchment-panel);
+  box-shadow:0 2px 10px var(--parchment-shadow);
+  z-index:20;
+}
+.hamburger{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--parchment-rule);
+  background:transparent;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  cursor:pointer; flex-shrink:0;
+}
+.hamburger span{width:16px;height:2px;background:var(--parchment-ink);border-radius:2px;}
+.topbar-title{
+  flex:1; min-width:0;
+}
+.topbar-title .eyebrow{
+  font-family:'EB Garamond', serif;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--parchment-gold); font-weight:600;
+}
+.topbar-title h1{
+  margin:1px 0 0; font-family:'Cormorant Garamond', serif;
+  font-size:21px; font-weight:700; line-height:1.1;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.seal{
+  width:40px;height:40px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--parchment-gold), var(--parchment-accent) 75%);
+  color:#fff5e0; display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif; font-weight:700; font-size:13px;
+  border:2px solid var(--parchment-panel);
+  box-shadow:0 0 0 1.5px var(--parchment-gold), 0 3px 8px var(--parchment-shadow);
+  flex-shrink:0;
+}
+
+/* ===== DRAWER ===== */
+.overlay{
+  position:fixed; inset:0; background:rgba(20,14,6,.45);
+  opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:29;
+}
+.overlay.open{opacity:1; pointer-events:auto;}
+.drawer{
+  position:fixed; top:0; left:-320px; width:290px; height:100%;
+  background:var(--parchment-panel);
+  border-right:1px solid var(--parchment-rule);
+  z-index:30; transition:left .28s cubic-bezier(.4,0,.2,1);
+  display:flex; flex-direction:column;
+  box-shadow:6px 0 20px var(--parchment-shadow);
+}
+.drawer.open{left:0;}
+.drawer-head{
+  padding:20px 18px 14px; border-bottom:1px solid var(--parchment-rule);
+}
+.drawer-head .eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--parchment-gold);font-weight:700;font-family:'EB Garamond',serif;}
+.drawer-head h2{font-family:'Cormorant Garamond',serif; margin:2px 0 0; font-size:22px;}
+.drawer-list{list-style:none; margin:0; padding:8px; overflow-y:auto; flex:1;}
+.drawer-list li{margin-bottom:2px;}
+.drawer-btn{
+  width:100%; text-align:left; background:none; border:none; cursor:pointer;
+  padding:10px 12px; border-radius:10px; display:flex; align-items:center; gap:10px;
+  font-family:'Lora',serif; font-size:14.5px; color:var(--parchment-ink-soft);
+  transition:background .15s ease, color .15s ease;
+}
+.drawer-btn .num{
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
+  border:1px solid var(--parchment-rule);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif; font-size:12px; font-weight:700;
+}
+.drawer-btn.active{background:var(--parchment-bg2); color:var(--parchment-accent); font-weight:600;}
+.drawer-btn.active .num{background:var(--parchment-accent); border-color:var(--parchment-accent); color:#fff2de;}
+.drawer-foot{padding:14px 18px; border-top:1px solid var(--parchment-rule);}
+.theme-row{display:flex; gap:8px; margin-bottom:10px;}
+.theme-dot{
+  flex:1; height:34px; border-radius:8px; cursor:pointer; border:2px solid transparent;
+  font-family:'EB Garamond',serif; font-size:11px; display:flex;align-items:center;justify-content:center;
+}
+.theme-dot[data-t="parchment"]{background:#ece0c4; color:#3c2c17;}
+.theme-dot[data-t="sepia"]{background:#d9c49a; color:#2e2013;}
+.theme-dot[data-t="night"]{background:#1c1712; color:#e7d9b8;}
+.theme-dot.active{border-color:var(--parchment-accent);}
+.fs-row{display:flex; align-items:center; gap:8px;}
+.fs-btn{
+  width:32px;height:32px;border-radius:8px;border:1px solid var(--parchment-rule);
+  background:transparent; color:var(--parchment-ink); cursor:pointer; font-size:15px;
+}
+.fs-label{font-size:12px; color:var(--parchment-ink-soft); flex:1; text-align:center;}
+
+/* ===== CONTENT ===== */
+.content-wrap{flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:22px 20px 30px;}
+.chapter-tag{
+  display:inline-block; font-family:'EB Garamond',serif; font-size:11px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--parchment-gold);
+  border-bottom:1px solid var(--parchment-gold); padding-bottom:3px; font-weight:700; margin-bottom:10px;
+}
+.chapter-title{
+  font-family:'Cormorant Garamond', serif; font-weight:700; font-size:32px;
+  line-height:1.12; margin:0 0 6px; color:var(--parchment-ink);
+}
+.chapter-sub{
+  font-family:'EB Garamond', serif; font-style:italic; color:var(--parchment-ink-soft);
+  font-size:15px; margin:0 0 20px;
+}
+.chapter-title::first-letter{
+  font-family:'Cormorant Garamond', serif;
+  font-size:1em;
+}
+.dropcap::first-letter{
+  float:left; font-family:'Cormorant Garamond', serif; font-weight:700;
+  font-size:3.1em; line-height:0.78; padding:.04em .08em 0 0; color:var(--parchment-accent);
+}
+.panel{
+  background:var(--parchment-panel); border:1px solid var(--parchment-rule);
+  border-radius:14px; padding:16px 18px; margin-bottom:16px;
+  box-shadow:0 2px 8px var(--parchment-shadow);
+}
+h3.h{
+  font-family:'Cormorant Garamond', serif; font-size:22px; font-weight:700;
+  color:var(--parchment-accent); margin:0 0 10px; padding-bottom:6px;
+  border-bottom:1px dashed var(--parchment-rule);
+}
+h4.h4{
+  font-family:'Cormorant Garamond', serif; font-size:18px; font-weight:700;
+  color:var(--parchment-green); margin:16px 0 6px;
+}
+p{line-height:1.72; margin:0 0 12px; color:var(--parchment-ink);}
+ul,ol{margin:0 0 12px; padding-left:22px; line-height:1.65;}
+li{margin-bottom:7px;}
+strong{color:var(--parchment-accent); font-weight:700;}
+em.gloss{color:var(--parchment-green); font-style:italic;}
+.callout{
+  background:var(--parchment-bg2); border-left:4px solid var(--parchment-accent);
+  border-radius:0 10px 10px 0; padding:12px 14px; margin:14px 0; font-size:15px;
+}
+.callout b{display:block; font-family:'Cormorant Garamond',serif; font-size:15px; color:var(--parchment-accent); margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em;}
+.examtip{
+  background:transparent; border:1.5px dashed var(--parchment-gold);
+  border-radius:10px; padding:12px 14px; margin:14px 0; font-size:14.5px;
+}
+.examtip b{color:var(--parchment-gold); font-family:'Cormorant Garamond',serif; font-size:14px; text-transform:uppercase; letter-spacing:.06em; display:block; margin-bottom:4px;}
+table{width:100%; border-collapse:collapse; margin:12px 0 16px; font-size:14.5px;}
+th,td{border:1px solid var(--parchment-rule); padding:8px 10px; text-align:left; vertical-align:top;}
+th{background:var(--parchment-bg2); font-family:'Cormorant Garamond',serif; font-size:15px; color:var(--parchment-accent);}
+details{
+  border:1px solid var(--parchment-rule); border-radius:10px; margin-bottom:10px;
+  background:var(--parchment-bg);
+}
+details summary{
+  cursor:pointer; padding:11px 14px; font-family:'Cormorant Garamond', serif;
+  font-weight:700; font-size:16.5px; color:var(--parchment-ink); list-style:none;
+  display:flex; align-items:center; justify-content:space-between;
+}
+details summary::-webkit-details-marker{display:none;}
+details summary::after{content:"+"; color:var(--parchment-accent); font-size:20px; font-weight:400;}
+details[open] summary::after{content:"–";}
+details .dcontent{padding:0 14px 14px;}
+.q{
+  border:1px solid var(--parchment-rule); border-radius:10px; padding:12px 14px; margin-bottom:12px; background:var(--parchment-bg);
+}
+.q .qtext{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:16.5px; color:var(--parchment-accent); margin-bottom:6px;}
+.divider{border:none; border-top:1px dashed var(--parchment-rule); margin:18px 0;}
+.tagpill{
+  display:inline-block; font-size:11.5px; padding:3px 9px; border-radius:20px;
+  background:var(--parchment-green); color:#f5ecd6; margin:2px 5px 2px 0; font-family:'EB Garamond',serif;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottombar{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:var(--parchment-panel); border-top:1px solid var(--parchment-rule);
+  z-index:20;
+}
+.navbtn{
+  border:1px solid var(--parchment-rule); background:transparent; color:var(--parchment-ink);
+  border-radius:10px; padding:9px 14px; font-family:'EB Garamond',serif; font-size:14px;
+  display:flex; align-items:center; gap:6px; cursor:pointer;
+}
+.navbtn:disabled{opacity:.3;}
+.progress-wrap{flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;}
+.progress-track{width:100%; height:5px; background:var(--parchment-bg2); border-radius:6px; overflow:hidden;}
+.progress-fill{height:100%; background:linear-gradient(90deg, var(--parchment-gold), var(--parchment-accent)); border-radius:6px; transition:width .3s ease;}
+.progress-text{font-size:11px; color:var(--parchment-ink-soft); font-family:'EB Garamond',serif; letter-spacing:.05em;}
+
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-thumb{background:var(--parchment-rule); border-radius:8px;}
+</style>
+</head>
+<body data-theme="parchment">
+<div class="app">
+
+  <div class="topbar">
+    <button class="hamburger" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="topbar-title">
+      <div class="eyebrow">UPPSC GIC · English Lecturer Mains</div>
+      <h1 id="topTitle">Romanticism — Master Guide</h1>
+    </div>
+    <div class="seal" id="sealNum">1</div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="eyebrow">Table of Chapters</div>
+      <h2>The Romantic Age</h2>
+    </div>
+    <ul class="drawer-list" id="drawerList"></ul>
+    <div class="drawer-foot">
+      <div class="theme-row">
+        <button class="theme-dot active" data-t="parchment">Parchment</button>
+        <button class="theme-dot" data-t="sepia">Sepia</button>
+        <button class="theme-dot" data-t="night">Night</button>
+      </div>
+      <div class="fs-row">
+        <button class="fs-btn" id="fsMinus">A−</button>
+        <span class="fs-label" id="fsLabel">Text: Medium</span>
+        <button class="fs-btn" id="fsPlus">A+</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="content-wrap" id="content"></main>
+
+  <div class="bottombar">
+    <button class="navbtn" id="prevBtn">‹ Prev</button>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+      <div class="progress-text" id="progText">Chapter 1 of 13</div>
+    </div>
+    <button class="navbtn" id="nextBtn">Next ›</button>
+  </div>
+
+</div>
+
+<script>
+const chapters = [
+{
+  tag:"Chapter 1 · Orientation",
+  title:"How to Use This Guide",
+  sub:"Read this first — it decides how many marks you score, not just what you know.",
+  body:`
+  <div class="panel">
+  <p class="dropcap">The UPPSC GIC English Lecturer Mains paper does not reward you for <em class="gloss">knowing</em> Romanticism. It rewards you for <strong>proving</strong> you know it — inside 250–300 words, in an examiner's ten minutes, on one specific question out of many. So this guide is built backwards from the answer sheet, not forwards from a textbook.</p>
+
+  <h4 class="h4">Why this guide is organised the way it is</h4>
+  <ul>
+    <li><strong>Chapters 2–4</strong> give you the story — what Romanticism is, where it came from, who carried it. You need this so nothing you write sounds memorised; it should sound understood.</li>
+    <li><strong>Chapters 5–8</strong> give you the "content bank" — the features, the comparisons, the two great critical documents (Wordsworth's Preface, Coleridge's theory of Imagination) that examiners quote from almost every year.</li>
+    <li><strong>Chapters 9–11</strong> connect Romanticism to the rest of your syllabus (Pre-Raphaelites, later criticism, the poets' individual works) — because Syllabus Sections A, B and C are never really separate; a good answer moves between them.</li>
+    <li><strong>Chapters 12–13</strong> are your exam-day toolkit — a bank of likely questions with ready answer-skeletons, and a same-day revision sheet.</li>
+  </ul>
+
+  <div class="callout"><b>The One Rule That Matters Most</b>
+  A descriptive answer on Romanticism is strong when it does three things: (1) <strong>defines</strong> the idea in your own words, (2) <strong>proves</strong> it with 2–3 named poets/poems, and (3) <strong>places</strong> it historically (what it reacted against, what came after). Memorising a list of "features" without proof-lines from actual poems is the single biggest reason good students lose marks in literature papers.</div>
+
+  <h4 class="h4">How to read each chapter</h4>
+  <p>Every chapter has a short "story" explanation first (so the idea makes sense), then boxed material you can lift almost directly into an answer — definitions, comparison tables, and "Exam Tip" boxes showing exactly how examiners phrase questions on that topic. Tap any <strong>+</strong> box to expand extra depth only if you want it; the main text alone is enough for a full-marks answer.</p>
+  </div>
+  `
+},
+{
+  tag:"Chapter 2 · The Idea",
+  title:"What Is Romanticism, Really?",
+  sub:"Start here with the plain-language idea before any definition.",
+  body:`
+  <div class="panel">
+  <p class="dropcap">Imagine two ways of looking at a thunderstorm. One person reaches for a ruler and a rulebook — they want to measure it, describe it "correctly," fit it into a known category of weather, and write about it in balanced, polished sentences that a drawing-room audience would approve of. The other person stands in the rain, feels their heart race, and thinks: <em class="gloss">this storm is inside me too</em>. They don't want to measure the storm — they want to become it in words.</p>
+  <p>The first person is thinking like an <strong>eighteenth-century Neoclassical (Augustan) writer</strong>. The second is thinking like a <strong>Romantic</strong>. That shift — from measuring the world with reason and rules, to feeling the world with imagination and emotion — is the whole of Romanticism in one sentence.</p>
+
+  <h3 class="h">A Working Definition (write this, in your own words, in any answer)</h3>
+  <p><strong>Romanticism</strong> was a literary and artistic movement in England (roughly <strong>1798–1832</strong>, from the publication of <em>Lyrical Ballads</em> to the death of Sir Walter Scott / the Reform Act) that rebelled against the reason, order, and artificiality of Neoclassical writing. It placed <strong>imagination, emotion, individual experience, and nature</strong> at the centre of literature, and treated the poet not as a craftsman following rules but as a visionary — almost a prophet — expressing truths that reason alone cannot reach.</p>
+
+  <div class="examtip"><b>Where this exact question appears</b>
+  "Discuss Romanticism as a reaction against Neoclassicism." / "What do you understand by the term 'Romantic'?" / "Romanticism was 'a return to Nature and Imagination' — Discuss." These are really the same question asked three ways. Chapters 2, 5 and 6 together are your complete answer to all three.</div>
+
+  <h4 class="h4">Where does the word "Romantic" come from?</h4>
+  <p>It comes from the medieval <strong>"romance"</strong> — long verse tales of knights, adventure, the supernatural, and love, written in the Romance languages (French, Italian, Spanish), as opposed to the "classical" languages Latin and Greek. By the late 1700s, calling something "romantic" meant it had the flavour of those old tales: wild, strange, emotional, set in the past or in nature, not governed by classical rules of order and proportion. The Romantics did not choose this label for themselves in the beginning — it was applied later by critics to describe their shared spirit.</p>
+
+  <details><summary>Go deeper: is Romanticism one single "movement"?</summary><div class="dcontent">
+  <p>Not really — and this is worth knowing for a higher-order answer. The six major "Romantic" poets never called themselves a school and did not always agree with each other. Wordsworth and Coleridge were close collaborators; Byron mocked Wordsworth's plain style; Keats and Shelley barely overlapped with the older generation. What unites them is not a manifesto but a <strong>shared set of concerns</strong> — nature, imagination, the individual self, freedom, emotion — that later critics (starting seriously with scholars in the 20th century, e.g. <strong>M. H. Abrams</strong>) grouped together as "Romanticism." Mentioning this nuance in an answer signals higher-order understanding, not just memorised notes.</p>
+  </div></details>
+  </div>
+  `
+},
+{
+  tag:"Chapter 3 · Background",
+  title:"Why Romanticism Happened",
+  sub:"Historical, political and philosophical causes — never skip this in an answer.",
+  body:`
+  <div class="panel">
+  <p class="dropcap">No literary movement appears out of nowhere. Romanticism was the literary face of a Europe that was being shaken apart and rebuilt between roughly 1770 and 1820. If you can explain <em>why</em> Romanticism happened, your answer will always sound more intelligent than one that only lists "features."</p>
+
+  <h3 class="h">1. The French Revolution (1789)</h3>
+  <p>This is the single biggest cause. The Revolution's promise of <strong>"Liberty, Equality, Fraternity"</strong> electrified young English writers — it suggested that ordinary people, not kings and aristocrats, could remake society by the force of their own will and feeling. Wordsworth, Coleridge, and later Byron and Shelley were all shaped by revolutionary idealism (even after many, like Wordsworth, grew disillusioned once the Revolution turned violent under the Terror, and later Napoleon became an emperor himself).</p>
+  <div class="callout"><b>Line worth using</b>
+  Wordsworth's own famous line about the early Revolution — "<em>Bliss was it in that dawn to be alive</em>" (from <em>The Prelude</em>) — captures exactly this mood of political hope translating into poetic energy.</div>
+
+  <h3 class="h">2. The Industrial Revolution</h3>
+  <p>Factories, coal smoke, child labour, and crowded cities were transforming England. The Romantics reacted by turning <em>towards</em> nature and the countryside as a place of truth and healing, and by criticising the ugliness, artificiality and inequality that industrial society was producing. This is why <strong>Nature</strong> becomes almost a religion for Wordsworth — it is a conscious alternative to the machine-driven world.</p>
+
+  <h3 class="h">3. Philosophical Influences</h3>
+  <ul>
+    <li><strong>Jean-Jacques Rousseau</strong> (French philosopher) argued that civilisation corrupts the naturally good human being — his idea of the "noble savage" and his praise of natural feeling over artificial society directly shaped Romantic thought.</li>
+    <li><strong>German Idealism and the "Sturm und Drang" movement</strong> (Goethe, Schiller) already valued intense personal emotion over cold reason, and influenced English writers, especially Coleridge, who studied in Germany and brought back German philosophy (Kant, Schelling) into English criticism.</li>
+    <li><strong>The Gothic Revival</strong> — a growing taste for medieval architecture, ruins, ghost stories, and the supernatural — fed directly into Romantic love of mystery and the past.</li>
+  </ul>
+
+  <h3 class="h">4. A Direct Reaction Against Neoclassicism</h3>
+  <p>The 18th century (the "Augustan Age" of Pope, Dryden, Dr Johnson) prized reason, order, wit, social decorum, and imitation of the classical Greek and Roman writers. By the 1790s, younger writers found this feeling cold, artificial, and disconnected from real human emotion and rural life. Romanticism is best understood as a <strong>direct swing of the pendulum</strong> away from all of this — you will study the full comparison in Chapter 6.</p>
+
+  <div class="examtip"><b>Exam phrasing to expect</b>
+  "Trace the historical and intellectual background of the Romantic Movement in England." Structure your answer exactly along these four causes — Revolution, Industrialisation, Philosophy, Reaction to Neoclassicism — each in one short paragraph with one example.</div>
+  </div>
+  `
+},
+{
+  tag:"Chapter 4 · The Poets",
+  title:"Two Generations of Romantic Poets",
+  sub:"Know who belongs where — examiners test this distinction directly.",
+  body:`
+  <div class="panel">
+  <p class="dropcap">English Romantic poetry is conventionally divided into <strong>two generations</strong>. This grouping is not just a memory device — it reflects a real difference in temperament, politics, and poetic style, and examiners often ask you to distinguish them.</p>
+
+  <h3 class="h">First Generation (the "elder" Romantics)</h3>
+  <ul>
+    <li><strong>William Blake</strong> (1757–1827) — visionary, mystical, wrote outside the mainstream; <em>Songs of Innocence and of Experience</em>.</li>
+    <li><strong>William Wordsworth</strong> (1770–1850) — poet of Nature and ordinary life; co-wrote <em>Lyrical Ballads</em> (1798) with Coleridge, the movement's founding document.</li>
+    <li><strong>Samuel Taylor Coleridge</strong> (1772–1834) — poet of the supernatural and the imagination; also the movement's greatest theorist/critic.</li>
+  </ul>
+  <p>This generation began as radical sympathisers of the French Revolution but, disillusioned by the Terror and Napoleon's rise, grew more conservative with age — especially Wordsworth, who later became England's Poet Laureate, a very establishment position.</p>
+
+  <h3 class="h">Second Generation (the "younger" Romantics)</h3>
+  <ul>
+    <li><strong>Lord Byron</strong> (1788–1824) — rebellious, satirical, the "Byronic hero"; <em>Childe Harold's Pilgrimage</em>, <em>Don Juan</em>.</li>
+    <li><strong>Percy Bysshe Shelley</strong> (1792–1822) — political radical and idealist; <em>Ode to the West Wind</em>, <em>Prometheus Unbound</em>.</li>
+    <li><strong>John Keats</strong> (1795–1821) — poet of beauty and sensuous imagery; the great Odes (<em>Ode to a Nightingale</em>, <em>Ode on a Grecian Urn</em>).</li>
+  </ul>
+  <p>All three died young (Keats at 25, Shelley at 29, Byron at 36) and remained politically radical and rebellious throughout — unlike the older generation, they never "settled down" into establishment figures. This is why critics sometimes call them the poets who kept the Revolution's original fire alive.</p>
+
+  <div class="callout"><b>The line examiners love to test</b>
+  "The First Generation began as revolutionaries and ended as conservatives; the Second Generation remained rebels till death." If you use this single sentence correctly in an answer, it instantly signals command over the topic.</div>
+
+  <details><summary>Where does William Blake actually fit?</summary><div class="dcontent">
+  <p>Blake is technically pre-Romantic or an independent visionary — his major work (<em>Songs of Innocence</em>, 1789) predates <em>Lyrical Ballads</em> (1798) by nine years, and he had almost no contact with the other Romantics. Most syllabi still group him with the First Generation because his themes (imagination, the child, criticism of industrial society and organised religion, symbolic/visionary style) are deeply Romantic in spirit. Mentioning this "borderline" status is a good higher-order point.</p>
+  </div></details>
+  </div>
+  `
+},
+{
+  tag:"Chapter 5 · Characteristics I",
+  title:"Core Features of Romanticism — Part 1",
+  sub:"Imagination, Nature, and the Individual Self.",
+  body:`
+  <div class="panel">
+  <p>These are the features examiners expect you to name, explain, and <strong>illustrate with a real quotation or poem title</strong>. A feature without an example is worth half the marks of a feature with one.</p>
+
+  <h3 class="h">1. Supremacy of Imagination over Reason</h3>
+  <p>For the Neoclassical writer, reason was the highest human faculty. For the Romantic, <strong>imagination</strong> was higher still — it was the power that let the poet see truths that logic could not reach, almost like a form of spiritual perception. Coleridge went furthest, calling imagination "the living power and prime agent of all human perception" — echoing, in the finite human mind, the infinite creative act of God (his idea of the "primary imagination," explained fully in Chapter 8).</p>
+  <div class="examtip"><b>Quick proof-line to memorise</b>
+  Keats's idea that "<em>what the imagination seizes as Beauty must be truth</em>" (from a letter to Bailey) is a perfect one-line illustration of this feature.</div>
+
+  <h3 class="h">2. Return to Nature</h3>
+  <p>Nature for the Romantics was not just scenery — it was a living moral and spiritual force, a teacher, healer, and source of joy. Wordsworth called Nature his <em>"nurse... and guardian of my heart, and soul / Of all my moral being"</em> (in "Tintern Abbey"). This is different from the Neoclassical use of nature as polite background decoration in a poem — for the Romantics, Nature is almost a character, even a divine presence (this attitude is sometimes called <strong>pantheism</strong> — seeing God as present within nature itself).</p>
+
+  <h3 class="h">3. Individualism and Subjectivity</h3>
+  <p>Romantic poetry is deeply personal — poets write about their own feelings, memories, and inner experience as valid, even central, subject matter. This is why so much Romantic poetry is in the <strong>first person</strong> ("I wandered lonely as a cloud"). Neoclassical poetry, by contrast, aimed at general, universal truths expressed impersonally ("What oft was thought, but ne'er so well expressed" — Pope's own definition of good poetry, which is the opposite of Romantic individualism).</p>
+
+  <h3 class="h">4. Emotion and Spontaneity</h3>
+  <p>Wordsworth's own definition, from the Preface to <em>Lyrical Ballads</em>, is the one to quote here: poetry is <strong>"the spontaneous overflow of powerful feelings," recollected in tranquility</strong>. Notice the two-part process this describes — an intense original emotional experience, later remembered and shaped calmly into verse. This single sentence is possibly the most quoted line in all of Romantic criticism — memorise it exactly.</p>
+
+  <h3 class="h">5. The Poet as a Special, Almost Prophetic Being</h3>
+  <p>Romantics believed the poet possesses unusually deep sensitivity and imaginative power, and therefore a duty to guide and awaken ordinary readers. Shelley's famous closing claim in <em>A Defence of Poetry</em> — that poets are the <strong>"unacknowledged legislators of the world"</strong> — sums this up perfectly: poets shape a society's moral and imaginative life even though they hold no formal political power.</p>
+  </div>
+  `
+},
+{
+  tag:"Chapter 6 · Characteristics II",
+  title:"Core Features of Romanticism — Part 2",
+  sub:"The Supernatural, Medievalism, the Common Man, and Freedom.",
+  body:`
+  <div class="panel">
+  <h3 class="h">6. Love of the Supernatural and the Mysterious</h3>
+  <p>Coleridge specialised in this — <em>The Rime of the Ancient Mariner</em> and <em>Christabel</em> are built entirely around ghostly, uncanny events told with total seriousness, so that the impossible feels emotionally true. Coleridge himself described his task (in <em>Biographia Literaria</em>) as creating <strong>"a willing suspension of disbelief"</strong> in the reader — a phrase now used across all of literature, not just Romanticism.</p>
+
+  <h3 class="h">7. Medievalism and Love of the Past</h3>
+  <p>Romantics were drawn to the Middle Ages, chivalry, old ballads, and Gothic ruins — partly because the medieval world felt more organic, spiritual, and imaginative than the mechanical, rational 18th century. Keats's <em>La Belle Dame sans Merci</em> and <em>The Eve of St. Agnes</em> are set in a dreamlike medieval world; Coleridge's <em>Christabel</em> uses a medieval castle setting.</p>
+
+  <h3 class="h">8. The Simple, Rustic Man and the Language of Common Speech</h3>
+  <p>This is one of Wordsworth's most radical and most-tested contributions. In the Preface to <em>Lyrical Ballads</em>, he announced he would write about <strong>"humble and rustic life"</strong> — shepherds, beggars, leech-gatherers, village children — using <strong>"a selection of language really used by men,"</strong> rejecting the artificial "poetic diction" (elevated, ornamental language) that 18th-century poets like Pope and Gray had used. Poems like <em>"The Solitary Reaper"</em> and <em>"Michael"</em> put this theory into practice.</p>
+  <div class="examtip"><b>Why examiners love this feature</b>
+  It directly connects to Section C of your syllabus (Wordsworth as literary critic) and lets you quote his Preface — always impressive, since it shows you've read primary criticism, not just secondary notes.</div>
+
+  <h3 class="h">9. The Child as a Symbol of Purity and Insight</h3>
+  <p>Blake (<em>Songs of Innocence</em>) and Wordsworth ("<em>The Child is father of the Man</em>," from "My Heart Leaps Up") both treat childhood as a state closer to divine truth and imaginative purity than adulthood, which is corrupted by society, convention, and reason. Wordsworth's ode "<em>Intimations of Immortality</em>" develops this most fully — the child is born "trailing clouds of glory," gradually losing that visionary closeness to the divine as it grows into ordinary adult life.</p>
+
+  <h3 class="h">10. Love of Freedom and Political Idealism</h3>
+  <p>Especially strong in the second generation. Shelley's <em>Prometheus Unbound</em> and Byron's support for Greek independence (he died in 1824 while helping fight for Greece's freedom from Ottoman rule) show Romanticism's link between poetic imagination and political liberty — the belief that tyranny of any kind, political or artistic-rule-bound, must be resisted.</p>
+
+  <h3 class="h">11. The Sublime</h3>
+  <p>A key aesthetic idea (developed earlier by the philosopher Edmund Burke) — the feeling of awe mixed with a little fear that we get from something vast, powerful, or overwhelming: high mountains, storms, the boundless sea, deep chasms. This is different from ordinary "beauty," which is calm and pleasing. Wordsworth's encounter with the Alps in <em>The Prelude</em>, and Coleridge's frozen, endless ocean in <em>The Ancient Mariner</em>, are classic examples of the Romantic Sublime.</p>
+  </div>
+  `
+},
+{
+  tag:"Chapter 7 · Comparison",
+  title:"Romanticism vs Neoclassicism",
+  sub:"The single most-asked comparison in this part of the syllabus.",
+  body:`
+  <div class="panel">
+  <p class="dropcap">Almost every exam includes some version of "compare and contrast" between the Augustan/Neoclassical age and the Romantic age. Use this table as the skeleton of that answer — but always turn at least 3–4 rows into full sentences with named authors, since a table alone is not a descriptive answer.</p>
+
+  <table>
+    <tr><th>Aspect</th><th>Neoclassical Age (c.1660–1780s)</th><th>Romantic Age (c.1798–1832)</th></tr>
+    <tr><td>Guiding Faculty</td><td>Reason, Judgment, Wit</td><td>Imagination, Emotion</td></tr>
+    <tr><td>Model followed</td><td>Classical Greek & Roman writers (imitation)</td><td>Original, individual genius</td></tr>
+    <tr><td>Subject matter</td><td>Society, city life, manners, satire</td><td>Nature, the self, rural/common life, the supernatural</td></tr>
+    <tr><td>Language</td><td>Elevated "poetic diction," formal</td><td>Simple, natural language of common speech</td></tr>
+    <tr><td>Verse Form</td><td>Heroic couplet, strict rules</td><td>Freer forms, blank verse, ballad, ode, ranging metres</td></tr>
+    <tr><td>Tone</td><td>Detached, witty, impersonal, corrective</td><td>Personal, passionate, subjective</td></tr>
+    <tr><td>View of the Poet</td><td>A skilled craftsman following rules</td><td>A visionary / seer / "unacknowledged legislator"</td></tr>
+    <tr><td>Key Figures</td><td>Dryden, Pope, Dr Johnson, Swift</td><td>Wordsworth, Coleridge, Byron, Shelley, Keats, Blake</td></tr>
+  </table>
+
+  <div class="callout"><b>One strong closing line for this answer</b>
+  "Where the Neoclassical poet asked, 'Is this correct and universally true?', the Romantic poet asked, 'Is this truly and intensely felt?' — the shift from correctness to sincerity is the real heart of the Romantic revolution."</div>
+
+  <details><summary>Was the break really total and sudden?</summary><div class="dcontent">
+  <p>No — worth noting for a nuanced answer. Poets like <strong>Thomas Gray, William Collins, and James Thomson</strong> in the mid-1700s already show "pre-Romantic" traits (love of graveyards, melancholy, nature, emotion) well before 1798. Romanticism grew gradually out of cracks already appearing within Neoclassicism, rather than starting overnight with <em>Lyrical Ballads</em>. Still, 1798 is the conventional and examiner-accepted starting date to use.</p>
+  </div></details>
+  </div>
+  `
+},
+{
+  tag:"Chapter 8 · Criticism I",
+  title:"Wordsworth's Preface to Lyrical Ballads",
+  sub:"The founding manifesto of English Romanticism — quote from this directly.",
+  body:`
+  <div class="panel">
+  <p class="dropcap"><em>Lyrical Ballads</em> (1798) was published jointly by Wordsworth and Coleridge, but it is the <strong>1800 (expanded 1802) Preface</strong>, written by Wordsworth alone, that became the movement's most important critical document — its "manifesto." This connects your Romanticism topic directly to Section C of your syllabus (Wordsworth as a literary critic), so learn it well.</p>
+
+  <h3 class="h">What Wordsworth Argues in the Preface</h3>
+  <ul>
+    <li><strong>Subject matter:</strong> Poetry should describe "incidents and situations from common life," especially "humble and rustic life," because in that condition "the essential passions of the heart... speak a plainer and more emphatic language."</li>
+    <li><strong>Language:</strong> Poetry should use "a selection of language really used by men" — not the artificial, ornamental "poetic diction" of the previous century. He famously denied any real, essential difference between the language of prose and the language of "meaningful" poetry.</li>
+    <li><strong>Definition of poetry:</strong> Poetry is <strong>"the spontaneous overflow of powerful feelings"</strong> which "takes its origin from emotion recollected in tranquility" — the poet first feels intensely, then later, in a calm state, reflects on and reshapes that feeling into verse.</li>
+    <li><strong>Definition of the poet:</strong> The poet is "a man speaking to men" — but one gifted with more lively sensibility, enthusiasm, and tenderness than ordinary people, and with a special power to make absent things feel present.</li>
+    <li><strong>Purpose of poetry:</strong> To give pleasure, but a pleasure connected to moral and emotional truth — not mere entertainment or clever wit for its own sake.</li>
+  </ul>
+
+  <div class="examtip"><b>Exact exam phrasing to expect</b>
+  "Discuss Wordsworth's Preface to Lyrical Ballads as a manifesto of Romanticism." / "What, according to Wordsworth, is the true language of poetry?" Structure the answer using the five bullet points above, each with the quoted phrase in bold.</div>
+
+  <h4 class="h4">Why the Preface matters beyond Wordsworth himself</h4>
+  <p>It effectively declared war on 18th-century Neoclassical poetic theory (which favoured elevated diction and general, "universal" subjects, as defended by critics like Dr Johnson). In this sense, the Preface is not just a note about Wordsworth's own poems — it is the theoretical foundation for the entire Romantic Movement's attitude to subject and language, which is why almost every "define Romanticism" answer can legitimately quote from it.</p>
+  </div>
+  `
+},
+{
+  tag:"Chapter 9 · Criticism II",
+  title:"Coleridge and the Theory of Imagination",
+  sub:"Biographia Literaria (1817) — the deepest Romantic theory you'll be asked about.",
+  body:`
+  <div class="panel">
+  <p class="dropcap">If Wordsworth's Preface is the Romantic movement's manifesto, Coleridge's <em>Biographia Literaria</em> is its philosophy. Coleridge's most famous and most-examined contribution is his distinction between <strong>Imagination</strong> and <strong>Fancy</strong> — get this exactly right, it is one of the most precise pieces of theory in the whole syllabus.</p>
+
+  <h3 class="h">Primary Imagination</h3>
+  <p>The basic, universal power every human mind has simply to perceive the world and turn raw sense-data into a coherent, meaningful picture of reality. Coleridge calls it <strong>"the living power and prime agent of all human perception,"</strong> and — strikingly — says it is "a repetition in the finite mind of the eternal act of creation in the infinite I AM" (i.e., an echo, in every human mind, of God's own original creative act).</p>
+
+  <h3 class="h">Secondary Imagination</h3>
+  <p>The special, higher power that only <strong>poets and artists</strong> possess in a heightened form. It is essentially the same in kind as the Primary Imagination but differs "in degree, and in the mode of its operation." The Secondary Imagination actively <strong>"dissolves, diffuses, dissipates, in order to recreate"</strong> — it breaks down ordinary perceptions and fuses them into new, unified, original works of art. This is the faculty that lets a poet transform an ordinary sunset into unforgettable imagery.</p>
+
+  <h3 class="h">Fancy</h3>
+  <p>A lower faculty, by contrast — it only rearranges and combines ready-made images and memories mechanically, without truly transforming them. Coleridge says Fancy "has no other counters to play with but fixities and definites" — it can only shuffle existing ideas, not fuse them into genuinely new organic wholes. A poet using mere Fancy produces clever combinations; a poet using true Imagination produces organic, unified creation.</p>
+
+  <div class="callout"><b>One-line summary to memorise</b>
+  "Imagination creates; Fancy merely combines." Imagination is organic and transformative; Fancy is mechanical and additive.</div>
+
+  <h4 class="h4">"Willing Suspension of Disbelief"</h4>
+  <p>Also from <em>Biographia Literaria</em> — Coleridge's explanation of how supernatural poetry (his own specialty, e.g. <em>The Ancient Mariner</em>) can feel emotionally true. If a poet gives supernatural events enough "human interest and a semblance of truth," the reader will willingly suspend their disbelief for the duration of the poem, granting the impossible a kind of "poetic faith." This term is now used across all of literary criticism, well beyond Romanticism.</p>
+
+  <div class="examtip"><b>Exact exam phrasing to expect</b>
+  "Explain Coleridge's distinction between Imagination and Fancy." / "Discuss Coleridge as a literary critic." Use the Primary/Secondary Imagination vs Fancy structure above; it is a complete, self-contained answer.</div>
+  </div>
+  `
+},
+{
+  tag:"Chapter 10 · Syllabus Link",
+  title:"Romanticism → Pre-Raphaelites",
+  sub:"Connecting Section B's movements into one continuous story.",
+  body:`
+  <div class="panel">
+  <p class="dropcap">Your syllabus lists <strong>Romanticism</strong> and <strong>the Pre-Raphaelites</strong> as separate entries in Section B — but examiners often reward answers that show how one influenced the other. This is an easy way to make a short answer look like a genuinely well-read one.</p>
+
+  <h3 class="h">What the Pre-Raphaelite Brotherhood Was</h3>
+  <p>A group of Victorian poets and painters (founded 1848) — including <strong>Dante Gabriel Rossetti, Christina Rossetti, and William Morris</strong> — who wanted to return to the detailed, sincere, spiritually intense style of art that existed <em>before</em> the Italian painter Raphael (hence "Pre-Raphaelite"), which they felt later academic art had made shallow and artificial.</p>
+
+  <h3 class="h">The Direct Inheritance from Romanticism</h3>
+  <ul>
+    <li><strong>Medievalism:</strong> Just like Keats and Coleridge, the Pre-Raphaelites loved medieval subjects, legend, and chivalric romance (e.g., Arthurian legend, Dante).</li>
+    <li><strong>Sensuous, richly detailed imagery:</strong> Directly inherited from Keats especially — dense, colourful, almost painterly description of physical beauty.</li>
+    <li><strong>Emotional intensity and symbolism</strong> over plain statement — continuing the Romantic distrust of cold rationalism.</li>
+    <li><strong>Reaction against industrial ugliness:</strong> Just as Wordsworth reacted against early industrialisation, the Pre-Raphaelites (and William Morris's later Arts and Crafts movement) reacted against Victorian mass-production and its loss of craftsmanship and beauty.</li>
+  </ul>
+
+  <h3 class="h">The Key Difference</h3>
+  <p>Where Romantic poets like Wordsworth turned to nature and rustic simplicity, the Pre-Raphaelites turned more towards <strong>art, myth, and the medieval past itself</strong> as their subject — their imagination is more consciously aesthetic and decorative, sometimes summarised by the later phrase "<strong>art for art's sake</strong>," which grows out of this Pre-Raphaelite sensibility and leads eventually into the Aestheticism of the 1890s.</p>
+
+  <div class="examtip"><b>How to use this in an answer</b>
+  If asked broadly "Trace the influence of Romanticism on later English poetry," one full paragraph on the Pre-Raphaelites (medievalism + sensuous imagery + anti-industrial feeling, but shifted towards art and myth) shows you understand literary history as a continuous conversation, not a set of sealed boxes — exactly what mains examiners reward.</div>
+  </div>
+  `
+},
+{
+  tag:"Chapter 11 · Critical Views",
+  title:"What Later Critics Said About Romanticism",
+  sub:"A few named scholarly opinions lift an answer from good to excellent.",
+  body:`
+  <div class="panel">
+  <p class="dropcap">In a Master's-level or Lecturer-level exam, examiners notice when a student can cite <em>later critical opinion</em> about a movement, not only the movement's own primary texts. You don't need many — two or three well-placed names are enough to visibly raise the level of an answer.</p>
+
+  <h3 class="h">M. H. Abrams — The Mirror and the Lamp (1953)</h3>
+  <p>Abrams's most famous formulation: Neoclassical poetry works like a <strong>"mirror,"</strong> reflecting the external world back to the reader; Romantic poetry works like a <strong>"lamp,"</strong> projecting light outward from the poet's own inner mind and feeling onto the world. This single metaphor is one of the most quotable and most-used ideas in Romantic criticism — use it whenever comparing Neoclassicism and Romanticism.</p>
+
+  <h3 class="h">Matthew Arnold on the Romantics</h3>
+  <p>Arnold (a Victorian poet-critic, himself part of your Section A/C author list) admired the Romantics' energy but felt they lacked sufficient <strong>knowledge and critical discipline</strong> — his verdict on Romantic poetry was roughly that the poets "did not know enough," meaning their work, though powerful, was not always grounded in wide reading and intellectual rigour the way he believed great poetry required. This is a useful "balanced" or slightly critical point to include if a question asks you to evaluate, not just describe, Romanticism.</p>
+
+  <h3 class="h">T. S. Eliot's Reaction</h3>
+  <p>Eliot, writing in the early 20th century, was famously unsympathetic to Romantic excess — he preferred the impersonality and intellectual control of the Metaphysical poets and Classicism, and criticised the Romantics for over-valuing personal emotion over "objective" craftsmanship. His famous idea of poetry as an <strong>"escape from emotion" and "escape from personality"</strong> (from "Tradition and the Individual Talent") is a direct, implicit critique of the Romantic idea of "spontaneous overflow of powerful feelings."</p>
+
+  <div class="callout"><b>How to use critical opinions safely</b>
+  Never present a critic's opinion as an undisputed fact. Use phrasing like: "As M. H. Abrams observed..." or "T. S. Eliot's classicist reaction against Romanticism suggests that..." This shows you understand criticism as a debate, which is exactly the maturity Lecturer-level examiners are checking for.</div>
+  </div>
+  `
+},
+{
+  tag:"Chapter 12 · Exam Bank",
+  title:"Likely Descriptive Questions + Answer Skeletons",
+  sub:"Practice writing from these outlines under time pressure.",
+  body:`
+  <div class="panel">
+  <p>Below are the question types most likely to appear, phrased the way UPPSC-style papers usually phrase them, each with a ready structure. Practice writing each in 250–300 words within 10–12 minutes.</p>
+
+  <div class="q"><div class="qtext">Q1. Discuss Romanticism as a literary movement in England.</div>
+  <p><strong>Structure:</strong> (1) One-line definition (Ch.2) → (2) Historical causes in 3–4 lines (Ch.3) → (3) Four to five key features with one proof-line each (Ch.5–6) → (4) One-line closing on its legacy (Ch.10–11).</p></div>
+
+  <div class="q"><div class="qtext">Q2. "Romanticism was essentially a revolt against Neoclassicism." Discuss.</div>
+  <p><strong>Structure:</strong> Open with the comparison table's core idea (reason vs imagination) → 3 contrast points with named poets on each side → Abrams's "mirror and lamp" line → conclude that the revolt was gradual, not sudden (mention Gray/Collins as pre-Romantic bridge).</p></div>
+
+  <div class="q"><div class="qtext">Q3. Discuss the role of Nature in Romantic poetry.</div>
+  <p><strong>Structure:</strong> Define Nature's elevated role (teacher/healer/moral guide, Ch.5 pt.2) → Wordsworth as the chief example with the "Tintern Abbey" quote → contrast briefly with Neoclassical decorative use of nature → one line on Coleridge's supernatural nature (Ancient Mariner) to show range within the movement.</p></div>
+
+  <div class="q"><div class="qtext">Q4. Examine Wordsworth's Preface to Lyrical Ballads as a manifesto of the Romantic Movement.</div>
+  <p><strong>Structure:</strong> Use the five bullet points of Chapter 8 directly — subject matter, language, definition of poetry, definition of poet, purpose — each with its exact quoted phrase in bold.</p></div>
+
+  <div class="q"><div class="qtext">Q5. Explain Coleridge's theory of Imagination and Fancy.</div>
+  <p><strong>Structure:</strong> Primary Imagination → Secondary Imagination → Fancy, in that order (Ch.9), ending with the one-line summary "Imagination creates; Fancy merely combines."</p></div>
+
+  <div class="q"><div class="qtext">Q6. Distinguish between the First and Second Generation of Romantic poets.</div>
+  <p><strong>Structure:</strong> Name each generation with dates and works (Ch.4) → the "began as revolutionaries, ended as conservatives" vs "remained rebels till death" contrast → one line on Blake's borderline position for a bonus nuance point.</p></div>
+
+  <div class="q"><div class="qtext">Q7. What is meant by the "Sublime" in Romantic poetry?</div>
+  <p><strong>Structure:</strong> Define (awe + fear from vastness/power, Ch.6 pt.11) → distinguish from ordinary beauty → one example each from Wordsworth (Alps, The Prelude) and Coleridge (frozen sea, Ancient Mariner).</p></div>
+
+  <div class="q"><div class="qtext">Q8. Trace the influence of Romanticism on later English literature.</div>
+  <p><strong>Structure:</strong> One paragraph on Pre-Raphaelites (Ch.10: medievalism, sensuous imagery, anti-industrial feeling) → one line noting Eliot's classicist reaction against it (Ch.11) → close by noting Romantic ideas of the individual imagination still shape modern poetry.</p></div>
+
+  <div class="callout"><b>Writing-technique reminder</b>
+  Always open a descriptive answer with a definition sentence in your own words (never a direct copy of any textbook line), and always close with one sentence that places the topic in the larger flow of literary history. Examiners scan openings and closings first when marks are tight.</div>
+  </div>
+  `
+},
+{
+  tag:"Chapter 13 · Final Revision",
+  title:"Same-Day Revision Sheet",
+  sub:"Everything on one page, for the morning of the exam.",
+  body:`
+  <div class="panel">
+  <h3 class="h">Dates to Fix in Memory</h3>
+  <ul>
+    <li><strong>1798</strong> — Lyrical Ballads published (Wordsworth + Coleridge); conventional start of Romanticism.</li>
+    <li><strong>1800/1802</strong> — Wordsworth's Preface added/expanded.</li>
+    <li><strong>1817</strong> — Coleridge's Biographia Literaria.</li>
+    <li><strong>1832</strong> — Death of Walter Scott / Reform Act; conventional end of the Romantic Age.</li>
+    <li><strong>1848</strong> — Pre-Raphaelite Brotherhood founded.</li>
+  </ul>
+
+  <h3 class="h">Six Poets, One Line Each</h3>
+  <ul>
+    <li><strong>Blake</strong> — visionary, mystical; innocence vs experience.</li>
+    <li><strong>Wordsworth</strong> — Nature, the common man, the child; Preface theorist.</li>
+    <li><strong>Coleridge</strong> — the supernatural; theorist of Imagination and Fancy.</li>
+    <li><strong>Byron</strong> — the rebellious "Byronic hero"; satire, political freedom.</li>
+    <li><strong>Shelley</strong> — political idealist; "poets as unacknowledged legislators."</li>
+    <li><strong>Keats</strong> — sensuous beauty; the great Odes; "Beauty is truth, truth beauty."</li>
+  </ul>
+
+  <h3 class="h">Ten Features in Ten Words Each</h3>
+  <ol>
+    <li>Imagination over reason — creative vision beyond logic.</li>
+    <li>Nature as a living, moral, spiritual teacher and healer.</li>
+    <li>Individualism — the poet's own personal feeling as subject.</li>
+    <li>Emotion — "spontaneous overflow of powerful feelings," recollected calmly.</li>
+    <li>The poet as visionary — "unacknowledged legislator" (Shelley).</li>
+    <li>Supernatural and mystery — "willing suspension of disbelief" (Coleridge).</li>
+    <li>Medievalism — love of chivalry, ballads, the Gothic past.</li>
+    <li>Common speech, humble/rustic subjects, against artificial poetic diction.</li>
+    <li>The child as a symbol of purity and imaginative insight.</li>
+    <li>The Sublime — awe mixed with fear before vastness and power.</li>
+  </ol>
+
+  <h3 class="h">Five Quotations You Must Get Exactly Right</h3>
+  <ul>
+    <li>"...the spontaneous overflow of powerful feelings... recollected in tranquility." — Wordsworth, Preface.</li>
+    <li>"...a selection of language really used by men." — Wordsworth, Preface.</li>
+    <li>"...the living power and prime agent of all human perception." — Coleridge on Primary Imagination.</li>
+    <li>"...dissolves, diffuses, dissipates, in order to recreate." — Coleridge on Secondary Imagination.</li>
+    <li>"Poets are the unacknowledged legislators of the world." — Shelley, A Defence of Poetry.</li>
+  </ul>
+
+  <h3 class="h">Two Critics' Verdicts</h3>
+  <ul>
+    <li><strong>M. H. Abrams</strong> — Neoclassicism = "mirror" (reflects world); Romanticism = "lamp" (projects inner feeling).</li>
+    <li><strong>T. S. Eliot / Matthew Arnold</strong> — later classicist reaction against Romantic emotional excess and lack of intellectual discipline.</li>
+  </ul>
+
+  <div class="callout"><b>Last reminder before you walk in</b>
+  Every strong answer does three things: define in your own words → prove with named poets/quotes → place historically (before/after). If you remember nothing else from this guide, remember that sentence.</div>
+  <p style="text-align:center; margin-top:20px;"><span class="tagpill">Nature</span><span class="tagpill">Imagination</span><span class="tagpill">Emotion</span><span class="tagpill">Individualism</span><span class="tagpill">The Sublime</span><span class="tagpill">Medievalism</span></p>
+  </div>
+  `
+}
+];
+
+let idx = parseInt(localStorage.getItem('rom_idx')||'0',10);
+if(idx<0||idx>=chapters.length) idx=0;
+
+const contentEl = document.getElementById('content');
+const drawerList = document.getElementById('drawerList');
+const topTitle = document.getElementById('topTitle');
+const sealNum = document.getElementById('sealNum');
+const progFill = document.getElementById('progFill');
+const progText = document.getElementById('progText');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function buildDrawer(){
+  drawerList.innerHTML = chapters.map((c,i)=>`
+    <li><button class="drawer-btn${i===idx?' active':''}" data-i="${i}">
+      <span class="num">${i+1}</span><span>${c.title}</span>
+    </button></li>`).join('');
+  drawerList.querySelectorAll('.drawer-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{ idx=parseInt(btn.dataset.i,10); render(); closeDrawer(); });
+  });
+}
+
+function render(){
+  const c = chapters[idx];
+  contentEl.innerHTML = `
+    <div class="chapter-tag">${c.tag}</div>
+    <h2 class="chapter-title">${c.title}</h2>
+    <p class="chapter-sub">${c.sub}</p>
+    ${c.body}
+    <hr class="divider">
+  `;
+  contentEl.scrollTop = 0;
+  topTitle.textContent = c.title;
+  sealNum.textContent = idx+1;
+  progFill.style.width = ((idx+1)/chapters.length*100)+'%';
+  progText.textContent = `Chapter ${idx+1} of ${chapters.length}`;
+  prevBtn.disabled = idx===0;
+  nextBtn.disabled = idx===chapters.length-1;
+  localStorage.setItem('rom_idx', idx);
+  buildDrawer();
+}
+
+prevBtn.addEventListener('click',()=>{ if(idx>0){idx--; render();} });
+nextBtn.addEventListener('click',()=>{ if(idx<chapters.length-1){idx++; render();} });
+
+// Drawer open/close
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+const hamBtn = document.getElementById('hamBtn');
+function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); }
+hamBtn.addEventListener('click', openDrawer);
+overlay.addEventListener('click', closeDrawer);
+
+// Theme
+const body = document.body;
+const savedTheme = localStorage.getItem('rom_theme') || 'parchment';
+body.setAttribute('data-theme', savedTheme);
+document.querySelectorAll('.theme-dot').forEach(dot=>{
+  if(dot.dataset.t===savedTheme) dot.classList.add('active'); else dot.classList.remove('active');
+  dot.addEventListener('click',()=>{
+    body.setAttribute('data-theme', dot.dataset.t);
+    localStorage.setItem('rom_theme', dot.dataset.t);
+    document.querySelectorAll('.theme-dot').forEach(d=>d.classList.remove('active'));
+    dot.classList.add('active');
+  });
+});
+
+// Font size
+const fsLabels = ['Small','Medium','Large','X-Large'];
+const fsValues = [15,17,19,21];
+let fsIdx = parseInt(localStorage.getItem('rom_fs')||'1',10);
+function applyFs(){
+  document.documentElement.style.setProperty('--fs', fsValues[fsIdx]+'px');
+  document.getElementById('fsLabel').textContent = 'Text: '+fsLabels[fsIdx];
+  localStorage.setItem('rom_fs', fsIdx);
+}
+document.getElementById('fsMinus').addEventListener('click',()=>{ if(fsIdx>0){fsIdx--; applyFs();} });
+document.getElementById('fsPlus').addEventListener('click',()=>{ if(fsIdx<fsValues.length-1){fsIdx++; applyFs();} });
+applyFs();
+
+// swipe gestures
+let touchX=null;
+contentEl.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; });
+contentEl.addEventListener('touchend', e=>{
+  if(touchX===null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if(Math.abs(dx) > 70){
+    if(dx<0 && idx<chapters.length-1){ idx++; render(); }
+    else if(dx>0 && idx>0){ idx--; render(); }
+  }
+  touchX=null;
+});
+
+render();
+</script>
+</body>
+</html>
