@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Class 6th Mathematics — Interactive Practice (SA I Pattern)</title>
+<style>
+  :root{
+    --parchment:#f2e9d3;
+    --parchment-deep:#e9dcb8;
+    --navy:#152944;
+    --navy-deep:#0d1c30;
+    --gold:#b9862f;
+    --gold-bright:#d8a94a;
+    --ember:#a8431e;
+    --ember-deep:#8a3417;
+    --green:#2e7d32;
+    --green-deep:#1b5e20;
+    --ink:#241a0f;
+    --paper:#fbf6e9;
+    --rule:#c9b787;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--parchment);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(185,134,47,0.10), transparent 45%),
+      radial-gradient(circle at 90% 85%, rgba(168,67,30,0.08), transparent 50%);
+    color:var(--ink);
+    font-family:Georgia,'Cambria','Times New Roman',serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  header.topbar{
+    background:linear-gradient(180deg,var(--navy),var(--navy-deep));
+    color:var(--parchment);
+    display:flex;
+    align-items:center;
+    gap:.75rem;
+    padding:.85rem 1rem;
+    position:sticky;
+    top:0;
+    z-index:40;
+    box-shadow:0 2px 10px rgba(0,0,0,.35);
+    border-bottom:3px solid var(--gold);
+  }
+  .topbar-titles{flex:1;min-width:0;}
+  .topbar-titles h1{
+    margin:0;font-size:1.05rem;letter-spacing:.02em;font-weight:700;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .topbar-titles p{margin:2px 0 0;font-size:.72rem;color:var(--gold-bright);opacity:.9;}
+  .topbar .paper-pill{
+    flex:none;background:var(--ember);color:#fff7e6;font-size:.78rem;font-weight:700;
+    padding:.4rem .7rem;border-radius:999px;border:1px solid rgba(255,255,255,.25);
+    white-space:nowrap;
+  }
+
+  main{
+    flex:1;width:100%;max-width:900px;margin:0 auto;padding:1rem .85rem 3rem;
+  }
+  .notice{
+    background:#fff3cf;border:1.5px dashed var(--ember);color:#5a3410;
+    padding:.7rem .9rem;border-radius:10px;font-size:.82rem;text-align:center;
+    margin-bottom:1rem;line-height:1.45;
+  }
+  .notice strong{color:var(--ember-deep);}
+
+  .toolbar{
+    display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;
+    background:var(--paper);border:1px solid var(--rule);border-radius:12px;
+    padding:.7rem .8rem;margin-bottom:1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.06);
+  }
+  .toolbar .spacer{flex:1;}
+  .btn{
+    font-family:inherit;font-size:.85rem;font-weight:700;border-radius:8px;border:none;
+    padding:.55rem 1rem;cursor:pointer;letter-spacing:.01em;
+    display:inline-flex;align-items:center;gap:.35rem;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--ember);color:#fff7e6;box-shadow:0 2px 0 var(--ember-deep);}
+  .btn-primary:active{box-shadow:none;}
+  .btn-gold{background:var(--gold);color:#2a1a04;box-shadow:0 2px 0 #8a5f1a;}
+  .btn-gold:active{box-shadow:none;}
+  .btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+  .btn-green{background:var(--green);color:#fff;box-shadow:0 2px 0 var(--green-deep);}
+  .btn-green:active{box-shadow:none;}
+
+  .paper-sheet{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:1.4rem 1.2rem 2rem;
+    box-shadow:0 2px 14px rgba(60,40,10,.12), 0 0 0 6px rgba(185,134,47,0.06);
+  }
+  .paper-head{
+    text-align:center;border-bottom:2.5px solid var(--navy);padding-bottom:.9rem;margin-bottom:1.3rem;
+  }
+  .paper-head .badge{
+    display:inline-block;background:var(--navy);color:var(--gold-bright);
+    font-size:.68rem;letter-spacing:.08em;padding:.25rem .6rem;border-radius:999px;margin-bottom:.5rem;
+  }
+  .paper-head h2{margin:.1rem 0;font-size:1.4rem;color:var(--navy);}
+  .paper-head h3{margin:.15rem 0;font-size:1rem;font-weight:400;color:#4b3c22;}
+  .paper-head p.note{font-style:italic;font-size:.82rem;color:#6b5a3a;margin:.5rem 0 0;}
+
+  .qlist{display:flex;flex-direction:column;gap:1rem;}
+  .qcard{
+    border:1px solid var(--rule);
+    border-radius:10px;
+    background:#fffdf6;
+    padding:.85rem .95rem .9rem;
+    box-shadow:0 1px 3px rgba(60,40,10,.05);
+    page-break-inside:avoid;
+  }
+  .qcard-head{
+    display:flex;gap:.55rem;align-items:flex-start;
+    font-size:1rem;line-height:1.5;
+  }
+  .qnum{
+    font-weight:700;color:var(--ember-deep);flex:none;min-width:1.6em;
+  }
+  .qtitle{flex:1;}
+
+  .qcard-actions{
+    display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;
+    padding-top:.6rem;border-top:1px dashed var(--rule);
+  }
+  .qbtn{
+    font-family:inherit;font-size:.75rem;font-weight:700;border-radius:6px;
+    border:1.5px solid transparent;padding:.35rem .7rem;cursor:pointer;
+    display:inline-flex;align-items:center;gap:.25rem;
+    letter-spacing:.02em;
+  }
+  .qbtn-regen{ background:var(--gold);color:#2a1a04; border-color:#8a5f1a; }
+  .qbtn-regen:hover{background:var(--gold-bright);}
+  .qbtn-ans{ background:var(--green);color:#fff;border-color:var(--green-deep); }
+  .qbtn-ans:hover{background:#3a9c40;}
+  .qbtn-hide{ background:transparent;color:var(--ember);border-color:var(--ember); }
+  .qbtn-hide:hover{background:var(--ember);color:#fff7e6;}
+
+  .qanswer{
+    display:none;
+    margin-top:.7rem;padding:.7rem .85rem;
+    background:#eef8ee;border:1.5px solid #a5c9a5;border-radius:8px;
+    font-size:.92rem;line-height:1.55;color:#1e3a1e;
+  }
+  .qanswer.show{display:block;}
+  .qanswer .ans-title{
+    font-weight:700;color:var(--green-deep);margin-bottom:.3rem;
+    font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;
+  }
+  .qanswer .ans-part{display:block;margin:.15rem 0 0 1em;}
+  .qanswer .ans-part b{color:var(--green-deep);}
+
+  .qcard.hidden{
+    background:#f4edd8;
+    border:1.5px dashed var(--rule);
+  }
+  .qcard.hidden .qcard-head,
+  .qcard.hidden .parts,
+  .qcard.hidden .figure,
+  .qcard.hidden .qcard-actions,
+  .qcard.hidden .qanswer{
+    display:none !important;
+  }
+  .qcard.hidden .qhidden-bar{
+    display:flex;align-items:center;gap:.6rem;justify-content:space-between;
+  }
+  .qhidden-bar{
+    display:none;
+    font-size:.88rem;color:#6b5a3a;font-style:italic;
+  }
+  .qhidden-bar .show-btn{
+    font-family:inherit;font-size:.78rem;font-weight:700;
+    background:var(--ember);color:#fff7e6;border:1.5px solid var(--ember-deep);
+    border-radius:6px;padding:.4rem .85rem;cursor:pointer;
+    font-style:normal;
+  }
+  .qhidden-bar .show-btn:hover{background:var(--ember-deep);}
+
+  .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .18em;font-size:.92em;line-height:1.05;}
+  .frac .fn{border-bottom:1.4px solid var(--ink);padding:0 .25em;}
+  .frac .fd{padding:.05em .25em 0;}
+  sup{font-size:.7em;}
+
+  .mixed{display:inline-flex;align-items:center;gap:.12em;vertical-align:middle;}
+  .mixed .whole{font-size:1em;}
+
+  .parts{margin:.45rem 0 0 1.6em;display:grid;gap:.45rem;}
+  .part-row{display:flex;gap:.5rem;align-items:baseline;line-height:1.6;}
+  .part-label{font-weight:700;color:var(--navy);flex:none;}
+
+  .print-answers{display:none;}
+
+  footer.credit{
+    text-align:center;font-size:.72rem;color:#6b5a3a;padding:.9rem 1rem 1.4rem;
+  }
+  footer.credit a{color:var(--ember-deep);text-decoration:none;font-weight:700;}
+
+  @media print{
+    header.topbar,.toolbar,.notice,footer.credit{display:none !important;}
+    body{background:#fff;}
+    main{max-width:100%;padding:0;margin:0;}
+    .paper-sheet{box-shadow:none;border:none;padding:0;}
+    .qlist{gap:.9rem;}
+    .qcard{box-shadow:none;border:none;padding:0;margin:0;background:transparent;}
+    .qcard-actions,.qhidden-bar{display:none !important;}
+    .qanswer{display:none !important;}
+    .qcard.hidden{display:none !important;}
+
+    .print-answers{display:block !important;margin-top:1.6rem;}
+    .print-answers h2{
+      font-size:1.1rem;color:#000;margin:0 0 .6rem;
+      border-bottom:2px solid #000;padding-bottom:.25rem;
+    }
+    .print-answers .ans-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:.5rem .9rem;
+      font-size:.85rem;
+      line-height:1.4;
+    }
+    .print-answers .ans-item{border-bottom:1px dotted #999;padding-bottom:.25rem;}
+    .print-answers .ans-item b{color:#000;}
+    body.hide-answers .print-answers{display:none !important;}
+    .qcard{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-titles">
+    <h1>Class 6th Mathematics — Interactive Practice</h1>
+    <p>SA I pattern · Regenerate · Show Answer · Print with key</p>
+  </div>
+  <div class="paper-pill" id="counterPill">13 Questions</div>
+</header>
+
+<main>
+  <div class="notice">
+    <strong>Model Question Paper — For Practice Purposes Only.</strong>
+    Not an official school examination paper.
+  </div>
+
+  <div class="toolbar">
+    <button class="btn btn-primary" id="regenAllBtn">⟳ Regenerate All Questions</button>
+    <button class="btn btn-green" id="showAllAnsBtn">Show All Answers</button>
+    <button class="btn btn-ghost" id="hideAllAnsBtn">Hide All Answers</button>
+    <div class="spacer"></div>
+    <button class="btn btn-gold" id="printBtn">🖨 Print / Save as PDF</button>
+  </div>
+
+  <div class="paper-sheet">
+    <div class="paper-head">
+      <span class="badge">MODEL PAPER · FOR PRACTICE</span>
+      <h2>Class 6th — SA I</h2>
+      <h3>Session 2026-27 &nbsp;·&nbsp; Subject: Mathematics</h3>
+      <p class="note">Note: All questions are compulsory.</p>
+    </div>
+
+    <div class="qlist" id="qlist"></div>
+
+    <section class="print-answers" id="printAnswers">
+      <h2>Answers</h2>
+      <div class="ans-grid" id="printAnswersGrid"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="credit">
+  Compiled by <a href="#">Majid Murshadpuri</a> · WhatsApp: 9536379468
+</footer>
+
+<script>
+/* ============================================================
+   PART 1 — HELPERS
+   ============================================================ */
+
+const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const shuffle = arr => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
+const gcd = (a, b) => b ? gcd(b, a % b) : a;
+const lcm = (a, b) => (a * b) / gcd(a, b);
+const rsign = () => Math.random() < 0.5 ? 1 : -1;
+
+const frac = (n, d) => {
+  if (d < 0) { n = -n; d = -d; }
+  return `<span class="frac"><span class="fn">${n}</span><span class="fd">${d}</span></span>`;
+};
+const sup = t => `<sup>${t}</sup>`;
+
+/* Mixed number display: whole n/d */
+function mixed(whole, n, d) {
+  return `<span class="mixed"><span class="whole">${whole}</span>${frac(n, d)}</span>`;
+}
+
+/* Simplify a fraction to lowest terms; returns {n, d, str} where str is HTML. */
+function simpFrac(n, d) {
+  if (d === 0) return { n: n, d: d, str: `${n}/0` };
+  if (d < 0) { n = -n; d = -d; }
+  const g = gcd(Math.abs(n), Math.abs(d)) || 1;
+  n /= g; d /= g;
+  if (d === 1) return { n: n, d: d, str: `${n}` };
+  return { n: n, d: d, str: frac(n, d) };
+}
+
+/* Convert improper fraction to mixed number string (HTML). */
+function improperToMixed(n, d) {
+  if (d < 0) { n = -n; d = -d; }
+  const whole = Math.trunc(n / d);
+  let rem = Math.abs(n % d);
+  if (rem === 0) return `${whole}`;
+  // Simplify the fractional part
+  const g = gcd(rem, d) || 1;
+  return `${whole} ${frac(rem / g, d / g)}`;
+}
+
+/* Convert mixed number to improper fraction, returns {n, d, str}. */
+function mixedToImproper(whole, n, d) {
+  const num = Math.abs(whole) * d + n;
+  const sign = whole < 0 ? -1 : 1;
+  const res = simpFrac(sign * num, d);
+  return res;
+}
+
+/* Trim trailing zeros from a decimal-looking number for display. */
+function trimNum(x) {
+  if (!isFinite(x)) return String(x);
+  const r = Math.round(x * 1e6) / 1e6;
+  return String(r);
+}
+
+/* Format a decimal with fixed places. */
+function decStr(x, places) {
+  return x.toFixed(places);
+}
+
+/* ============================================================
+   PART 2 — QUESTION GENERATORS
+   ============================================================ */
+
+/* ---------- Q1: Prime factorisation ---------- */
+function genQ1() {
+  // Pick a composite number with small primes so the tree is reasonable
+  const candidates = [24, 36, 40, 48, 56, 60, 72, 84, 90, 96, 100, 108, 120, 126, 132, 144, 150, 156, 160, 168, 180, 196, 200, 216, 240, 252, 280, 300, 320, 336, 360, 400, 420, 450, 480, 500, 540, 600, 630, 720, 840, 900, 960, 990];
+  const n = pick(candidates);
+
+  // Factor
+  let x = n;
+  const factors = [];
+  for (let p = 2; p * p <= x; p++) {
+    while (x % p === 0) { factors.push(p); x /= p; }
+  }
+  if (x > 1) factors.push(x);
+
+  // Group into prime powers
+  const counts = {};
+  factors.forEach(p => counts[p] = (counts[p] || 0) + 1);
+  const entries = Object.entries(counts).map(([p, c]) => [Number(p), c]);
+  entries.sort((a, b) => a[0] - b[0]);
+
+  const factorStr = entries.map(([p, c]) => c === 1 ? `${p}` : `${p}${sup(c)}`).join(' &times; ');
+
+  return {
+    n: 1,
+    title: `Write the prime factorisation of ${n}.`,
+    parts: null,
+    a: factorStr
+  };
+}
+
+/* ---------- Q2: HCF ---------- */
+function genQ2() {
+  // Pick two numbers with a nontrivial common factor
+  const commonFactor = pick([2, 3, 4, 5, 6, 7, 8, 9, 11, 12]);
+  const aMul = rand(2, 15);
+  const bMul = rand(2, 15) + 1;  // different multiplier
+  let a = commonFactor * aMul;
+  let b = commonFactor * bMul;
+  if (a === b) b += commonFactor;
+
+  const hcf = gcd(a, b);
+  return {
+    n: 2,
+    title: `Find the HCF of ${a} and ${b}.`,
+    parts: null,
+    a: `${hcf}`
+  };
+}
+
+/* ---------- Q3: Improper fraction → mixed ---------- */
+function genQ3() {
+  const den = rand(2, 9);
+  let num = den * rand(2, 8) + rand(1, den - 1); // guaranteed improper with nonzero remainder
+  if (num <= den) num += den;
+  const ans = improperToMixed(num, den);
+  return {
+    n: 3,
+    title: `Change ${frac(num, den)} into mixed fraction.`,
+    parts: null,
+    a: ans
+  };
+}
+
+/* ---------- Q4: Mixed → improper fraction ---------- */
+function genQ4() {
+  const whole = rand(1, 9);
+  const den = rand(2, 9);
+  const num = rand(1, den - 1);
+  const ans = mixedToImproper(whole, num, den);
+  return {
+    n: 4,
+    title: `Change ${mixed(whole, num, den)} into improper fraction.`,
+    parts: null,
+    a: ans.str
+  };
+}
+
+/* ---------- Q5: Simplify fractions (2 parts) ---------- */
+function genQ5() {
+  function makePart() {
+    // Choose a reduced form and multiply both num & den by a common factor
+    let n = rand(2, 9), d = rand(2, 9);
+    if (n === d) d += 1;
+    const k = rand(2, 8);
+    let num = n * k, den = d * k;
+    // Random shuffle to also produce larger starting numbers
+    const ans = simpFrac(num, den);
+    return { q: frac(num, den), a: ans.str };
+  }
+  const p1 = makePart();
+  const p2 = makePart();
+  return {
+    n: 5,
+    title: "Change the following into simplest form:",
+    parts: [
+      { label: "a", q: p1.q, a: p1.a },
+      { label: "b", q: p2.q, a: p2.a }
+    ]
+  };
+}
+
+/* ---------- Q6: Fraction and decimal arithmetic (4 parts) ---------- */
+function genQ6() {
+  // (a) a/b − c/d  (fractions with unlike denominators)
+  let a1 = rand(1, 9), a2 = rand(2, 9);
+  let b1 = rand(1, 9), b2 = rand(2, 9);
+  if (a2 === 1) a2 = 2;
+  if (b2 === 1) b2 = 2;
+  // Ensure a/b > c/d so the result is positive
+  if (a1 / a2 < b1 / b2) { [a1, b1] = [b1, a1]; [a2, b2] = [b2, a2]; }
+  const subNum = a1 * b2 - b1 * a2;
+  const subDen = a2 * b2;
+  const subAns = simpFrac(subNum, subDen);
+
+  // (b) a/b + c/d
+  const c1 = rand(1, 9), c2 = rand(2, 9);
+  const d1 = rand(1, 9), d2 = rand(2, 9);
+  const addNum = c1 * d2 + d1 * c2;
+  const addDen = c2 * d2;
+  const addAns = simpFrac(addNum, addDen);
+
+  // (c) decimal + decimal
+  const e1 = rand(10, 99) / 10;      // e.g. 10.2
+  const e2 = rand(100, 999) / 1000;  // e.g. 9.909
+  const sumDec = e1 + e2;
+
+  // (d) decimal − decimal
+  const f1 = rand(20, 99) + rand(1, 99) / 100;   // e.g. 99.9 (well, we want .9)
+  const f2 = rand(1, 9) + rand(100, 999) / 1000; // e.g. 2.888
+  const diffDec = (Math.floor(f1 * 10) / 10) - f2;  // keep to 1 dp on first
+
+  return {
+    n: 6,
+    title: "Solve the following:",
+    parts: [
+      { label: "a", q: `${frac(a1, a2)} &minus; ${frac(b1, b2)}`, a: subAns.str },
+      { label: "b", q: `${frac(c1, c2)} + ${frac(d1, d2)}`, a: addAns.str },
+      { label: "c", q: `${e1.toFixed(1)} + ${e2.toFixed(3)}`, a: trimNum(sumDec) },
+      { label: "d", q: `${(Math.floor(f1 * 10) / 10).toFixed(1)} &minus; ${f2.toFixed(3)}`, a: trimNum(diffDec) }
+    ]
+  };
+}
+
+/* ---------- Q7: Decimal → fraction in lowest form (2 parts) ---------- */
+function genQ7() {
+  // (a) one decimal place like 0.5
+  const aWhole = 0;
+  const aDec = rand(1, 9);
+  const aVal = aWhole + aDec / 10;
+  const aNum = aDec;
+  const aDen = 10;
+  const aAns = simpFrac(aNum, aDen);
+
+  // (b) one decimal place, possibly > 1, like 1.2
+  const bWhole = rand(1, 9);
+  const bDec = rand(1, 9);
+  const bVal = bWhole + bDec / 10;
+  const bNum = bWhole * 10 + bDec;
+  const bDen = 10;
+  const bAns = simpFrac(bNum, bDen);
+
+  return {
+    n: 7,
+    title: "Change the following into lowest form of fraction:",
+    parts: [
+      { label: "a", q: aVal.toFixed(1), a: aAns.str },
+      { label: "b", q: bVal.toFixed(1), a: bAns.str }
+    ]
+  };
+}
+
+/* ---------- Q8: Arrange decimals in ascending order ---------- */
+function genQ8() {
+  // Generate 4 distinct decimals with different lengths
+  const base = rand(1, 3);
+  const decimals = [
+    base + rand(0, 9) / 10,
+    base + rand(10, 99) / 100,
+    base + rand(100, 999) / 1000,
+    (base - 1) + rand(900, 999) / 1000
+  ];
+  // Ensure unique values
+  const uniq = [...new Set(decimals)];
+  while (uniq.length < 4) {
+    uniq.push(base + rand(100, 999) / 1000);
+  }
+  const list = uniq.slice(0, 4);
+
+  // Format each with the number of decimal places it "deserves"
+  function fmt(x) {
+    const s = x.toFixed(3).replace(/0+$/, '').replace(/\.$/, '');
+    return s;
+  }
+  const shown = list.map(fmt);
+  const sortedVals = [...list].sort((a, b) => a - b);
+  const sortedShown = sortedVals.map(fmt);
+
+  return {
+    n: 8,
+    title: `Arrange the following in ascending order: ${shown.join(', ')}`,
+    parts: null,
+    a: sortedShown.join(' , ')
+  };
+}
+
+/* ---------- Q9: Integers (3 parts) with random signs ---------- */
+function genQ9() {
+  // (a) (−a) + (−b)   → the first number is always negative, second may vary
+  const a = rand(2, 15);
+  const b = rand(2, 15) * rsign();
+  const valA = (-a) + b;
+  const qA = `(&minus;${a}) ${b < 0 ? "+" : "+"} (${b < 0 ? "&minus;" + Math.abs(b) : b})`;
+
+  // (b) (±a) − (±b)
+  const c = rand(2, 15) * rsign();
+  const d = rand(2, 15) * rsign();
+  const op1 = Math.random() < 0.5 ? "+" : "&minus;";
+  const valB = op1 === "+" ? c + d : c - d;
+  const cStr = c < 0 ? `(&minus;${Math.abs(c)})` : `(+${c})`;
+  const dStr = d < 0 ? `(&minus;${Math.abs(d)})` : `(+${d})`;
+  const qB = `${cStr} ${op1 === "+" ? "+" : "&minus;"} ${dStr}`;
+
+  // (c) −(±a) − (±b)
+  const e = rand(2, 15) * rsign();
+  const f = rand(2, 15) * rsign();
+  const op2 = Math.random() < 0.5 ? "+" : "&minus;";
+  const firstVal = -e;
+  const valC = op2 === "+" ? firstVal + f : firstVal - f;
+  const innerE = e < 0 ? `&minus;${Math.abs(e)}` : `${e}`;
+  const firstStr = `&minus;(${innerE})`;
+  const fStr = f < 0 ? `(&minus;${Math.abs(f)})` : `(${f})`;
+  const qC = `${firstStr} ${op2 === "+" ? "+" : "&minus;"} ${fStr}`;
+
+  return {
+    n: 9,
+    title: "Solve the following:",
+    parts: [
+      { label: "a", q: qA, a: `${valA}` },
+      { label: "b", q: qB, a: `${valB}` },
+      { label: "c", q: qC, a: `${valC}` }
+    ]
+  };
+}
+
+/* ---------- Q10: Simple linear equations (4 parts) ---------- */
+function genQ10() {
+  // (a) x + a = b
+  const a1 = rand(1, 15) * rsign();
+  const x1 = rand(1, 15) * rsign();
+  const b1 = x1 + a1;
+  const qA = `x ${a1 < 0 ? "&minus;" : "+"} ${Math.abs(a1)} = ${b1}`;
+  const aA = `x = ${x1}`;
+
+  // (b) y − a = b
+  const a2 = rand(1, 15) * rsign();
+  const y2 = rand(1, 15) * rsign();
+  const b2 = y2 - a2;
+  const qB = `y ${a2 < 0 ? "+" : "&minus;"} ${Math.abs(a2)} = ${b2}`;
+  const aB = `y = ${y2}`;
+
+  // (c) a · x = b
+  const a3 = rand(2, 12) * rsign();
+  const x3 = rand(2, 12) * rsign();
+  const b3 = a3 * x3;
+  const qC = `${a3}x = ${b3}`;
+  const aC = `x = ${x3}`;
+
+  // (d) a/m = b  → a = m · b
+  const m = rand(2, 9) * rsign();
+  const b4 = rand(2, 12) * rsign();
+  const a4 = m * b4;
+  const qD = `${frac("a", m)} = ${b4}`;
+  const aD = `a = ${a4}`;
+
+  return {
+    n: 10,
+    title: "Solve the following equations:",
+    parts: [
+      { label: "a", q: qA, a: aA },
+      { label: "b", q: qB, a: aB },
+      { label: "c", q: qC, a: aC },
+      { label: "d", q: qD, a: aD }
+    ]
+  };
+}
+
+/* ---------- Q11: Ratios to simplest form (2 parts) ---------- */
+function genQ11() {
+  function makeRatio() {
+    // Build a ratio with a common factor to be cancelled
+    let p = rand(2, 9), q = rand(2, 9);
+    if (p === q) q += 1;
+    const k = rand(2, 12);
+    const a = p * k, b = q * k;
+    const g = gcd(a, b);
+    return { q: `${a} : ${b}`, a: `${a / g} : ${b / g}` };
+  }
+  const r1 = makeRatio();
+  const r2 = makeRatio();
+  return {
+    n: 11,
+    title: "Express the following ratios in simplest form:",
+    parts: [
+      { label: "a", q: r1.q, a: r1.a },
+      { label: "b", q: r2.q, a: r2.a }
+    ]
+  };
+}
+
+/* ---------- Q12: Ratio word problem (boys & girls) ---------- */
+function genQ12() {
+  // Pick a ratio b:g with small coprime values, scale up
+  const ratios = [[1, 2], [1, 3], [2, 3], [2, 5], [3, 4], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7]];
+  const [rb, rg] = pick(ratios);
+  const k = rand(2, 8);
+  const boys = rb * k, girls = rg * k;
+  const g = gcd(boys, girls);
+  const answer = `${boys / g} : ${girls / g}`;
+
+  return {
+    n: 12,
+    title: `There are ${boys} boys and ${girls} girls in a class. Find the ratio of boys to girls in simplest form.`,
+    parts: null,
+    a: answer
+  };
+}
+
+/* ---------- Q13: Unitary method (price of n books) ---------- */
+function genQ13() {
+  // Pick per-book price and small quantities
+  const pricePerBook = pick([12, 15, 18, 24, 25, 30, 32, 36, 40, 45, 48, 50, 60]);
+  const n1 = rand(3, 9);
+  const n2 = rand(10, 20);
+  const total1 = pricePerBook * n1;
+  const total2 = pricePerBook * n2;
+
+  return {
+    n: 13,
+    title: `If the price of ${n1} books is Rs.${total1}, what will be the price of ${n2} such books?`,
+    parts: null,
+    a: `Rs.${total2}`
+  };
+}
+
+/* ============================================================
+   PART 3 — REGISTRY
+   ============================================================ */
+
+const Q_GENERATORS = {
+  1:  genQ1,
+  2:  genQ2,
+  3:  genQ3,
+  4:  genQ4,
+  5:  genQ5,
+  6:  genQ6,
+  7:  genQ7,
+  8:  genQ8,
+  9:  genQ9,
+  10: genQ10,
+  11: genQ11,
+  12: genQ12,
+  13: genQ13
+};
+
+function generateQuestion(slot) {
+  const fn = Q_GENERATORS[slot];
+  return fn ? fn() : null;
+}
+
+/* ============================================================
+   PART 4 — STATE + PERSISTENCE
+   ============================================================ */
+
+const TOTAL_Q = 13;
+const STORAGE_KEY = 'c6math_interactive_v1';
+
+let state = {
+  slots: {},
+  hidden: {},
+  answersShown: {}
+};
+
+/* Save a JSON-friendly snapshot of the current state. */
+function saveState() {
+  try {
+    const snap = {
+      slots: state.slots,
+      hidden: state.hidden,
+      answersShown: state.answersShown,
+      version: 1
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(snap));
+  } catch (e) {
+    console.warn('Could not save state:', e);
+  }
+}
+
+/* Try to restore a previously saved state; returns true on success. */
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const snap = JSON.parse(raw);
+    if (!snap || snap.version !== 1) return false;
+    if (!snap.slots || typeof snap.slots !== 'object') return false;
+    if (!snap.hidden || typeof snap.hidden !== 'object') return false;
+    if (!snap.answersShown || typeof snap.answersShown !== 'object') return false;
+
+    state.slots = snap.slots;
+    state.hidden = snap.hidden;
+    state.answersShown = snap.answersShown;
+
+    for (let n = 1; n <= TOTAL_Q; n++) {
+      if (!state.slots[n]) state.slots[n] = generateQuestion(n);
+      if (typeof state.hidden[n] !== 'boolean') state.hidden[n] = false;
+      if (typeof state.answersShown[n] !== 'boolean') state.answersShown[n] = false;
+    }
+    return true;
+  } catch (e) {
+    console.warn('Could not load state:', e);
+    return false;
+  }
+}
+
+/* Clear persisted state (not wired to any button; useful in DevTools). */
+function clearState() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+}
+
+/* ============================================================
+   PART 5 — RENDER
+   ============================================================ */
+
+const qlistEl = document.getElementById('qlist');
+const printAnswersGridEl = document.getElementById('printAnswersGrid');
+const counterPill = document.getElementById('counterPill');
+
+function visibleCount() {
+  let c = 0;
+  for (let n = 1; n <= TOTAL_Q; n++) if (!state.hidden[n]) c++;
+  return c;
+}
+function displayNumbers() {
+  const map = {};
+  let dn = 1;
+  for (let n = 1; n <= TOTAL_Q; n++) if (!state.hidden[n]) map[n] = dn++;
+  return map;
+}
+
+function renderAnswerBody(q) {
+  let html = `<div class="ans-title">Answer</div>`;
+  if (q.parts) {
+    q.parts.forEach(p => {
+      html += `<span class="ans-part"><b>${p.label}.</b> ${p.a}</span>`;
+    });
+  } else {
+    html += `<span class="ans-part">${q.a}</span>`;
+  }
+  return html;
+}
+
+function buildCard(slot, displayNum) {
+  const q = state.slots[slot];
+  const card = document.createElement('div');
+  card.className = 'qcard';
+  card.dataset.slot = slot;
+
+  card.innerHTML = `
+    <div class="qcard-head">
+      <span class="qnum">${displayNum}.</span>
+      <span class="qtitle">${q.title}</span>
+    </div>
+    ${q.figure ? q.figure : ''}
+    ${q.parts ? `<div class="parts">${q.parts.map(p =>
+        `<div class="part-row"><span class="part-label">${p.label}.</span><span>${p.q}</span></div>`
+      ).join('')}</div>` : ''}
+
+    <div class="qcard-actions">
+      <button class="qbtn qbtn-regen" data-action="regen">⟳ Regenerate</button>
+      <button class="qbtn qbtn-ans"   data-action="answer">👁 Show Answer</button>
+      <button class="qbtn qbtn-hide"  data-action="hide">✕ Hide</button>
+    </div>
+
+    <div class="qanswer" data-role="answer">
+      ${renderAnswerBody(q)}
+    </div>
+
+    <div class="qhidden-bar" data-role="hiddenbar">
+      <span>Question hidden.</span>
+      <button class="show-btn" data-action="show">Show Question</button>
+    </div>
+  `;
+
+  card.querySelector('[data-action="regen"]').addEventListener('click', () => regenOne(slot));
+  card.querySelector('[data-action="answer"]').addEventListener('click', () => toggleAnswer(slot));
+  card.querySelector('[data-action="hide"]').addEventListener('click', () => hideOne(slot));
+  card.querySelector('[data-action="show"]').addEventListener('click', () => showOne(slot));
+
+  if (state.answersShown[slot]) {
+    card.querySelector('[data-role="answer"]').classList.add('show');
+    const btn = card.querySelector('[data-action="answer"]');
+    if (btn) btn.innerHTML = '🙈 Hide Answer';
+  }
+  if (state.hidden[slot]) card.classList.add('hidden');
+
+  return card;
+}
+
+function renderAllCards() {
+  const displayMap = displayNumbers();
+  qlistEl.innerHTML = '';
+  for (let n = 1; n <= TOTAL_Q; n++) {
+    qlistEl.appendChild(buildCard(n, displayMap[n] !== undefined ? displayMap[n] : '—'));
+  }
+  counterPill.textContent = `${visibleCount()} Question${visibleCount() === 1 ? '' : 's'}`;
+  renderPrintAnswers();
+}
+
+function refreshOneCard(slot) {
+  const old = qlistEl.querySelector(`.qcard[data-slot="${slot}"]`);
+  if (!old) return;
+  const displayMap = displayNumbers();
+  const fresh = buildCard(slot, displayMap[slot] !== undefined ? displayMap[slot] : '—');
+  old.replaceWith(fresh);
+}
+
+function renderPrintAnswers() {
+  const displayMap = displayNumbers();
+  printAnswersGridEl.innerHTML = '';
+  for (let n = 1; n <= TOTAL_Q; n++) {
+    if (state.hidden[n]) continue;
+    const q = state.slots[n];
+    const dn = displayMap[n];
+    const item = document.createElement('div');
+    item.className = 'ans-item';
+    let html = `<b>${dn}.</b> `;
+    if (q.parts) {
+      html += q.parts.map(p => `<b>${p.label}.</b> ${p.a}`).join(' &nbsp; ');
+    } else {
+      html += q.a;
+    }
+    item.innerHTML = html;
+    printAnswersGridEl.appendChild(item);
+  }
+}
+
+/* ============================================================
+   PART 6 — ACTIONS
+   ============================================================ */
+
+function regenOne(slot) {
+  state.slots[slot] = generateQuestion(slot);
+  state.answersShown[slot] = false;
+  refreshOneCard(slot);
+  renderPrintAnswers();
+  saveState();
+}
+function toggleAnswer(slot) {
+  state.answersShown[slot] = !state.answersShown[slot];
+  const card = qlistEl.querySelector(`.qcard[data-slot="${slot}"]`);
+  if (card) {
+    const ans = card.querySelector('[data-role="answer"]');
+    const btn = card.querySelector('[data-action="answer"]');
+    if (state.answersShown[slot]) { ans.classList.add('show'); btn.innerHTML = '🙈 Hide Answer'; }
+    else { ans.classList.remove('show'); btn.innerHTML = '👁 Show Answer'; }
+  }
+  saveState();
+}
+function hideOne(slot) {
+  state.hidden[slot] = true;
+  renderAllCards();
+  const card = qlistEl.querySelector(`.qcard[data-slot="${slot}"]`);
+  if (card) card.classList.add('hidden');
+  saveState();
+}
+function showOne(slot) {
+  state.hidden[slot] = false;
+  state.answersShown[slot] = false;
+  state.slots[slot] = generateQuestion(slot);
+  renderAllCards();
+  saveState();
+}
+
+document.getElementById('regenAllBtn').addEventListener('click', () => {
+  for (let n = 1; n <= TOTAL_Q; n++) {
+    state.slots[n] = generateQuestion(n);
+    state.answersShown[n] = false;
+    state.hidden[n] = false;
+  }
+  renderAllCards();
+  saveState();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+document.getElementById('showAllAnsBtn').addEventListener('click', () => {
+  for (let n = 1; n <= TOTAL_Q; n++) if (!state.hidden[n]) state.answersShown[n] = true;
+  renderAllCards();
+  saveState();
+});
+document.getElementById('hideAllAnsBtn').addEventListener('click', () => {
+  for (let n = 1; n <= TOTAL_Q; n++) state.answersShown[n] = false;
+  renderAllCards();
+  saveState();
+});
+document.getElementById('printBtn').addEventListener('click', () => {
+  const withAnswers = confirm(
+    "Include the ANSWER KEY in the printed version?\n\n" +
+    "OK  → Print questions + Answers section at the end\n" +
+    "Cancel → Print questions only (no answers)"
+  );
+  document.body.classList.remove('show-answers', 'hide-answers');
+  document.body.classList.add(withAnswers ? 'show-answers' : 'hide-answers');
+  renderPrintAnswers();
+  window.print();
+  setTimeout(() => {
+    document.body.classList.remove('show-answers', 'hide-answers');
+  }, 500);
+});
+
+/* ============================================================
+   PART 7 — BOOTSTRAP
+   ============================================================ */
+
+(function init() {
+  const restored = loadState();
+
+  if (!restored) {
+    for (let n = 1; n <= TOTAL_Q; n++) {
+      state.slots[n] = generateQuestion(n);
+      state.hidden[n] = false;
+      state.answersShown[n] = false;
+    }
+    saveState();
+  }
+
+  renderAllCards();
+})();
+</script>
+</body>
+</html>
