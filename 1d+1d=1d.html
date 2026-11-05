@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Little Math · Vertical Addition</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f0f4f8;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .math-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 1.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            animation: slideUp 0.25s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 0.75rem;
+        }
+
+        .header-row h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: white;
+            border: 1.5px solid #cbd5e1;
+            padding: 0.45rem 0.9rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #2563eb;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+
+        .btn:active {
+            background: #f0f9ff;
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-primary:active {
+            background: #1d4ed8;
+            transform: translateY(1px);
+        }
+
+        .problem-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .problem-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.6rem 0.9rem;
+            transition: 0.15s;
+            gap: 0.75rem;
+        }
+
+        .equation {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: 100px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .digit-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 1.6rem;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
+
+        .operator {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #64748b;
+            margin-right: 0.2rem;
+        }
+
+        .answer-line {
+            width: 100%;
+            height: 3px;
+            background: #cbd5e1;
+            border-radius: 2px;
+            margin: 0.2rem 0 0.1rem 0;
+        }
+
+        .answer-display {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2563eb;
+            min-height: 2rem;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
+
+        .answer-hidden {
+            color: #94a3b8;
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+
+        .btn-reveal {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.35rem 0.9rem;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: 0.15s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-reveal:active {
+            background: #cbd5e1;
+            transform: scale(0.95);
+        }
+
+        .btn-reveal.revealed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .btn-reveal.revealed:active {
+            background: #bbf7d0;
+        }
+
+        .footer-note {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 400px) {
+            .math-card { padding: 1rem 0.75rem; }
+            .digit-row, .operator, .answer-display { font-size: 1.3rem; }
+            .btn { font-size: 0.7rem; padding: 0.4rem 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="math-card" id="mathCard">
+    <div class="header-row">
+        <h1>➕ Little Addition</h1>
+        <div class="action-buttons">
+            <button class="btn" id="regenerateBtn">🔄 Regenerate</button>
+            <button class="btn btn-primary" id="showAllBtn">👀 Show all</button>
+        </div>
+    </div>
+
+    <div class="problem-grid" id="problemGrid">
+        <!-- problems injected by JS -->
+    </div>
+    <div class="footer-note">Tap 👁️ to see each answer</div>
+</div>
+
+<script>
+    (function() {
+        // ----- CONSTANTS -----
+        const STORAGE_KEY = 'littleMathVerticalAddition_v4'; // bumped version
+        const PROBLEM_COUNT = 5;
+
+        // ----- STATE -----
+        let problems = [];          // array of { a, b, answer, revealed }
+        let globalShowAll = false;
+
+        // ----- DOM refs -----
+        const problemGrid = document.getElementById('problemGrid');
+        const regenerateBtn = document.getElementById('regenerateBtn');
+        const showAllBtn = document.getElementById('showAllBtn');
+
+        // ----- Fisher-Yates shuffle -----
+        function shuffleArray(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        // ----- Generate a fresh problem set -----
+        // Rules:
+        //  - 5 problems
+        //  - each a and b are single digits 0–9
+        //  - a + b <= 9 (sum is single digit)
+        //  - all first addends (a) are DISTINCT
+        //  - all second addends (b) are DISTINCT
+        function generateProblems() {
+            // Strategy: build a bipartite perfect matching between 5 distinct a's
+            // and 5 distinct b's such that every pair sums to <= 9.
+            // We try random selections until one works; then verify strictly.
+
+            const MAX_ATTEMPTS = 5000;
+
+            for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+                // Pick 5 distinct a's from 0..9, and 5 distinct b's from 0..9, shuffled.
+                const aPool = shuffleArray([0,1,2,3,4,5,6,7,8,9]).slice(0, PROBLEM_COUNT);
+                const bPool = shuffleArray([0,1,2,3,4,5,6,7,8,9]).slice(0, PROBLEM_COUNT);
+
+                // Pair by index; since both pools are already shuffled, pairing order is random.
+                const candidate = [];
+                let valid = true;
+                for (let i = 0; i < PROBLEM_COUNT; i++) {
+                    const a = aPool[i];
+                    const b = bPool[i];
+                    if (a + b > 9) { valid = false; break; }
+                    candidate.push({ a, b, answer: a + b, revealed: false });
+                }
+
+                if (!valid) continue;
+
+                // Extra explicit verification of distinctness (defensive)
+                const seenA = new Set();
+                const seenB = new Set();
+                let distinctOk = true;
+                for (const p of candidate) {
+                    if (seenA.has(p.a) || seenB.has(p.b)) { distinctOk = false; break; }
+                    seenA.add(p.a);
+                    seenB.add(p.b);
+                }
+
+                if (distinctOk) return candidate;
+            }
+
+            // Fallback: deterministic valid set (distinct a's, distinct b's, all sums <= 9)
+            // (0,1)=1, (1,2)=3, (2,3)=5, (3,4)=7, (4,5)=9
+            return [
+                { a: 0, b: 1, answer: 1, revealed: false },
+                { a: 1, b: 2, answer: 3, revealed: false },
+                { a: 2, b: 3, answer: 5, revealed: false },
+                { a: 3, b: 4, answer: 7, revealed: false },
+                { a: 4, b: 5, answer: 9, revealed: false }
+            ];
+        }
+
+        function regenerateAll() {
+            problems = generateProblems();
+            globalShowAll = false;
+            saveState();
+            render();
+        }
+
+        function showAllAnswers() {
+            problems.forEach(p => p.revealed = true);
+            globalShowAll = true;
+            saveState();
+            render();
+        }
+
+        function toggleReveal(index) {
+            if (index < 0 || index >= problems.length) return;
+            problems[index].revealed = !problems[index].revealed;
+            saveState();
+            render();
+        }
+
+        function saveState() {
+            try {
+                const state = {
+                    problems: problems.map(p => ({
+                        a: p.a,
+                        b: p.b,
+                        answer: p.answer,
+                        revealed: p.revealed
+                    })),
+                    globalShowAll: globalShowAll
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } catch (e) {
+                console.warn('Could not save state', e);
+            }
+        }
+
+        // Validate that a problem array satisfies ALL rules:
+        // - length === PROBLEM_COUNT
+        // - each a,b are ints 0-9, answer === a+b, answer <= 9
+        // - first addends (a) are ALL DISTINCT
+        // - second addends (b) are ALL DISTINCT
+        function isValidProblemSet(arr) {
+            if (!Array.isArray(arr) || arr.length !== PROBLEM_COUNT) return false;
+
+            const seenA = new Set();
+            const seenB = new Set();
+
+            for (const p of arr) {
+                if (
+                    typeof p.a !== 'number' || p.a < 0 || p.a > 9 ||
+                    typeof p.b !== 'number' || p.b < 0 || p.b > 9 ||
+                    typeof p.answer !== 'number' || p.answer !== p.a + p.b || p.answer > 9 ||
+                    typeof p.revealed !== 'boolean'
+                ) {
+                    return false;
+                }
+                if (seenA.has(p.a)) return false;
+                if (seenB.has(p.b)) return false;
+                seenA.add(p.a);
+                seenB.add(p.b);
+            }
+            return true;
+        }
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const state = JSON.parse(raw);
+                    if (state.problems && isValidProblemSet(state.problems)) {
+                        problems = state.problems;
+                        globalShowAll = !!state.globalShowAll;
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to load state, generating new', e);
+            }
+            problems = generateProblems();
+            globalShowAll = false;
+            saveState();
+        }
+
+        function render() {
+            if (!problemGrid) return;
+            problemGrid.innerHTML = '';
+
+            problems.forEach((p, idx) => {
+                const row = document.createElement('div');
+                row.className = 'problem-row';
+
+                const eqDiv = document.createElement('div');
+                eqDiv.className = 'equation';
+
+                const firstDigit = document.createElement('div');
+                firstDigit.className = 'digit-row';
+                firstDigit.textContent = p.a;
+
+                const secondDigit = document.createElement('div');
+                secondDigit.className = 'digit-row';
+                secondDigit.innerHTML = `<span class="operator">+</span> ${p.b}`;
+
+                const line = document.createElement('div');
+                line.className = 'answer-line';
+
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'answer-display';
+                if (p.revealed) {
+                    answerDiv.textContent = p.answer;
+                    answerDiv.classList.remove('answer-hidden');
+                } else {
+                    answerDiv.textContent = '?';
+                    answerDiv.classList.add('answer-hidden');
+                }
+
+                eqDiv.appendChild(firstDigit);
+                eqDiv.appendChild(secondDigit);
+                eqDiv.appendChild(line);
+                eqDiv.appendChild(answerDiv);
+
+                const revealBtn = document.createElement('button');
+                revealBtn.className = `btn-reveal ${p.revealed ? 'revealed' : ''}`;
+                revealBtn.textContent = p.revealed ? '✓ Hide' : '👁️ Show';
+                revealBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleReveal(idx);
+                });
+
+                row.appendChild(eqDiv);
+                row.appendChild(revealBtn);
+                problemGrid.appendChild(row);
+            });
+        }
+
+        function init() {
+            loadState();
+            render();
+
+            regenerateBtn.addEventListener('click', regenerateAll);
+            showAllBtn.addEventListener('click', showAllAnswers);
+
+            window.addEventListener('beforeunload', saveState);
+        }
+
+        init();
+    })();
+</script>
+</body>
+</html>
