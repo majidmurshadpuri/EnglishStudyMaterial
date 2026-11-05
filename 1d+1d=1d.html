@@ -20,7 +20,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Removed justify-content: center to allow natural top-to-bottom flow */
             padding: 0.85rem;
         }
 
@@ -31,7 +30,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 1px solid #e2e8f0;
             width: 100%;
-            /* Removed max-width: 480px to let it fill the iframe */
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
@@ -224,20 +222,22 @@
         </div>
     </div>
 
-    <div class="problem-grid" id="problemGrid">
-        <!-- problems injected by JS -->
-    </div>
+    <div class="problem-grid" id="problemGrid"></div>
     <div class="footer-note">Tap 👁️ to see each answer</div>
 </div>
 
 <script>
     (function() {
-        // ----- CONSTANTS -----
-        const STORAGE_KEY = 'littleMathVerticalAddition_v4';
+        // ----- 1. DYNAMIC STORAGE KEY BASED ON STUDENT ID -----
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentId = urlParams.get('studentId') || 'default';
+        
+        // This ensures every student has their own distinct set of saved problems
+        const STORAGE_KEY = `littleMathVerticalAddition_v5_student_${studentId}`;
         const PROBLEM_COUNT = 5;
 
         // ----- STATE -----
-        let problems = [];          // array of { a, b, answer, revealed }
+        let problems = [];          
         let globalShowAll = false;
 
         // ----- DOM refs -----
@@ -256,12 +256,6 @@
         }
 
         // ----- Generate a fresh problem set -----
-        // Rules:
-        //  - 5 problems
-        //  - each a and b are single digits 0–9
-        //  - a + b <= 9 (sum is single digit)
-        //  - all first addends (a) are DISTINCT
-        //  - all second addends (b) are DISTINCT
         function generateProblems() {
             const MAX_ATTEMPTS = 5000;
 
@@ -280,7 +274,6 @@
 
                 if (!valid) continue;
 
-                // Explicit distinctness verification
                 const seenA = new Set();
                 const seenB = new Set();
                 let distinctOk = true;
@@ -293,7 +286,7 @@
                 if (distinctOk) return candidate;
             }
 
-            // Fallback: deterministic valid set
+            // Safe fallback
             return [
                 { a: 0, b: 1, answer: 1, revealed: false },
                 { a: 1, b: 2, answer: 3, revealed: false },
@@ -306,20 +299,55 @@
         function regenerateAll() {
             problems = generateProblems();
             globalShowAll = false;
+            updateShowAllButton();
             saveState();
             render();
         }
 
-        function showAllAnswers() {
-            problems.forEach(p => p.revealed = true);
-            globalShowAll = true;
+        // ----- Toggle Show All Answers -----
+        function toggleShowAll() {
+            const allRevealed = problems.every(p => p.revealed);
+            
+            if (allRevealed) {
+                // If all are shown, hide them
+                problems.forEach(p => p.revealed = false);
+                globalShowAll = false;
+            } else {
+                // If not all are shown, show them
+                problems.forEach(p => p.revealed = true);
+                globalShowAll = true;
+            }
+            
+            updateShowAllButton();
             saveState();
             render();
+        }
+
+        // ----- Update the Show All button text and styling -----
+        function updateShowAllButton() {
+            const allRevealed = problems.every(p => p.revealed);
+            if (allRevealed) {
+                showAllBtn.innerHTML = '🙈 Hide all';
+                showAllBtn.classList.remove('btn-primary');
+                showAllBtn.style.background = '#e2e8f0';
+                showAllBtn.style.color = '#475569';
+                showAllBtn.style.borderColor = '#cbd5e1';
+                showAllBtn.style.boxShadow = 'none';
+            } else {
+                showAllBtn.innerHTML = '👀 Show all';
+                showAllBtn.classList.add('btn-primary');
+                showAllBtn.style.background = '';
+                showAllBtn.style.color = '';
+                showAllBtn.style.borderColor = '';
+                showAllBtn.style.boxShadow = '';
+            }
         }
 
         function toggleReveal(index) {
             if (index < 0 || index >= problems.length) return;
             problems[index].revealed = !problems[index].revealed;
+            globalShowAll = problems.every(p => p.revealed);
+            updateShowAllButton();
             saveState();
             render();
         }
@@ -341,7 +369,6 @@
             }
         }
 
-        // Validate all rules, including distinctness
         function isValidProblemSet(arr) {
             if (!Array.isArray(arr) || arr.length !== PROBLEM_COUNT) return false;
 
@@ -437,10 +464,11 @@
 
         function init() {
             loadState();
+            updateShowAllButton();
             render();
 
             regenerateBtn.addEventListener('click', regenerateAll);
-            showAllBtn.addEventListener('click', showAllAnswers);
+            showAllBtn.addEventListener('click', toggleShowAll);
 
             window.addEventListener('beforeunload', saveState);
         }
