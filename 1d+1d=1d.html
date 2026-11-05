@@ -20,16 +20,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Reduced padding to 0 for maximum integration with the host app */
             padding: 0;
             margin: 0;
+            /* We apply zoom via JS */
         }
 
         .math-card {
             background: white;
-            border-radius: 0; /* Flush with iframe edges */
+            border-radius: 0;
             padding: 1.5rem 1.25rem;
-            box-shadow: none; /* Host app provides the card background */
+            box-shadow: none;
             border: none; 
             width: 100%;
             display: flex;
@@ -160,6 +160,16 @@
             gap: 1rem;
         }
 
+        /* Serial Number Style */
+        .serial-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #94a3b8;
+            min-width: 2rem;
+            text-align: left;
+            flex-shrink: 0;
+        }
+
         .equation {
             display: flex;
             flex-direction: column;
@@ -167,21 +177,21 @@
             min-width: 130px;
             font-weight: 700;
             color: #0f172a;
+            flex: 1; /* Pushes the button to the right */
         }
 
-        /* Base sizes will be scaled by JS via CSS variables */
         .digit-row {
             display: flex;
             justify-content: flex-end;
             align-items: center;
             gap: 0.4rem;
-            font-size: calc(2.4rem * var(--font-scale, 1));
+            font-size: 2.4rem;
             line-height: 1.2;
             letter-spacing: 2px;
         }
 
         .operator {
-            font-size: calc(2.4rem * var(--font-scale, 1));
+            font-size: 2.4rem;
             font-weight: 400;
             color: #64748b;
             margin-right: 0.2rem;
@@ -196,10 +206,10 @@
         }
 
         .answer-display {
-            font-size: calc(2.4rem * var(--font-scale, 1));
+            font-size: 2.4rem;
             font-weight: 800;
             color: #2563eb;
-            min-height: calc(2.8rem * var(--font-scale, 1));
+            min-height: 2.8rem;
             line-height: 1.2;
             letter-spacing: 2px;
         }
@@ -207,7 +217,7 @@
         .answer-hidden {
             color: #94a3b8;
             font-weight: 400;
-            font-size: calc(2rem * var(--font-scale, 1));
+            font-size: 2rem;
         }
 
         .btn-reveal {
@@ -251,10 +261,11 @@
             .header-row h1 { font-size: 1.2rem; }
             .btn { font-size: 0.8rem; padding: 0.5rem 0.9rem; }
             .problem-row { padding: 0.85rem 0.9rem; }
-            .digit-row, .operator { font-size: calc(2rem * var(--font-scale, 1)); }
-            .answer-display { font-size: calc(2rem * var(--font-scale, 1)); min-height: calc(2.4rem * var(--font-scale, 1)); }
-            .answer-hidden { font-size: calc(1.7rem * var(--font-scale, 1)); }
+            .digit-row, .operator { font-size: 2rem; }
+            .answer-display { font-size: 2rem; min-height: 2.4rem; }
+            .answer-hidden { font-size: 1.7rem; }
             .btn-reveal { font-size: 0.8rem; padding: 0.5rem 1rem; }
+            .serial-number { font-size: 1.2rem; min-width: 1.5rem; }
         }
     </style>
 </head>
@@ -265,7 +276,7 @@
         <h1>➕ Little Addition</h1>
         <div class="header-controls">
             
-            <!-- NEW: Global Font Scale Control -->
+            <!-- Global Font Scale Control -->
             <div class="font-scale-control" title="Adjust Font Size">
                 <button class="font-scale-btn" id="fontDecBtn">A-</button>
                 <span class="font-scale-label" id="fontScaleLabel">100%</span>
@@ -319,9 +330,8 @@
         }
 
         function applyFontScale() {
-            // We use a CSS variable to scale everything proportionally
-            const scale = fontScale / 100;
-            document.documentElement.style.setProperty('--font-scale', scale);
+            // Using zoom scales all elements naturally.
+            document.body.style.zoom = (fontScale / 100);
             if (fontScaleLabel) fontScaleLabel.textContent = fontScale + '%';
         }
 
@@ -330,7 +340,7 @@
         }
 
         fontDecBtn.addEventListener('click', () => {
-            if (fontScale > 70) {
+            if (fontScale > 50) { 
                 fontScale -= 10;
                 applyFontScale();
                 saveFontScale();
@@ -338,11 +348,9 @@
         });
 
         fontIncBtn.addEventListener('click', () => {
-            if (fontScale < 200) { // max 200%
-                fontScale += 10;
-                applyFontScale();
-                saveFontScale();
-            }
+            fontScale += 10; // No upper limit
+            applyFontScale();
+            saveFontScale();
         });
 
         // ----- MATH GENERATION LOGIC -----
@@ -513,6 +521,11 @@
                 const row = document.createElement('div');
                 row.className = 'problem-row';
 
+                // --- Serial Number ---
+                const serialDiv = document.createElement('div');
+                serialDiv.className = 'serial-number';
+                serialDiv.textContent = `${idx + 1}.`;
+
                 const eqDiv = document.createElement('div');
                 eqDiv.className = 'equation';
 
@@ -550,6 +563,7 @@
                     toggleReveal(idx);
                 });
 
+                row.appendChild(serialDiv); // Append Serial number
                 row.appendChild(eqDiv);
                 row.appendChild(revealBtn);
                 problemGrid.appendChild(row);
@@ -557,8 +571,8 @@
         }
 
         function init() {
-            loadFontScale(); // Load global font setting first
-            loadState();     // Load student-specific problems
+            loadFontScale(); 
+            loadState();     
             updateShowAllButton();
             render();
 
