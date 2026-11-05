@@ -20,15 +20,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0.85rem;
+            /* Reduced padding to 0 for maximum integration with the host app */
+            padding: 0;
+            margin: 0;
         }
 
         .math-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 0; /* Flush with iframe edges */
             padding: 1.5rem 1.25rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 1px solid #e2e8f0;
+            box-shadow: none; /* Host app provides the card background */
+            border: none; 
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -58,6 +60,46 @@
             display: flex;
             align-items: center;
             gap: 0.4rem;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        /* --- Font Scale Control (Global) --- */
+        .font-scale-control {
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 2px 6px;
+            gap: 2px;
+        }
+        .font-scale-btn {
+            background: transparent;
+            border: none;
+            color: #475569;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.15s;
+        }
+        .font-scale-btn:active {
+            background: #cbd5e1;
+        }
+        .font-scale-label {
+            color: #64748b;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 36px;
+            text-align: center;
+            user-select: none;
         }
 
         .action-buttons {
@@ -127,18 +169,19 @@
             color: #0f172a;
         }
 
+        /* Base sizes will be scaled by JS via CSS variables */
         .digit-row {
             display: flex;
             justify-content: flex-end;
             align-items: center;
             gap: 0.4rem;
-            font-size: 2.4rem;
+            font-size: calc(2.4rem * var(--font-scale, 1));
             line-height: 1.2;
             letter-spacing: 2px;
         }
 
         .operator {
-            font-size: 2.4rem;
+            font-size: calc(2.4rem * var(--font-scale, 1));
             font-weight: 400;
             color: #64748b;
             margin-right: 0.2rem;
@@ -153,10 +196,10 @@
         }
 
         .answer-display {
-            font-size: 2.4rem;
+            font-size: calc(2.4rem * var(--font-scale, 1));
             font-weight: 800;
             color: #2563eb;
-            min-height: 2.8rem;
+            min-height: calc(2.8rem * var(--font-scale, 1));
             line-height: 1.2;
             letter-spacing: 2px;
         }
@@ -164,7 +207,7 @@
         .answer-hidden {
             color: #94a3b8;
             font-weight: 400;
-            font-size: 2rem;
+            font-size: calc(2rem * var(--font-scale, 1));
         }
 
         .btn-reveal {
@@ -208,9 +251,9 @@
             .header-row h1 { font-size: 1.2rem; }
             .btn { font-size: 0.8rem; padding: 0.5rem 0.9rem; }
             .problem-row { padding: 0.85rem 0.9rem; }
-            .digit-row, .operator { font-size: 2rem; }
-            .answer-display { font-size: 2rem; min-height: 2.4rem; }
-            .answer-hidden { font-size: 1.7rem; }
+            .digit-row, .operator { font-size: calc(2rem * var(--font-scale, 1)); }
+            .answer-display { font-size: calc(2rem * var(--font-scale, 1)); min-height: calc(2.4rem * var(--font-scale, 1)); }
+            .answer-hidden { font-size: calc(1.7rem * var(--font-scale, 1)); }
             .btn-reveal { font-size: 0.8rem; padding: 0.5rem 1rem; }
         }
     </style>
@@ -220,9 +263,19 @@
 <div class="math-card" id="mathCard">
     <div class="header-row">
         <h1>➕ Little Addition</h1>
-        <div class="action-buttons">
-            <button class="btn" id="regenerateBtn">🔄 Regenerate</button>
-            <button class="btn btn-primary" id="showAllBtn">👀 Show all</button>
+        <div class="header-controls">
+            
+            <!-- NEW: Global Font Scale Control -->
+            <div class="font-scale-control" title="Adjust Font Size">
+                <button class="font-scale-btn" id="fontDecBtn">A-</button>
+                <span class="font-scale-label" id="fontScaleLabel">100%</span>
+                <button class="font-scale-btn" id="fontIncBtn">A+</button>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn" id="regenerateBtn">🔄 Regenerate</button>
+                <button class="btn btn-primary" id="showAllBtn">👀 Show all</button>
+            </div>
         </div>
     </div>
 
@@ -232,19 +285,67 @@
 
 <script>
     (function() {
+        // ----- 1. STUDENT-SPECIFIC STORAGE KEY -----
         const urlParams = new URLSearchParams(window.location.search);
         const studentId = urlParams.get('studentId') || 'default';
-        
         const STORAGE_KEY = `littleMathVerticalAddition_v5_student_${studentId}`;
+        
+        // ----- 2. GLOBAL FONT SCALE KEY -----
+        const FONT_SCALE_KEY = 'littleMath_globalFontScale';
         const PROBLEM_COUNT = 5;
 
+        // ----- STATE -----
         let problems = [];          
         let globalShowAll = false;
+        let fontScale = 100;
 
+        // ----- DOM refs -----
         const problemGrid = document.getElementById('problemGrid');
         const regenerateBtn = document.getElementById('regenerateBtn');
         const showAllBtn = document.getElementById('showAllBtn');
+        const fontDecBtn = document.getElementById('fontDecBtn');
+        const fontIncBtn = document.getElementById('fontIncBtn');
+        const fontScaleLabel = document.getElementById('fontScaleLabel');
 
+        // ----- FONT SCALING LOGIC (Global) -----
+        function loadFontScale() {
+            const stored = localStorage.getItem(FONT_SCALE_KEY);
+            if (stored && !isNaN(stored)) {
+                fontScale = parseInt(stored);
+            } else {
+                fontScale = 100; // Default
+            }
+            applyFontScale();
+        }
+
+        function applyFontScale() {
+            // We use a CSS variable to scale everything proportionally
+            const scale = fontScale / 100;
+            document.documentElement.style.setProperty('--font-scale', scale);
+            if (fontScaleLabel) fontScaleLabel.textContent = fontScale + '%';
+        }
+
+        function saveFontScale() {
+            localStorage.setItem(FONT_SCALE_KEY, fontScale);
+        }
+
+        fontDecBtn.addEventListener('click', () => {
+            if (fontScale > 70) {
+                fontScale -= 10;
+                applyFontScale();
+                saveFontScale();
+            }
+        });
+
+        fontIncBtn.addEventListener('click', () => {
+            if (fontScale < 200) { // max 200%
+                fontScale += 10;
+                applyFontScale();
+                saveFontScale();
+            }
+        });
+
+        // ----- MATH GENERATION LOGIC -----
         function shuffleArray(arr) {
             const a = arr.slice();
             for (let i = a.length - 1; i > 0; i--) {
@@ -456,7 +557,8 @@
         }
 
         function init() {
-            loadState();
+            loadFontScale(); // Load global font setting first
+            loadState();     // Load student-specific problems
             updateShowAllButton();
             render();
 
