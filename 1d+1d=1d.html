@@ -20,18 +20,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 1rem;
+            /* Removed justify-content: center to allow natural top-to-bottom flow */
+            padding: 0.85rem;
         }
 
         .math-card {
             background: white;
             border-radius: 16px;
-            padding: 1.5rem 1.25rem;
+            padding: 1.25rem 1rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 1px solid #e2e8f0;
             width: 100%;
-            max-width: 480px;
+            /* Removed max-width: 480px to let it fill the iframe */
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
@@ -54,7 +54,7 @@
         }
 
         .header-row h1 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
             color: #0f172a;
             display: flex;
@@ -115,7 +115,7 @@
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            padding: 0.6rem 0.9rem;
+            padding: 0.75rem 1rem;
             transition: 0.15s;
             gap: 0.75rem;
         }
@@ -172,7 +172,7 @@
         .btn-reveal {
             background: #e2e8f0;
             border: none;
-            padding: 0.35rem 0.9rem;
+            padding: 0.4rem 1rem;
             border-radius: 16px;
             font-size: 0.75rem;
             font-weight: 600;
@@ -209,6 +209,7 @@
             .math-card { padding: 1rem 0.75rem; }
             .digit-row, .operator, .answer-display { font-size: 1.3rem; }
             .btn { font-size: 0.7rem; padding: 0.4rem 0.7rem; }
+            .problem-row { padding: 0.6rem 0.75rem; }
         }
     </style>
 </head>
@@ -232,7 +233,7 @@
 <script>
     (function() {
         // ----- CONSTANTS -----
-        const STORAGE_KEY = 'littleMathVerticalAddition_v4'; // bumped version
+        const STORAGE_KEY = 'littleMathVerticalAddition_v4';
         const PROBLEM_COUNT = 5;
 
         // ----- STATE -----
@@ -262,18 +263,12 @@
         //  - all first addends (a) are DISTINCT
         //  - all second addends (b) are DISTINCT
         function generateProblems() {
-            // Strategy: build a bipartite perfect matching between 5 distinct a's
-            // and 5 distinct b's such that every pair sums to <= 9.
-            // We try random selections until one works; then verify strictly.
-
             const MAX_ATTEMPTS = 5000;
 
             for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-                // Pick 5 distinct a's from 0..9, and 5 distinct b's from 0..9, shuffled.
                 const aPool = shuffleArray([0,1,2,3,4,5,6,7,8,9]).slice(0, PROBLEM_COUNT);
                 const bPool = shuffleArray([0,1,2,3,4,5,6,7,8,9]).slice(0, PROBLEM_COUNT);
 
-                // Pair by index; since both pools are already shuffled, pairing order is random.
                 const candidate = [];
                 let valid = true;
                 for (let i = 0; i < PROBLEM_COUNT; i++) {
@@ -285,7 +280,7 @@
 
                 if (!valid) continue;
 
-                // Extra explicit verification of distinctness (defensive)
+                // Explicit distinctness verification
                 const seenA = new Set();
                 const seenB = new Set();
                 let distinctOk = true;
@@ -298,8 +293,7 @@
                 if (distinctOk) return candidate;
             }
 
-            // Fallback: deterministic valid set (distinct a's, distinct b's, all sums <= 9)
-            // (0,1)=1, (1,2)=3, (2,3)=5, (3,4)=7, (4,5)=9
+            // Fallback: deterministic valid set
             return [
                 { a: 0, b: 1, answer: 1, revealed: false },
                 { a: 1, b: 2, answer: 3, revealed: false },
@@ -347,11 +341,7 @@
             }
         }
 
-        // Validate that a problem array satisfies ALL rules:
-        // - length === PROBLEM_COUNT
-        // - each a,b are ints 0-9, answer === a+b, answer <= 9
-        // - first addends (a) are ALL DISTINCT
-        // - second addends (b) are ALL DISTINCT
+        // Validate all rules, including distinctness
         function isValidProblemSet(arr) {
             if (!Array.isArray(arr) || arr.length !== PROBLEM_COUNT) return false;
 
