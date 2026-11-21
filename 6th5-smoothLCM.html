@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Little Math · LCM</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f0f4f8; 
+            color: #1e293b;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .math-card {
+            background: white;
+            border-radius: 0;
+            box-shadow: none;
+            border: none; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0 0 1rem 0; 
+        }
+
+        /* Normal Header (scrolls naturally with the page) */
+        .header-row {
+            background: white;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            margin-bottom: 1rem;
+        }
+
+        .header-row h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        /* --- Font Scale Control --- */
+        .font-scale-control {
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 2px 6px;
+            gap: 2px;
+        }
+        .font-scale-btn {
+            background: transparent;
+            border: none;
+            color: #475569;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.15s;
+        }
+        .font-scale-btn:active {
+            background: #cbd5e1;
+        }
+        .font-scale-label {
+            color: #64748b;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 36px;
+            text-align: center;
+            user-select: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: white;
+            border: 1.5px solid #cbd5e1;
+            padding: 0.6rem 1.1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2563eb;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+
+        .btn:active {
+            background: #f0f9ff;
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-primary:active {
+            background: #1d4ed8;
+            transform: translateY(1px);
+        }
+
+        .problem-list-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0 1.25rem;
+        }
+
+        .problem-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            transition: 0.15s;
+            gap: 1rem;
+        }
+
+        .problem-left-side {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .serial-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #94a3b8;
+            min-width: 1.5rem;
+            text-align: left;
+            flex-shrink: 0;
+        }
+
+        .equation-inline {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            font-size: 1.85rem;
+            font-weight: 700;
+            line-height: 1.35;
+            color: #0f172a;
+        }
+
+        .lcm-expression {
+            display: inline-flex;
+            align-items: baseline;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        .lcm-label {
+            font-weight: 700;
+            font-size: inherit;
+            color: #334155;
+        }
+
+        .lcm-bracket {
+            font-weight: 500;
+            font-size: inherit;
+            color: #475569;
+        }
+
+        .target-number {
+            font-weight: 800;
+            font-size: inherit;
+            color: #0f172a;
+            letter-spacing: 0.3px;
+        }
+
+        .equals-sign {
+            font-weight: 600;
+            font-size: inherit;
+            color: #64748b;
+        }
+
+        .answer-area {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .answer-value {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #2563eb;
+            word-break: break-word;
+            line-height: 1.35;
+        }
+
+        .answer-exponential {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0284c7;
+            background: #e0f2fe;
+            padding: 0.15rem 0.65rem;
+            border-radius: 8px;
+            width: fit-content;
+            margin-top: 0.15rem;
+        }
+
+        .answer-exponential sup {
+            font-size: 0.78em;
+            line-height: 0;
+        }
+
+        .answer-hidden {
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 1.85rem;
+            line-height: 1.35;
+        }
+
+        .lcm-label {
+            font-weight: 600;
+            font-size: 1.45rem;
+            color: #475569;
+            letter-spacing: 0.3px;
+        }
+
+        .target-number {
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+        }
+
+        .equals-sign {
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        .answer-area {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .answer-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2563eb;
+            word-break: break-word;
+            line-height: 1.2;
+        }
+
+        .answer-exponential {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0284c7;
+            background: #e0f2fe;
+            padding: 0.15rem 0.65rem;
+            border-radius: 8px;
+            width: fit-content;
+            margin-top: 0.15rem;
+        }
+
+        .answer-exponential sup {
+            font-size: 0.78em;
+            line-height: 0;
+        }
+
+        .answer-hidden {
+            color: #94a3b8;
+            font-weight: 500;
+            font-size: 1.85rem;
+        }
+
+        .btn-reveal {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: 0.15s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        .btn-reveal:active {
+            background: #cbd5e1;
+            transform: scale(0.95);
+        }
+
+        .btn-reveal.revealed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .btn-reveal.revealed:active {
+            background: #bbf7d0;
+        }
+
+        @media (max-width: 540px) {
+            .header-row { padding: 0.75rem 0.85rem; }
+            .header-row h1 { font-size: 1.2rem; }
+            .btn { font-size: 0.8rem; padding: 0.5rem 0.9rem; }
+            .problem-list-wrapper { padding: 0 0.85rem; gap: 0.85rem; }
+            .problem-row { padding: 0.85rem 0.9rem; gap: 0.65rem; align-items: flex-start; }
+            .problem-left-side { gap: 0.75rem; }
+            .serial-number { font-size: 1.2rem; margin-top: 0.2rem; }
+            .equation-inline { font-size: 1.45rem; gap: 0.45rem; }
+            .answer-value { font-size: 1.45rem; }
+            .answer-exponential { font-size: 0.95rem; }
+            .answer-hidden { font-size: 1.45rem; }
+            .btn-reveal { font-size: 0.8rem; padding: 0.5rem 0.9rem; margin-top: 0.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="math-card" id="mathCard">
+    <!-- Normal Header (Scrolls with page) -->
+    <div class="header-row">
+        <h1>🔗 Least Common Multiple (LCM)</h1>
+        <div class="header-controls">
+            
+            <div class="font-scale-control" title="Adjust Font Size">
+                <button class="font-scale-btn" id="fontDecBtn">A-</button>
+                <span class="font-scale-label" id="fontScaleLabel">100%</span>
+                <button class="font-scale-btn" id="fontIncBtn">A+</button>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn" id="regenerateBtn">🔄 Regenerate</button>
+                <button class="btn btn-primary" id="showAllBtn">👀 Show all</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem list container -->
+    <div class="problem-list-wrapper" id="problemGrid"></div>
+</div>
+
+<script>
+    (function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentId = urlParams.get('studentId') || 'default';
+        const STORAGE_KEY = `littleMathLCM_v1_student_${studentId}`;
+        
+        const FONT_SCALE_KEY = 'littleMath_globalFontScale';
+        const PROBLEM_COUNT = 5;
+
+        let problems = [];          
+        let globalShowAll = false;
+        let fontScale = 100;
+
+        const problemGrid = document.getElementById('problemGrid');
+        const regenerateBtn = document.getElementById('regenerateBtn');
+        const showAllBtn = document.getElementById('showAllBtn');
+        const fontDecBtn = document.getElementById('fontDecBtn');
+        const fontIncBtn = document.getElementById('fontIncBtn');
+        const fontScaleLabel = document.getElementById('fontScaleLabel');
+
+        // --- Math Helpers ---
+
+        // Check if n is a 5-smooth natural number (only prime factors 2, 3, 5)
+        function is5Smooth(n) {
+            if (!Number.isInteger(n) || n < 1) return false;
+            let temp = n;
+            while (temp % 2 === 0) temp /= 2;
+            while (temp % 3 === 0) temp /= 3;
+            while (temp % 5 === 0) temp /= 5;
+            return temp === 1;
+        }
+
+        function gcd(a, b) {
+            while (b !== 0) {
+                const t = b;
+                b = a % b;
+                a = t;
+            }
+            return a;
+        }
+
+        function lcm(a, b) {
+            return (a / gcd(a, b)) * b;
+        }
+
+        function getDigitCount(n) {
+            return String(n).length;
+        }
+
+        // Exponential prime factorisation HTML for the LCM answer
+        function getExponentialHtml(n) {
+            if (n === 1) return '1';
+            let num = n;
+            const counts = new Map();
+            for (const p of [2, 3, 5]) {
+                while (num % p === 0) {
+                    counts.set(p, (counts.get(p) || 0) + 1);
+                    num /= p;
+                }
+            }
+            const parts = [];
+            for (const [prime, power] of counts.entries()) {
+                parts.push(power > 1 ? `${prime}<sup>${power}</sup>` : `${prime}`);
+            }
+            return parts.join(' × ');
+        }
+
+        // Build 5-smooth number pools up to 999 grouped by digit length
+        // Exclude trivial 1 and single-digit numbers if not needed, or keep 2-digit & 3-digit pools
+        const TWO_DIGIT_5SMOOTH = [];
+        const THREE_DIGIT_5SMOOTH = [];
+
+        for (let i = 10; i <= 999; i++) {
+            if (is5Smooth(i)) {
+                if (i >= 10 && i <= 99) {
+                    TWO_DIGIT_5SMOOTH.push(i);
+                } else if (i >= 100 && i <= 999) {
+                    THREE_DIGIT_5SMOOTH.push(i);
+                }
+            }
+        }
+
+        // Precompute valid (a, b) pairs for 2-digit and 3-digit categories
+        // Conditions:
+        // - a <= 999, b <= 999, 5-smooth natural numbers
+        // - LCM(a, b) <= 9999
+        // - Both 2-digit OR both 3-digit
+        // - a !== b and neither divides the other (keeps LCM educational & non-trivial)
+        function buildValidPairs(pool) {
+            const pairs = [];
+            for (let i = 0; i < pool.length; i++) {
+                for (let j = i + 1; j < pool.length; j++) {
+                    const a = pool[i];
+                    const b = pool[j];
+                    // Ensure neither is a direct multiple of the other so LCM > max(a, b)
+                    if (b % a === 0) continue;
+                    const val = lcm(a, b);
+                    if (val <= 9999) {
+                        pairs.push([a, b, val]);
+                    }
+                }
+            }
+            return pairs;
+        }
+
+        const VALID_2DIGIT_PAIRS = buildValidPairs(TWO_DIGIT_5SMOOTH);
+        const VALID_3DIGIT_PAIRS = buildValidPairs(THREE_DIGIT_5SMOOTH);
+
+        // --- Font Scale Controls ---
+
+        function loadFontScale() {
+            const stored = localStorage.getItem(FONT_SCALE_KEY);
+            if (stored && !isNaN(stored)) {
+                fontScale = parseInt(stored, 10);
+            } else {
+                fontScale = 100;
+            }
+            applyFontScale();
+        }
+
+        function applyFontScale() {
+            document.body.style.zoom = (fontScale / 100);
+            if (fontScaleLabel) fontScaleLabel.textContent = fontScale + '%';
+        }
+
+        function saveFontScale() {
+            localStorage.setItem(FONT_SCALE_KEY, fontScale);
+        }
+
+        fontDecBtn.addEventListener('click', () => {
+            if (fontScale > 50) { 
+                fontScale -= 10;
+                applyFontScale();
+                saveFontScale();
+            }
+        });
+
+        fontIncBtn.addEventListener('click', () => {
+            fontScale += 10;
+            applyFontScale();
+            saveFontScale();
+        });
+
+        function shuffleArray(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        // --- Problem Generation ---
+        // Enforces:
+        // - Total 5 problems
+        // - At least 2 and at most 3 questions where both a and b are 3-digit numbers
+        // - Remaining (2 or 3) questions have both a and b as 2-digit numbers
+        function generateProblems() {
+            // Randomly pick 2 or 3 three-digit problems
+            const threeDigitCount = Math.random() < 0.5 ? 2 : 3;
+            const twoDigitCount = PROBLEM_COUNT - threeDigitCount;
+
+            const chosen3Digit = shuffleArray(VALID_3DIGIT_PAIRS).slice(0, threeDigitCount);
+            const chosen2Digit = shuffleArray(VALID_2DIGIT_PAIRS).slice(0, twoDigitCount);
+
+            const combined = shuffleArray([...chosen2Digit, ...chosen3Digit]);
+
+            return combined.map(([num1, num2, lcmVal]) => {
+                // Randomize display order of (a, b)
+                const swap = Math.random() < 0.5;
+                const a = swap ? num2 : num1;
+                const b = swap ? num1 : num2;
+                return {
+                    a,
+                    b,
+                    lcm: lcmVal,
+                    exponentialHtml: getExponentialHtml(lcmVal),
+                    revealed: false
+                };
+            });
+        }
+
+        function regenerateAll() {
+            problems = generateProblems();
+            globalShowAll = false;
+            updateShowAllButton();
+            saveState();
+            render();
+        }
+
+        function toggleShowAll() {
+            const allRevealed = problems.every(p => p.revealed);
+            
+            if (allRevealed) {
+                problems.forEach(p => p.revealed = false);
+                globalShowAll = false;
+            } else {
+                problems.forEach(p => p.revealed = true);
+                globalShowAll = true;
+            }
+            
+            updateShowAllButton();
+            saveState();
+            render();
+        }
+
+        function updateShowAllButton() {
+            const allRevealed = problems.every(p => p.revealed);
+            if (allRevealed) {
+                showAllBtn.innerHTML = '🙈 Hide all';
+                showAllBtn.classList.remove('btn-primary');
+                showAllBtn.style.background = '#e2e8f0';
+                showAllBtn.style.color = '#475569';
+                showAllBtn.style.borderColor = '#cbd5e1';
+                showAllBtn.style.boxShadow = 'none';
+            } else {
+                showAllBtn.innerHTML = '👀 Show all';
+                showAllBtn.classList.add('btn-primary');
+                showAllBtn.style.background = '';
+                showAllBtn.style.color = '';
+                showAllBtn.style.borderColor = '';
+                showAllBtn.style.boxShadow = '';
+            }
+        }
+
+        function toggleReveal(index) {
+            if (index < 0 || index >= problems.length) return;
+            problems[index].revealed = !problems[index].revealed;
+            globalShowAll = problems.every(p => p.revealed);
+            updateShowAllButton();
+            saveState();
+            render();
+        }
+
+        function saveState() {
+            try {
+                const state = {
+                    problems: problems.map(p => ({
+                        a: p.a,
+                        b: p.b,
+                        lcm: p.lcm,
+                        exponentialHtml: p.exponentialHtml,
+                        revealed: p.revealed
+                    })),
+                    globalShowAll: globalShowAll
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } catch (e) {
+                console.warn('Could not save state', e);
+            }
+        }
+
+        // Strict validation against all user constraints
+        function isValidProblemSet(arr) {
+            if (!Array.isArray(arr) || arr.length !== PROBLEM_COUNT) return false;
+
+            const seenPairs = new Set();
+            let threeDigitPairCount = 0;
+
+            for (const p of arr) {
+                if (
+                    typeof p.a !== 'number' ||
+                    typeof p.b !== 'number' ||
+                    typeof p.lcm !== 'number' ||
+                    typeof p.exponentialHtml !== 'string' ||
+                    typeof p.revealed !== 'boolean'
+                ) {
+                    return false;
+                }
+
+                // Natural numbers <= 999 and 5-smooth
+                if (p.a < 1 || p.a > 999 || !is5Smooth(p.a)) return false;
+                if (p.b < 1 || p.b > 999 || !is5Smooth(p.b)) return false;
+
+                // LCM check and <= 9999
+                const expectedLcm = lcm(p.a, p.b);
+                if (p.lcm !== expectedLcm || p.lcm > 9999) return false;
+
+                // Matching digit lengths (2-digit with 2-digit, 3-digit with 3-digit)
+                const lenA = getDigitCount(p.a);
+                const lenB = getDigitCount(p.b);
+                if (lenA !== lenB) return false;
+                if (lenA === 3) threeDigitPairCount++;
+
+                const pairKey = [Math.min(p.a, p.b), Math.max(p.a, p.b)].join(',');
+                if (seenPairs.has(pairKey)) return false;
+                seenPairs.add(pairKey);
+            }
+
+            // At least 2 and at most 3 questions with both 3-digit numbers
+            if (threeDigitPairCount < 2 || threeDigitPairCount > 3) return false;
+
+            return true;
+        }
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const state = JSON.parse(raw);
+                    if (state.problems && isValidProblemSet(state.problems)) {
+                        problems = state.problems;
+                        globalShowAll = !!state.globalShowAll;
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to load state, generating new', e);
+            }
+            problems = generateProblems();
+            globalShowAll = false;
+            saveState();
+        }
+
+        function render() {
+            if (!problemGrid) return;
+            problemGrid.innerHTML = '';
+
+            problems.forEach((p, idx) => {
+                const row = document.createElement('div');
+                row.className = 'problem-row';
+
+                const leftSide = document.createElement('div');
+                leftSide.className = 'problem-left-side';
+
+                const serialDiv = document.createElement('div');
+                serialDiv.className = 'serial-number';
+                serialDiv.textContent = `${idx + 1}.`;
+
+                const eqInline = document.createElement('div');
+                eqInline.className = 'equation-inline';
+
+                const numSpan = document.createElement('span');
+                numSpan.className = 'lcm-expression';
+                numSpan.innerHTML = `<span class="lcm-label">LCM</span><span class="lcm-bracket">(</span><span class="target-number">${p.a}, ${p.b}</span><span class="lcm-bracket">)</span>`;
+
+                const eqSign = document.createElement('span');
+                eqSign.className = 'equals-sign';
+                eqSign.textContent = '=';
+
+                const ansArea = document.createElement('div');
+                ansArea.className = 'answer-area';
+
+                if (p.revealed) {
+                    const valDiv = document.createElement('div');
+                    valDiv.className = 'answer-value';
+                    valDiv.textContent = p.lcm;
+
+                    const expDiv = document.createElement('div');
+                    expDiv.className = 'answer-exponential';
+                    expDiv.innerHTML = p.exponentialHtml;
+
+                    ansArea.appendChild(valDiv);
+                    ansArea.appendChild(expDiv);
+                } else {
+                    const hiddenSpan = document.createElement('span');
+                    hiddenSpan.className = 'answer-hidden';
+                    hiddenSpan.textContent = '?';
+                    ansArea.appendChild(hiddenSpan);
+                }
+
+                eqInline.appendChild(numSpan);
+                eqInline.appendChild(eqSign);
+                eqInline.appendChild(ansArea);
+
+                leftSide.appendChild(serialDiv);
+                leftSide.appendChild(eqInline);
+
+                const revealBtn = document.createElement('button');
+                revealBtn.className = `btn-reveal ${p.revealed ? 'revealed' : ''}`;
+                revealBtn.textContent = p.revealed ? '✓ Hide' : '👁️ Show';
+                revealBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleReveal(idx);
+                });
+
+                row.appendChild(leftSide); 
+                row.appendChild(revealBtn);
+                problemGrid.appendChild(row);
+            });
+        }
+
+        function init() {
+            loadFontScale(); 
+            loadState();     
+            updateShowAllButton();
+            render();
+
+            regenerateBtn.addEventListener('click', regenerateAll);
+            showAllBtn.addEventListener('click', toggleShowAll);
+
+            window.addEventListener('beforeunload', saveState);
+        }
+
+        init();
+    })();
+</script>
+</body>
+</html>
